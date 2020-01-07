@@ -1,0 +1,32 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+GENERATE {
+	
+	<axis/{?COORD_AXIS_CODE}> a epsg:Axis ;
+		epsg:hasEPSGcode ?epsgCode ;
+		epsg:hasAxisName <axisname/{?COORD_AXIS_NAME_CODE}> ;
+		epsg:hasOrientation <orientation/{?COORD_AXIS_ORIENTATION}> ; ### this is not an EPSG entity
+		epsg:hasAbbreviation ?COORD_AXIS_ABBREVIATION ;
+		epsg:hasUnitofMeasure <unit/{?UOM_CODE}> ;
+		epsg:hasOrder ?axisOrder ;
+	.
+	
+	<cs/{?COORD_SYS_CODE}> a epsg:CoordinateSystem ;
+		epsg:hasAxis <axis/{?COORD_AXIS_CODE}> ;
+}
+ITERATOR iter:CSV(folder:Coordinate%20Axis.csv, true, "\"", ",", "\n",
+	"COORD_AXIS_CODE", "COORD_SYS_CODE", "COORD_AXIS_NAME_CODE", "COORD_AXIS_ORIENTATION", "COORD_AXIS_ABBREVIATION", "UOM_CODE", "ORDER")
+	AS ?COORD_AXIS_CODE ?COORD_SYS_CODE ?COORD_AXIS_NAME_CODE ?COORD_AXIS_ORIENTATION ?COORD_AXIS_ABBREVIATION ?UOM_CODE ?ORDER
+WHERE {
+	BIND("{?COORD_REF_SYS_CODE}"^^xsd:nonNegativeInteger AS ?epsgCode)
+	BIND("{?ORDER}"^^xsd:nonNegativeInteger AS ?axisOrder)
+}

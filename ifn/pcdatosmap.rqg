@@ -1,0 +1,68 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX spd: <http://crossforest.eu/position/data/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX data.axis: <http://epsg.w3id.org/data/axis/>
+PREFIX ontology.axis: <http://epsg.w3id.org/ontology/axis/>
+PREFIX coordinate: <http://crossforest.eu/ifn/data/coordinate/>
+PREFIX position: <http://crossforest.eu/ifn/data/position/>
+PREFIX crs:   <http://epsg.w3id.org/data/crs/>
+PREFIX area:   <http://crossforest.eu/ifn/data/area/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+GENERATE {
+
+	<position/{?id}> a spo:GeocentricPosition ;
+		epsg:hasCoordinateReferenceSystem <http://epsg.w3id.org/data/crs/{?crs}> ;
+		epsg:hasCoordinate <coordinate/1-{?CoorX}> ;
+		spo:hasCoordinate <coordinate/2-{?CoorY}> ;
+		<http://epsg.w3id.org/ontology/axis/1> ?x ;
+		<http://epsg.w3id.org/ontology/axis/2> ?y ;
+		spo:hasAreaInHA ?a ;
+		spo:hasArea <area/{?area}HA> ;
+	.
+
+	<coordinate/1-{?CoorX}> a epsg:Coordinate ;
+		epsg:hasAxis data.axis:1 ;
+		smo:hasUnit unit:Meters ;
+		smo:hasValue ?x ;
+	.
+
+	<coordinate/2-{?CoorY}> a epsg:Coordinate ;
+		epsg:hasAxis data.axis:2 ;
+		smo:hasUnit unit:Meters ;
+		smo:hasValue ?y ;
+	.
+
+	<area/{?area}HA> a smo:MeasureInHectares ;
+		smo:hasUnit unit:Hectares ;
+		smo:hasValue ?a ;
+	.
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Clase", "Subclase", "CoorX", "CoorY"
+	)
+	AS ?Origen ?Estadillo ?Clase ?Subclase ?CoorX ?CoorY
+WHERE {
+	BIND("{?Origen}-{?Estadillo}" AS ?id)
+	BIND(xsd:decimal(?CoorX) AS ?x)
+	BIND(xsd:decimal(?CoorY) AS ?y)
+	BIND(	IF ( ?Origen = "35" || ?Origen = "38", "23028",
+			IF ( ?Origen = "15" || ?Origen = "21" || ?Origen = "27" || ?Origen = "32" || ?Origen = "36", "23029",
+			IF ( ?Origen = "06" || ?Origen = "10" || ?Origen = "11" || ?Origen = "24" || ?Origen = "33" || ?Origen = "37" || ?Origen = "41" || ?Origen = "49", IF ( ?x >= 500000, "23029", "23030" ),
+			IF ( ?Origen = "01" || ?Origen = "02" || ?Origen = "04" || ?Origen = "05" || ?Origen = "09" || ?Origen = "13" || ?Origen = "14" || ?Origen = "16" || ?Origen = "18" || ?Origen = "19" || ?Origen = "20" || ?Origen = "23" || ?Origen = "26" || ?Origen = "28" || ?Origen = "29" || ?Origen = "30" || ?Origen = "31" || ?Origen = "34" || ?Origen = "39" || ?Origen = "40" || ?Origen = "42" || ?Origen = "45" || ?Origen = "46" || ?Origen = "47" || ?Origen = "48", "23030",
+			IF ( ?Origen = "03" || ?Origen = "12" || ?Origen = "22" || ?Origen = "44" || ?Origen = "50", IF ( ?x >= 500000, "23030", "23031" ),
+			IF ( ?Origen = "07" || ?Origen = "08" || ?Origen = "17" || ?Origen = "25" || ?Origen = "43", "23031",
+		 "ERROR" )))))) AS ?crs )
+	BIND(	IF ( ?Origen = "35" || ?Origen = "38", "25", 
+			IF ( ?Origen = "07" && ?y < 4300000 , "25",
+			IF ( ?Origen = "11" && (?x >= 281000 || ?x <= 288000) && (?y >= 4071000 || ?y <= 4077000), "25",
+			IF ( ?Origen = "29" && (?x >=300000 || ?x <= 304000) && (?y >= 4040000 || ?y < 4042000), "25",
+			IF ( ?Origen = "29" && (?x >= 316000 || ?x <= 325500) && (?y >= 4059000 || ?y <= 4068000), "25",
+			"100"))))) AS ?area	)
+	BIND(xsd:decimal(?area) AS ?a)
+}

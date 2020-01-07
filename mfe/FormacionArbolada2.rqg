@@ -1,0 +1,15 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+GENERATE {
+	<FormacionArbolada-{?tipo2}> a rdfs:Class , owl:Class ;
+		# rdfs:subClassOf <FormacionArbolada-{?tipo1}> ;
+		rdfs:label "{?descripcion}"@es ;
+		.
+
+}
+ITERATOR iter:CSV(<file:///home/chemi/Documents/MFE/FormacionArbolada2.csv>, false, "\"", ",", "\n")
+	AS ?tipo1 ?tipo2 ?descripcion

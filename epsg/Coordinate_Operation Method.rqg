@@ -1,0 +1,47 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX method: <http://epsg.w3id.org/data/method/>
+PREFIX parameter: <http://epsg.w3id.org/data/parameter/>
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+
+
+GENERATE {
+	<method/{?COORD_OP_METHOD_CODE}> a epsg:CoordinateOperationMethod ;
+		epsg:hasEPSGcode ?epsgCode ;
+		epsg:name ?coordOpMethodName ;
+		epsg:isReversible ?isReversible ;
+#		epsg:formula ?formula ;
+#		epsg:example ?example ;
+		epsg:remarks ?remarks ;
+		epsg:informationSource ?INFORMATION_SOURCE ;
+		epsg:dataSource ?DATA_SOURCE ;
+#		epsg:revisionDate ?RevisionDate ;
+		epsg:changeID ?CHANGE_ID ;
+		epsg:isDeprecated ?isDeprecated ;
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate_Operation%20Method.csv, true, "\"", ",", "\n",
+	"COORD_OP_METHOD_CODE", "COORD_OP_METHOD_NAME", "REVERSE_OP", "REMARKS", "INFORMATION_SOURCE", "DATA_SOURCE", "REVISION_DATE", "CHANGE_ID", "DEPRECATED")
+	AS ?COORD_OP_METHOD_CODE ?COORD_OP_METHOD_NAME ?REVERSE_OP ?REMARKS ?INFORMATION_SOURCE ?DATA_SOURCE ?REVISION_DATE ?CHANGE_ID ?DEPRECATED
+WHERE {
+	BIND("{?COORD_OP_METHOD_CODE}"^^xsd:nonNegativeInteger AS ?epsgCode)
+	BIND("{?COORD_OP_METHOD_NAME}"@en AS ?coordOpMethodName)
+	BIND("{?REVERSE_OP}"^^xsd:boolean AS ?isReversible)
+#	BIND("{?FORMULA}"@en AS ?formula)
+	BIND("{?REMARKS}"@en AS ?remarks)
+	BIND("{?DEPRECATED}"^^xsd:boolean AS ?isDeprecated)
+#	BIND(fun:regex(?REVISION_DATE, "([0-9]{4}-[0-9]{2}-[0-9]{2})(.*)",1) AS ?RevisionDate)
+}

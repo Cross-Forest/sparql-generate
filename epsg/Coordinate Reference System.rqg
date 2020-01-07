@@ -1,0 +1,49 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+
+
+GENERATE {
+	<crs/{?COORD_REF_SYS_CODE}> a ?type ;
+		epsg:hasEPSGcode ?epsgCode ;
+		epsg:name ?COORD_REF_SYS_NAME ;
+		epsg:hasAreaOfUse <area/{?AREA_OF_USE_CODE}> ;
+		epsg:hasCoordinateSystem <cs/{?COORD_SYS_CODE}> ;
+		epsg:hasDatum <datum/{?DATUM_CODE}> ;
+		epsg:hasSourceGeographicCRS <crs/{?SOURCE_GEOGCRS_CODE}> ;
+		epsg:hasProjectionOperation <operation/{?PROJECTION_CONV_CODE}> ;
+		epsg:hasHorizontalComponent <crs/{?CMPD_HORIZCRS_CODE}> ;
+		epsg:hasVerticalComponent <crs/{?CMPD_VERTCRS_CODE}> ;
+		epsg:scope ?CRS_SCOPE ;
+		epsg:remarks ?REMARKS ;
+		epsg:informationSource ?INFORMATION_SOURCE ;
+		epsg:dataSource ?DATA_SOURCE ;
+#		epsg:revisionDate ?RevisionDate ;
+		epsg:changeID ?CHANGE_ID ;
+#		??? SHOW_CRS ???
+		epsg:isDeprecated ?isDeprecated ;
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate%20Reference%20System.csv, true, "\"", ",", "\n",
+	"COORD_REF_SYS_CODE", "COORD_REF_SYS_NAME", "AREA_OF_USE_CODE", "COORD_REF_SYS_KIND", "COORD_SYS_CODE", "DATUM_CODE", "SOURCE_GEOGCRS_CODE", "PROJECTION_CONV_CODE", "CMPD_HORIZCRS_CODE", "CMPD_VERTCRS_CODE", "CRS_SCOPE", "REMARKS", "INFORMATION_SOURCE", "DATA_SOURCE", "REVISION_DATE", "CHANGE_ID", "SHOW_CRS", "DEPRECATED")
+	AS ?COORD_REF_SYS_CODE ?COORD_REF_SYS_NAME ?AREA_OF_USE_CODE ?COORD_REF_SYS_KIND ?COORD_SYS_CODE ?DATUM_CODE ?SOURCE_GEOGCRS_CODE ?PROJECTION_CONV_CODE ?CMPD_HORIZCRS_CODE ?CMPD_VERTCRS_CODE ?CRS_SCOPE ?REMARKS ?INFORMATION_SOURCE ?DATA_SOURCE ?REVISION_DATE ?CHANGE_ID ?SHOW_CRS ?DEPRECATED
+WHERE {
+	?type rdfs:subClassOf epsg:CoordinateReferenceSystem .
+	?type epsg:isEPSGtype ?COORD_REF_SYS_KIND .
+	BIND("{?COORD_REF_SYS_CODE}"^^xsd:nonNegativeInteger AS ?epsgCode)
+	BIND("{?DEPRECATED}"^^xsd:boolean AS ?isDeprecated)
+#	BIND(fun:regex(?REVISION_DATE, "([0-9]{4}-[0-9]{2}-[0-9]{2})(.*)",1) AS ?RevisionDate)
+}

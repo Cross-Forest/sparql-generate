@@ -1,0 +1,79 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX tree: <http://crossforest.eu/ifn/data/tree/>
+PREFIX position: <http://crossforest.eu/ifn/data/position/>
+PREFIX direction:   <http://crossforest.eu/ifn/data/direction/>
+PREFIX distance:   <http://crossforest.eu/ifn/data/distance/>
+PREFIX dbh:   <http://crossforest.eu/ifn/data/dbh/>
+PREFIX height:   <http://crossforest.eu/ifn/data/height/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+
+GENERATE {
+	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+		ifn:isInPlot <plot/{?idPlot}> ;
+		spo:hasPosition <position/{?idPosition}> ;
+		ifn:hasDBH1 <dbh/{?Dn1}mm> ;
+		ifn:hasDBH2 <dbh/{?Dn2}mm> ;
+		ifn:hasTotalHeight <height/{?Ht}m> ;
+		ifn:hasDBH1InMillimeters ?dbh1 ;
+		ifn:hasDBH2InMillimeters ?dbh2 ;
+		ifn:hasTotalHeightInMeters ?h ;
+		.
+
+	<position/{?idPosition}> a spo:EgocentricPosition ;
+		spo:hasReference <position/{?idReference}> ;
+		spo:hasDirection <direction/{?Rumbo}gon> ;
+		spo:hasDistance <distance/{?Distanci}m> ;
+		spo:hasDirectionInGradians ?r ;
+		spo:hasDistanceInMeters ?d ;
+		.
+
+	<direction/{?Rumbo}gon> a spo:Direction ;
+		smo:hasUnit unit:Gradians ;
+		smo:hasValue ?r ;
+		.
+
+	<distance/{?Distanci}m> a spo:Distance ;
+		smo:hasUnit unit:Meters ;
+		smo:hasValue ?d ;
+		.
+
+	<dbh/1-{?Dn1}mm> a ifn:DBH1 ;
+		smo:hasUnit unit:Millimeters ;
+		smo:hasValue ?dbh1 ;
+		.
+
+	<dbh/2-{?Dn2}mm> a ifn:DBH2 ;
+		smo:hasUnit unit:Millimeters ;
+		smo:hasValue ?dbh2 ;
+		.
+
+	<height/{?Ht}m> a ifn:TotalHeight ;
+		smo:hasUnit unit:Meters ;
+		smo:hasValue ?h ;
+		.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Cla", "Subclase", "nArbol", "Rumbo", "Distanci", "Especie", "Dn1", "Dn2", "Ht"
+	)
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?nArbol ?Rumbo ?Distanci ?Especie ?Dn1 ?Dn2 ?Ht
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?nArbol}" AS ?idArbol)
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND("{?Origen}-{?Estadillo}" AS ?idReference)
+	BIND( IF( BOUND( ?Rumbo ), IF( BOUND( ?Distanci ), ?idArbol, ?Distanci), ?Rumbo) AS ?idPosition )
+	BIND(REPLACE(?Especie,"^0*","") AS ?species)
+	BIND(xsd:decimal(?Rumbo) AS ?r)
+	BIND(xsd:decimal(?Distanci) AS ?d)
+	BIND(xsd:decimal(?Dn1) AS ?dbh1)
+	BIND(xsd:decimal(?Dn2) AS ?dbh2)
+	BIND(xsd:decimal(?Ht) AS ?h)
+}

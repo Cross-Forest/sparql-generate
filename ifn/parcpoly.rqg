@@ -1,0 +1,37 @@
+BASE <http://crossforest.eu/ifn/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX spd: <http://crossforest.eu/position/data/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX smd: <http://crossforest.eu/measures/data/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX axis: <http://crossforest.eu/epsg/data/axis/>
+PREFIX coordinate: <http://crossforest.eu/epsg/data/coordinate/>
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX position: <http://crossforest.eu/position/data/position/>
+PREFIX crs:   <http://crossforest.eu/epsg/data/crs/>
+PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+
+GENERATE {
+	<data/plot/{?idPlot}> a ifn:Plot , <ontology/Plot-{?Cla}{?sc}> , <ontology/Altitude{?Altitud}> , <ontology/Orientation{?Orientacion}> , <ontology/Gradient{?Pendiente}> ;
+	ifn:inPatch <http://crossforest.eu/mfe/patch/{?Polygon}> ;
+	.
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:CSV(?source, true, "\"", ",", "\n",
+	"Origen", "Parcela", "Cla", "SubClase", "Polygon", "Altitud", "Orientacion", "Pendiente" )
+	AS ?Origen ?Parcela ?Cla ?Subclase ?Polygon ?Altitud ?Orientacion ?Pendiente
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Parcela}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND("{?Origen}-{?Parcela}-{?Cla}" AS ?idPosition)
+	
+}

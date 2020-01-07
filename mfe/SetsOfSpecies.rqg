@@ -1,0 +1,18 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+GENERATE {
+	<SetOfSpecies-{?ID_Grupo}> a mfe:SetOfSpecies , rdfs:Class , owl:Class ;
+		rdfs:label "{?Nombre_Grupo}"@es ;
+		# rdfs:comment "{?comentarios}"@es ;
+		mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?ID_SP}> ;
+		.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:CSV(?source, true, "\"", ",", "\n",
+	"Nombre Grupo","ID_Grupo","ID_SP","Descripción especie")
+	AS ?Nombre_Grupo ?ID_Grupo ?ID_SP ?Descripción_especie

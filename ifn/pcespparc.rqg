@@ -1,0 +1,26 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX position: <http://crossforest.eu/ifn/data/position/>
+PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+
+
+GENERATE {
+	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
+		spo:hasPosition <position/{?idPosition}> ;
+		esadm:provincia <province/{?Origen}> ;
+	.
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Cla", "Subclase"
+	)
+	AS ?Origen ?Estadillo ?Cla ?Subclase
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND("{?Origen}-{?Estadillo}" AS ?idPosition)
+}

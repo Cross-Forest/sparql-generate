@@ -1,0 +1,55 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX value: <http://epsg.w3id.org/data/value/>
+PREFIX usage: <http://epsg.w3id.org/data/usage/>
+PREFIX method: <http://epsg.w3id.org/data/method/>
+PREFIX parameter: <http://epsg.w3id.org/data/parameter/>
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+PREFIX unit: <http://epsg.w3id.org/data/unit/>
+
+
+GENERATE {
+	<operation/{?COORD_OP_CODE}> a ?type;
+		epsg:hasEPSGcode ?epsgCode ;
+		epsg:name ?COORD_OP_NAME ;
+		epsg:hasSourceCRS <crs/{?SOURCE_CRS_CODE}> ;
+		epsg:hasTargetCRS <crs/{?TARGET_CRS_CODE}> ;
+		epsg:hasOperationVersion ?COORD_TFM_VERSION ;
+		epsg:hasOperationVariant ?operationVariant ;
+		epsg:hasAreaOfUse ?AREA_OF_USE_CODE ;
+		epsg:hasScope ?COORD_OP_SCOPE ;
+		# Need to do something with the ?COORD_OP_ACCURACY
+		epsg:hasCoordinateOperationMethod <method/{?COORD_OP_METHOD_CODE}> ;
+		# <unit/{?UOM_CODE_SOURCE_COORD_DIFF}> ;
+		# <unit/{?UOM_CODE_TARGET_COORD_DIFF}> ;
+		epsg:remarks ?REMARKS ;
+		epsg:informationSource ?INFORMATION_SOURCE ;
+		epsg:dataSource ?DATA_SOURCE ;
+#		epsg:revisionDate ?RevisionDate ;
+		epsg:changeID ?CHANGE_ID ;
+		# SHOW_OPERATION ???
+		epsg:isDeprecated ?isDeprecated ;
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate_Operation%20Path.csv, true, "\"", ",", "\n",
+	"COORD_OP_CODE","COORD_OP_NAME","COORD_OP_TYPE","SOURCE_CRS_CODE","TARGET_CRS_CODE","COORD_TFM_VERSION","COORD_OP_VARIANT","AREA_OF_USE_CODE","COORD_OP_SCOPE","COORD_OP_ACCURACY","COORD_OP_METHOD_CODE","UOM_CODE_SOURCE_COORD_DIFF","UOM_CODE_TARGET_COORD_DIFF","REMARKS","INFORMATION_SOURCE","DATA_SOURCE","REVISION_DATE","CHANGE_ID","SHOW_OPERATION","DEPRECATED")
+	AS ?COORD_OP_CODE ?COORD_OP_NAME ?COORD_OP_TYPE ?SOURCE_CRS_CODE ?TARGET_CRS_CODE ?COORD_TFM_VERSION ?COORD_OP_VARIANT ?AREA_OF_USE_CODE ?COORD_OP_SCOPE ?COORD_OP_ACCURACY ?COORD_OP_METHOD_CODE ?UOM_CODE_SOURCE_COORD_DIFF ?UOM_CODE_TARGET_COORD_DIFF ?REMARKS ?INFORMATION_SOURCE ?DATA_SOURCE ?REVISION_DATE ?CHANGE_ID ?SHOW_OPERATION ?DEPRECATED
+WHERE {
+	?type rdfs:subClassOf epsg:CoordinateOperation .
+	?type epsg:isEPSGtype ?COORD_OP_TYPE .
+	BIND("{?COORD_OP_CODE}"^^xsd:nonNegativeInteger AS ?epsgCode)
+	BIND("{?COORD_OP_VARIANT}"^^xsd:nonNegativeInteger AS ?operationVariant)
+}

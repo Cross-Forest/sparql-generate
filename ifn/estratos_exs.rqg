@@ -1,0 +1,126 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
+PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
+
+GENERATE {
+
+	<province/{?Origen}> a ifn:Province ;
+		ifn:containsSpecies <infoSpecies/{?idProvinceSpecies}> ;
+	.
+
+	<stratum/{?Origen}-{?Estrato}>
+		ifn:isInProvince <province/{?Origen}> ;
+		ifn:hasForestAreaInHC ?surface ;
+	.
+
+	# GENERATE {
+	# 	<infoSpecies/{?Origen}-{?Estrato}-{?Especie}> a ifn:InfoSpecies ;
+	# 		ifn:hasNumberOfTreesInUnits ?{ sum(?numerOfTrees)*sum(?surface) } ;
+	# 	.
+	# }
+	# GROUP BY ?Origen ?Estrato ?Especie
+	# .
+
+	GENERATE {
+		<stratum/{?Origen}-{?Estrato}>
+			ifn:hasNumberOfTreesInUnits ?{sum(?numerOfTrees)*avg(?surface)} ;
+			ifn:hasForestAreaInHC ?{avg(?surface)} ;
+			ifn:isInProvince <province/{?Origen}> ;
+
+		# GENERATE {
+		# 	<province/{?Origen}>
+		# 		ifn:hasNumberOfTreesInUnits ?{ sum(?numerOfTreesByStratum) } ;
+		# 		ifn:hasForestAreaInHC ?{sum(distinct(?surface))};
+		# 	.
+		# }
+		# WHERE {
+		# 	?stratum ifn:isInProvince <province/{?Origen}> ;
+		# 		ifn:hasNumberOfTreesInUnits ?numerOfTreesByStratum ;
+		# 		.
+		# }
+		# GROUP BY ?Origen
+		# .
+
+	}
+	GROUP BY ?Origen ?Estrato
+	.
+
+	# GENERATE {
+	# 	<province/{?Origen}>
+	# 		ifn:hasNumberOfTreesInUnitsByHA ?{ sum(?numerOfTrees)*sum(distinct(?surface)) } ;
+	# 		ifn:hasForestAreaInHC ?{sum(distinct(?surface))};
+	# .
+	# }
+	# GROUP BY ?Origen
+	# .
+
+	# GENERATE {
+	# 	<province/{?Origen}> ifn:hasNumberOfTreesInUnitsByHA ?{ sum(?numerOfTrees)*avg(?surface) } ;
+	# 		ifn:hasForestAreaInHC ?{avg(?surface)};
+	# .
+	# }
+	# GROUP BY ?Origen
+	# .
+
+	# GENERATE {
+	# 	<stratum/{?idProvinciaEstratoEspecie}>
+	# 		ifn:hasBasalAreaInM2 ?{ sum(?basalArea) } ;
+	# 		ifn:hasVolumeWithoutBarkInM3 ?{ sum(?volumeWithoutBark) } ;
+	# 		ifn:hasVolumeWithBarkInM3 ?{ sum(?volumeWithBark) } ;
+	# 		ifn:hasNumberOfTreesInUnits ?{ sum(?numerOfTrees) } ;
+	# 		ifn:hasBasalArea <basalArea/{?idProvinciaEstratoEspecie}> ;
+	# 		ifn:hasVolumeWithBark <volumeWithBark/{?idProvinciaEstratoEspecie}> ;
+	# 		ifn:hasVolumeWithoutBark <volumeWithoutBark/{?idProvinciaEstratoEspecie}> ;
+	# 		ifn:hasNumberOfTrees <numberOfTrees/{?idProvinciaEstratoEspecie}> ;
+	# 	.
+
+	# 	<basalArea/{?idProvinciaEstratoEspecie}> a ifn:BasalArea ;
+	# 		smo:hasValue ?{sum(?basalArea)} ;
+	# 		smo:hasUnit unit:M2 ;
+	# 	.
+
+	# 	<volumeWithoutBark/{?idProvinciaEstratoEspecie}> a ifn:VolumeWithoutBark ;
+	# 		smo:hasValue ?{sum(?volumeWithoutBark)} ;
+	# 		smo:hasUnit unit:M3 ;
+	# 	.
+
+	# 	<volumeWithBark/{?idProvinciaEstratoEspecie}> a ifn:VolumeWithBark ;
+	# 		smo:hasValue ?{sum(?volumeWithBark)} ;
+	# 		smo:hasUnit unit:M3 ;
+	# 	.
+
+	# 	<numberOfTrees/{?idProvinciaEstratoEspecie}> a ifn:NumberOfTrees ;
+	# 		smo:hasValue ?{sum(?numerOfTrees)} ;
+	# 		smo:hasUnit unit:Units ;
+	# 	.
+	# }
+	# GROUP BY ?idProvinciaEstratoEspecie
+	# .
+}
+SOURCE <urn:source> AS ?source_exs
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_exs, true, "\"", ",", "\n",
+	"Origen","Estrato","Especie","CD","NPies","ABas","VCC","VSC","IAVC","VLE"
+	)
+	AS ?Origen ?Estrato ?Especie ?CD ?NPies ?ABas ?VCC ?VSC ?IAVC ?VLE
+WHERE {
+	BIND("{?Origen}-{?Estrato}-{?Especie}" AS ?idProvinciaEstratoEspecie)
+	BIND("{?Origen}-{?Estrato}" AS ?idProvinciaEstrato)
+	BIND(iri("stratum/{?idProvinciaEstrato}") AS ?iriProvinciaEstrato)
+	BIND("{?Origen}-{?Especie}" AS ?idProvinceSpecies)
+	BIND(xsd:decimal(?NPies) AS ?numerOfTrees)
+	BIND(xsd:decimal(?ABas) AS ?basalArea)
+	BIND(xsd:decimal(?VSC) AS ?volumeWithoutBark)
+	BIND(xsd:decimal(?VCC) AS ?volumeWithBark)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+	# ?x a ifn:Stratum .
+	# ?x ifn:codigo ?idProvinciaEstrato .
+	# ?x ifn:hasForestAreaInHC ?surface .
+	# ?iriProvinciaEstrato ifn:isInProvince ?Origen .
+	?iriProvinciaEstrato ifn:hasForestAreaInHC ?surface.
+}

@@ -1,0 +1,65 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
+PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
+PREFIX area: <http://crossforest.eu/ifn/data/area/>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+GENERATE {
+
+	<stratum/{?idProvinciaEstrato}> a ifn:Stratum ;
+		ifn:isInProvince <province/{?Origen}> ;
+		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
+		ifn:hasForestArea <area/{?Origen}> ;
+		ifn:hasNumberOfPlotsInUnities ?numberOfPlots ;
+		ifn:hasForestAreaInHC ?area ;
+		ifn:codigo "{?idProvinciaEstrato}" ;
+	.
+
+	<numberOfPlots/{?idProvinciaEstrato}> a smo:Measure ;
+		smo:hasValue ?numberOfPlots ;
+		smo:hasUnit unit:Unities ;
+	.
+
+	<area/idProvinciaEstrato> a smo:Measure ;
+		smo:hasValue ?area ;
+		smo:hasUnit unit:Hectares ;
+	.
+
+	GENERATE {
+		<province/{?Origen}> a ifn:Province ;
+		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
+		spo:hasForestArea <area/{?Origen}> ;
+		ifn:hasNumberOfPlotsInUnities ?{sum(?numberOfPlots)} ;
+		spo:hasForestAreaInHC ?{sum(?area)} ;
+	.
+
+	<numberOfPlots/{?Origen}> a smo:Measure ;
+		smo:hasValue ?{sum(?numberOfPlots)} ;
+		smo:hasUnit unit:Unities ;
+	.
+
+	<area/{?Origen}> a smo:Measure ;
+		smo:hasValue ?{sum(?area)} ;
+		smo:hasUnit unit:Hectares ;
+	.
+	}
+	GROUP BY ?Origen
+	.
+
+}
+SOURCE <urn:source> AS ?source_estratos
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_estratos, true, "\"", ",", "\n",
+	"Origen","Estrato","NPar","Superficie","IdEspDom"
+	)
+	AS ?Origen ?Estrato ?NPar ?Superficie ?IdEspDom
+WHERE {
+	BIND("{?Origen}-{?Estrato}" AS ?idProvinciaEstrato)
+	BIND(xsd:decimal(?Superficie) AS ?area)
+	BIND(xsd:decimal(?NPar) AS ?numberOfPlots)
+}

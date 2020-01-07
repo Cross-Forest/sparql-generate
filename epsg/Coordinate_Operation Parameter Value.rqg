@@ -1,0 +1,39 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX value: <http://epsg.w3id.org/data/value/>
+PREFIX usage: <http://epsg.w3id.org/data/usage/>
+PREFIX method: <http://epsg.w3id.org/data/method/>
+PREFIX parameter: <http://epsg.w3id.org/data/parameter/>
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+PREFIX unit: <http://epsg.w3id.org/data/unit/>
+
+
+GENERATE {
+	<value/{?COORD_OP_CODE}-{?COORD_OP_METHOD_CODE}-{?PARAMETER_CODE}> a epsg:CoordinateOperationParameterValue ;
+		epsg:hasCoordinateOperation <operation/{?COORD_OP_CODE}> ;
+		epsg:hasCoordinateOperationMethod <method/{?COORD_OP_METHOD_CODE}> ;
+		epsg:hasCoordinateOperationParameter <parameter/{?PARAMETER_CODE}> ;
+		epsg:hasParameterValue ?parameterValue ;
+		epsg:hasParameterFileRef ?PARAM_VALUE_FILE_REF ;
+		epsg:hasUnitOfMeasure <unit/{?UOM_CODE}>
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate_Operation%20Parameter%20Value.csv, true, "\"", ",", "\n",
+	"COORD_OP_CODE","COORD_OP_METHOD_CODE","PARAMETER_CODE","PARAMETER_VALUE","PARAM_VALUE_FILE_REF","UOM_CODE")
+	AS ?COORD_OP_CODE ?COORD_OP_METHOD_CODE ?PARAMETER_CODE ?PARAMETER_VALUE ?PARAM_VALUE_FILE_REF ?UOM_CODE
+WHERE {
+	BIND( xsd:decimal(?PARAMETER_VALUE) AS ?parameterValue )
+}

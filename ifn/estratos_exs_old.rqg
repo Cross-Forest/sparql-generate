@@ -1,0 +1,109 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX basalArea: <http://crossforest.eu/ifn/data/basalArea/>
+PREFIX volumeWithBark: <http://crossforest.eu/ifn/data/volumeWithBark/>
+PREFIX volumeWithoutBark: <http://crossforest.eu/ifn/data/volumeWithoutBark/>
+PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
+PREFIX numberOfTrees: <http://crossforest.eu/ifn/data/numberOfTrees/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+GENERATE {
+
+	<province/{?Origen}> a ifn:Province ;
+		ifn:containsSpecies <infoSpecies/{?idProvinceSpecies}> ;
+	.
+
+	<infoSpecies/{?idProvinceSpecies}> a ifn:InfoSpecies ;
+			ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+
+	GENERATE {
+		<infoSpecies/{?idProvinceSpecies}>
+			ifn:hasBasalAreaInM2 ?{ sum(?basalArea) } ;
+			ifn:hasVolumeWithoutBarkInM3 ?{ sum(?volumeWithoutBark) } ;
+			ifn:hasVolumeWithBarkInM3 ?{ sum(?volumeWithBark) } ;
+			ifn:hasNumberOfTreesInUnits ?{ sum(?numerOfTrees) } ;
+			ifn:hasBasalArea <basalArea/{?idProvinceSpecies}> ;
+			ifn:hasVolumeWithBark <volumeWithBark/{?idProvinceSpecies}> ;
+			ifn:hasVolumeWithoutBark <volumeWithoutBark/{?idProvinceSpecies}> ;
+			ifn:hasNumberOfTrees <numberOfTrees/{?idProvinceSpecies}> ;
+		.
+
+		<basalArea/{?idProvinceSpecies}> a ifn:BasalArea ;
+			smo:hasValue ?{sum(?basalArea)} ;
+			smo:hasUnit unit:M2 ;
+		.
+
+		<volumeWithoutBark/{?idProvinceSpecies}> a ifn:VolumeWithoutBark ;
+			smo:hasValue ?{sum(?volumeWithoutBark)} ;
+			smo:hasUnit unit:M3 ;
+		.
+
+		<volumeWithBark/{?idProvinceSpecies}> a ifn:VolumeWithBark ;
+			smo:hasValue ?{sum(?volumeWithBark)} ;
+			smo:hasUnit unit:M3 ;
+		.
+
+		<numberOfTrees/{?idProvinceSpecies}> a ifn:NumberOfTrees ;
+			smo:hasValue ?{sum(?numerOfTrees)} ;
+			smo:hasUnit unit:Units ;
+		.
+	} 
+	GROUP BY ?idProvinceSpecies
+	.
+
+	GENERATE {
+		<province/{?Origen}> a ifn:Province ;
+			ifn:hasBasalAreaInM2 ?{ sum(?basalArea) } ;
+			ifn:hasVolumeWithoutBarkInM3 ?{ sum(?volumeWithoutBark) } ;
+			ifn:hasVolumeWithBarkInM3 ?{ sum(?volumeWithBark) } ;
+			ifn:hasNumberOfTreesInUnits ?{ sum(?numerOfTrees) } ;
+			ifn:hasBasalArea <basalArea/{?Origen}> ;
+			ifn:hasVolumeWithBark <volumeWithBark/{?Origen}> ;
+			ifn:hasVolumeWithoutBark <volumeWithoutBark/{?Origen}> ;
+			ifn:hasNumberOfTrees <numberOfTrees/{?Origen}> ;
+		.
+
+		<basalArea/{?Origen}> a ifn:BasalArea ;
+			smo:hasValue ?{sum(?basalArea)} ;
+			smo:hasUnit unit:M2 ;
+		.
+
+		<volumeWithoutBark/{?Origen}> a ifn:VolumeWithoutBark ;
+			smo:hasValue ?{sum(?volumeWithoutBark)} ;
+			smo:hasUnit unit:M3 ;
+		.
+
+		<volumeWithBark/{?Origen}> a ifn:VolumeWithBark ;
+			smo:hasValue ?{sum(?volumeWithBark)} ;
+			smo:hasUnit unit:M3 ;
+		.
+
+		<numberOfTrees/{?Origen}> a ifn:NumberOfTrees ;
+			smo:hasValue ?{sum(?numerOfTrees)} ;
+			smo:hasUnit unit:Units ;
+		.
+	} 
+	GROUP BY ?Origen
+	.
+	
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen","Estrato","Especie","CD","NPies","ABas","VCC","VSC","IAVC","VLE"
+	)
+	AS ?Origen ?Estrato ?Especie ?CD ?NPies ?ABas ?VCC ?VSC ?IAVC ?VLE
+
+WHERE {
+	BIND("{?Origen}-{?Especie}" AS ?idProvinceSpecies)
+	BIND(xsd:decimal(?NPies) AS ?numerOfTrees)
+	BIND(xsd:decimal(?ABas) AS ?basalArea)
+	BIND(xsd:decimal(?VSC) AS ?volumeWithoutBark)
+	BIND(xsd:decimal(?VCC) AS ?volumeWithBark)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+}

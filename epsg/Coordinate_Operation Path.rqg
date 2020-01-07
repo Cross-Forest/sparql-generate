@@ -1,0 +1,40 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX value: <http://epsg.w3id.org/data/value/>
+PREFIX usage: <http://epsg.w3id.org/data/usage/>
+PREFIX method: <http://epsg.w3id.org/data/method/>
+PREFIX parameter: <http://epsg.w3id.org/data/parameter/>
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+PREFIX unit: <http://epsg.w3id.org/data/unit/>
+
+
+GENERATE {
+
+	<operation/{?CONCAT_OPERATION_CODE}> a epsg:ConcatenatedOperation ;
+		epsg:hasOperationStep <operationStep/{?CONCAT_OPERATION_CODE}-{?OP_PATH_STEP}> ;
+	.
+
+	<operationStep/{?CONCAT_OPERATION_CODE}> a epsg:CoordinateOperationStep;
+		epsg:isStep ?step ;
+		epsg:hasOperation ?SINGLE_OPERATION_CODE ;
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate_Operation%20Path.csv, true, "\"", ",", "\n",
+	"CONCAT_OPERATION_CODE","SINGLE_OPERATION_CODE","OP_PATH_STEP")
+	AS ?CONCAT_OPERATION_CODE ?SINGLE_OPERATION_CODE ?OP_PATH_STEP
+WHERE {
+	BIND( "?OP_PATH_STEP"^^xsd:nonNegativeInteger AS ?step )
+}

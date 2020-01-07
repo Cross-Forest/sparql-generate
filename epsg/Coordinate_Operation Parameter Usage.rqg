@@ -1,0 +1,35 @@
+BASE <http://epsg.w3id.org/data/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX folder: <file:///home/chemi/Documents/EPSG_v9_6/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX vann: <http://purl.org/vocab/vann/>
+
+PREFIX method: <http://epsg.w3id.org/data/method/>
+PREFIX parameter: <http://epsg.w3id.org/data/parameter/>
+PREFIX crs: <http://epsg.w3id.org/data/crs/>
+PREFIX area: <http://epsg.w3id.org/data/area/>
+PREFIX cs: <http://epsg.w3id.org/data/cs/>
+PREFIX datum: <http://epsg.w3id.org/data/datum/>
+PREFIX operation: <http://epsg.w3id.org/data/operation/>
+
+
+GENERATE {
+	<usage/{?COORD_OP_METHOD_CODE}-{?PARAMETER_CODE}> a epsg:CoordinateOperationParameterUsage ;
+		epsg:hasCoordinateOperationMethod <method/{?COORD_OP_METHOD_CODE}> ;
+		epsg:hasCoordinateOperationParameter <parameter/{?PARAMETER_CODE}> ;
+		epsg:hasSortOrder ?sortOrder ;
+		epsg:hasParamSignReversal ?paramSignReversal ;
+	.
+}
+ITERATOR iter:CSV(folder:Coordinate_Operation%20Parameter%20Usage.csv, true, "\"", ",", "\n",
+	"COORD_OP_METHOD_CODE", "PARAMETER_CODE", "SORT_ORDER", "PARAM_SIGN_REVERSAL")
+	AS ?COORD_OP_METHOD_CODE ?PARAMETER_CODE ?SORT_ORDER ?PARAM_SIGN_REVERSAL
+WHERE {
+	BIND("{?SORT_ORDER}"^^xsd:nonNegativeInteger AS ?sortOrder)
+	BIND( xsd:boolean(IF( ?PARAM_SIGN_REVERSAL="Yes" , "true", IF( ?PARAM_SIGN_REVERSAL="No" , "false", "error" ))) AS ?paramSignReversal )
+}
