@@ -3,7 +3,8 @@ PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX spd: <http://crossforest.eu/position/data/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
 
 PREFIX data.axis: <http://epsg.w3id.org/data/axis/>
 PREFIX ontology.axis: <http://epsg.w3id.org/ontology/axis/>
@@ -16,8 +17,8 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 GENERATE {
 
 	<position/{?id}> a spo:GeocentricPosition ;
-		epsg:hasCoordinateReferenceSystem <http://epsg.w3id.org/data/crs/{?crs}> ;
-		epsg:hasCoordinate <coordinate/1-{?CoorX}> ;
+		spo:hasCoordinateReferenceSystem <http://epsg.w3id.org/data/crs/{?crs}> ;
+		spo:hasCoordinate <coordinate/1-{?CoorX}> ;
 		spo:hasCoordinate <coordinate/2-{?CoorY}> ;
 		<http://epsg.w3id.org/ontology/axis/1> ?x ;
 		<http://epsg.w3id.org/ontology/axis/2> ?y ;
