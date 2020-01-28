@@ -18,22 +18,22 @@ GENERATE {
 
 	<position/{?id}> a spo:GeocentricPosition ;
 		spo:hasCoordinateReferenceSystem <http://epsg.w3id.org/data/crs/{?crs}> ;
-		spo:hasCoordinate <coordinate/1-{?CoorX}> ;
-		spo:hasCoordinate <coordinate/2-{?CoorY}> ;
-		<http://epsg.w3id.org/ontology/axis/1> ?x ;
-		<http://epsg.w3id.org/ontology/axis/2> ?y ;
+		spo:hasCoordinate <coordinate/48-{?CoorX}> ;
+		spo:hasCoordinate <coordinate/47-{?CoorY}> ;
+		<http://epsg.w3id.org/ontology/axis/48> ?x ;
+		<http://epsg.w3id.org/ontology/axis/47> ?y ;
 		spo:hasAreaInHA ?a ;
 		spo:hasArea <area/{?area}HA> ;
 	.
 
-	<coordinate/1-{?CoorX}> a epsg:Coordinate ;
-		epsg:hasAxis data.axis:1 ;
+	<coordinate/48-{?CoorX}> a epsg:Coordinate ;
+		epsg:hasAxis data.axis:48 ;
 		smo:hasUnit unit:Meters ;
 		smo:hasValue ?x ;
 	.
 
-	<coordinate/2-{?CoorY}> a epsg:Coordinate ;
-		epsg:hasAxis data.axis:2 ;
+	<coordinate/47-{?CoorY}> a epsg:Coordinate ;
+		epsg:hasAxis data.axis:47 ;
 		smo:hasUnit unit:Meters ;
 		smo:hasValue ?y ;
 	.
