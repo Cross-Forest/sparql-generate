@@ -30,7 +30,7 @@ PREFIX area: <http://crossforest.eu/mfe/data/area/>
 GENERATE {
 
 	<patch/{?idPatch}> a mfe:Patch , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
-		spo:hasPolygon <polygon/{?POLIGON}-4326> ;
+		spo:hasPolygon <polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <canopyCover/{?TFCCTOT}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
 		mfe:hasCanopyCoverTrees <canopyCover/{?TFCCARB}> ;
@@ -168,7 +168,7 @@ WHERE {
 	BIND("s5" AS ?SUB_LAYER)
 	BIND("s5s5" AS ?MERGED_LAYER)
 	BIND(fun:JSONPath(?properties, "$.POLIGON") AS ?poligon)
-	BIND("{?MERGED_LAYER}-{?poligon}" AS ?POLIGON)
+	# BIND("{?MERGED_LAYER}-{?poligon}" AS ?POLIGON)
 	BIND(fun:JSONPath(?properties, "$.CLAS_IFN") AS ?CLAS_IFN)
 	BIND(fun:JSONPath(?properties, "$.TFCCTOT") AS ?tfcctot)
 	BIND("{?tfcctot}" AS ?TFCCTOT)
@@ -190,5 +190,5 @@ WHERE {
 	BIND(fun:JSONPath(?properties, "$.SUBPOLYGONS") AS ?subpolygons)
 	BIND(fun:JSONPath(?properties, "$.SPECIES") AS ?SPECIES)
 	BIND(fun:JSONPath(?properties, "$.USES") AS ?USES)
-	BIND("{?MERGED_LAYER}-{?province}-{?POLIGON}" AS ?idPatch)
+	BIND("{?MERGED_LAYER}-{?province}-{?poligon}" AS ?idPatch)
 }
