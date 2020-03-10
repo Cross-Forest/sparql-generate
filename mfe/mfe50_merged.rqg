@@ -39,7 +39,7 @@ GENERATE {
 	.
 
 	<polygon/{?idPatch}-4326> a spo:Polygon ;
-		spo:isInLayer <layer/{?mergedLayer}> ;
+		spo:isInLayer <layer/{?MERGED_LAYER}> ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
 		wkt:asWKT ?geometricCoordinates ;
 		spo:hasLeftBound <bound/107-{?WEST_BOUND}> ;
