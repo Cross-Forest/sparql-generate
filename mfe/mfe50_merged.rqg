@@ -9,6 +9,7 @@ PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX epsg: <http://epsg.w3id.org/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 
+PREFIX use:<http://crossforest.eu/cos/ontology/Use/>
 PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
 PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
