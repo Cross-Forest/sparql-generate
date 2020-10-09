@@ -91,7 +91,7 @@ WHERE {
 	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[3]")) AS ?north)
 	BIND("{?north}" AS ?NORTH_BOUND)
 	BIND(fun:JSONPath(?properties, "$.COS2018_n1") AS ?N1)
-	BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  "$.COS2018_n4",?null) AS ?N4)
+	BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  fun:JSONPath(?properties, "$.COS2018_n4"),?null) AS ?N4)
 	# BIND(fun:JSONPath(?properties, "$.COS2018_n4") AS ?N4)
 	BIND("{?LAYER}-{?polygon}" AS ?idPatch)
 	BIND(fun:JSONPath(?properties, "$.SUBPOLYGONS") AS ?subpolygons)
