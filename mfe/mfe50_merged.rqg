@@ -24,7 +24,7 @@ PREFIX rateOfUse: <http://crossforest.eu/mfe/data/rateOfUse/>
 PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 PREFIX axis: <http://epsg.w3id.org/data/axis/>
 PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
-PREFIX layer: <http://crossforest.eu/mfe/data/layer/>
+PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
 PREFIX province: <http://crossforest.eu/ifn/data/province/>
 PREFIX area: <http://crossforest.eu/mfe/data/area/>
 
@@ -40,7 +40,7 @@ GENERATE {
 	.
 
 	<polygon/{?idPatch}-4326> a spo:Polygon ;
-		spo:isInLayer <layer/{?MERGED_LAYER}> ;
+		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?MERGED_LAYER}> ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
 		wkt:asWKT ?geometricCoordinates ;
 		spo:hasLeftBound <bound/107-{?WEST_BOUND}> ;

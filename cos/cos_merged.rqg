@@ -15,7 +15,7 @@ PREFIX area: <http://crossforest.eu/cos/data/area/>
 PREFIX bound: <http://crossforest.eu/cos/data/bound/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX layer: <http://crossforest.eu/cos/data/layer/>
+PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
 PREFIX axis: <http://epsg.w3id.org/data/axis/>
 PREFIX bound: <http://crossforest.eu/cos/data/bound/>
@@ -29,7 +29,7 @@ GENERATE {
 	.
 
 	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
-		spo:isInLayer <data/layer/{?MERGED_LAYER}> ;
+		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?MERGED_LAYER}> ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
 		wkt:asWKT ?geometricCoordinates ;
 		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;

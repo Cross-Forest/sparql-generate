@@ -17,7 +17,7 @@ PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
-PREFIX layer: <http://crossforest.eu/mfe/data/layer/>
+PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
 PREFIX province: <http://crossforest.eu/ifn/data/province/>
 PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 PREFIX area: <http://crossforest.eu/mfe/data/area/>
@@ -27,7 +27,7 @@ PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 
 GENERATE {
 
-	<data/patch/{?idPatch}> a mfe:Patch , <ontology/Class{?CLASMFE_IF}> , <ontology/TypeOfForest{?TIPO_BOSQU}> , <ontology/Realm{?REGBIO}> , <ontology/StructuralType{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+	<data/patch/{?idPatch}> a mfe:Patch , <ontology/ForestType{?CLA_FORARB}> , <ontology/TypeOfForest{?TIPO_BOSQU}> , <ontology/BiogeographicRegion{?REGBIO}> , <ontology/VegetationStructure{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
@@ -70,7 +70,7 @@ GENERATE {
 	.
 
 	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
-		spo:isInLayer <data/layer/{?LAYER}> ;
+		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?LAYER}> ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
 		wkt:asWKT ?geometricCoordinates ;
 		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;
@@ -149,9 +149,8 @@ WHERE {
 	BIND("{?clasme_if}" AS ?CLASMFE_IF)
 	BIND(fun:JSONPath(?properties, "$.TIPO_BOSQU") AS ?tipo_bosqu)
 	BIND( IF("{?tipo_bosqu}"!="", "{?tipo_bosqu}", ?unbound) AS ?TIPO_BOSQU)
-	# BIND(fun:JSONPath(?properties, "$.") AS ?)
-	# BIND(fun:JSONPath(?properties, "$.") AS ?)
-	# BIND(fun:JSONPath(?properties, "$.") AS ?)
+	BIND(fun:JSONPath(?properties, "$.CLA_FORARB") AS ?cla_forarb)
+	BIND( IF("{?cla_forarb}"!="", "{?cla_forarb}", ?unbound) AS ?CLA_FORARB)
 	BIND(fun:JSONPath(?properties, "$.REGBIO") AS ?regbio)
 	BIND("{?regbio}" AS ?REGBIO)
 	BIND(fun:JSONPath(?properties, "$.CLAS_IFN") AS ?clas_ifn)
