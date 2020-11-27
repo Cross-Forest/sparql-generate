@@ -40,6 +40,8 @@ GENERATE {
 		epsg:hasRightBound107 ?east ;
 		spo:hasUpperBound <data/bound/106-{?NORTH_BOUND}> ;
 		epsg:hasUpperBound106 ?north ;
+		spo:hasArea <data/area/{?HAREA}-H> ;
+		spo:hasAreainHectares ?harea ;
 		spo:hasArea <data/area/{?AREA}-M2> ;
 		spo:hasAreaInSquareMeters ?area ;
 	.
@@ -68,6 +70,11 @@ GENERATE {
 		smo:hasUnit unit:Degrees ;
 	.
 
+	<data/area/{?HAREA}-H> a smo:Area ;
+		smo:hasUnit unit:Hectares ;
+		smo:hasValue ?harea ;
+	.
+
 	<data/area/{?AREA}-M2> a smo:Area ;
 		smo:hasUnit unit:SquareMeters ;
 		smo:hasValue ?area ;
@@ -80,7 +87,9 @@ WHERE {
 	BIND("s5" AS ?LAYER)
 	BIND(fun:JSONPath(?properties, "$.POLYGON") AS ?polygon)
 	BIND("{?polygon}" AS ?POLYGON)
-	BIND( IF (fun:JSONPath(?properties, "$.AREA") != 0, fun:JSONPath(?properties, "$.AREA"),?null) AS ?area)
+	BIND( IF (fun:JSONPath(?properties, "$.AREA") != 0, xsd:decimal(fun:JSONPath(?properties, "$.AREA")),?null) AS ?harea)
+	BIND("{?harea}" AS ?HAREA)
+	BIND(?harea*10000 as ?area)
 	BIND("{?area}" AS ?AREA)
 	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[0]")) AS ?west)
 	BIND("{?west}" AS ?WEST_BOUND)
@@ -91,9 +100,7 @@ WHERE {
 	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[3]")) AS ?north)
 	BIND("{?north}" AS ?NORTH_BOUND)
 	BIND(fun:JSONPath(?properties, "$.COS2018_n1") AS ?N1)
-	# BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  fun:JSONPath(?properties, "$.COS2018_n4"),?null) AS ?n4)
 	BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  REPLACE(fun:JSONPath(?properties, "$.COS2018_n4"), "[.]", ""),?null) AS ?N4)
-	# BIND(REPLACE(STR(?n4), "[.]", "") AS ?N4)
 	BIND("{?LAYER}-{?polygon}" AS ?idPatch)
 	BIND(fun:JSONPath(?properties, "$.SUBPOLYGONS") AS ?subpolygons)
 }
