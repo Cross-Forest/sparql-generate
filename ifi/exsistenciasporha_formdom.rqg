@@ -1,0 +1,77 @@
+BASE <http://crossforest.eu/ifi/data/>
+PREFIX ifi: <http://crossforest.eu/ifi/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX basalArea: <http://crossforest.eu/ifi/data/basalArea/>
+PREFIX volumeWithBark: <http://crossforest.eu/ifi/data/volumeWithBark/>
+PREFIX infoDominantFormation: <http://crossforest.eu/ifi/data/infoDominantFormation/>
+PREFIX numberOfTrees: <http://crossforest.eu/ifi/data/numberOfTrees/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+GENERATE {
+
+	<forestryInventory/{?CountryCode}/{?InventoryId}> 
+		ifi:containsDominantFormation <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+	.
+
+	<nuts3/{?CountryCode}/{?NUTS3}> 
+		ifi:containsDominantFormation <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+	.
+
+	<infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:InfoDominantFormationByHA ;
+			ifi:hasDominantFormation <dominantFormation/{?CountryCode}/{?InventoryId}/DominantFormation{?IdDominantFormation}> ;
+	.
+
+        # se supone la formación dominante no cambia, así que no hace falta volver a generar
+	#<dominantFormation/{?CountryCode}/{?InventoryId}/DominantFormation{?IdDominantFormation}> a ifi:DominantFormation;
+	#                            rdfs:label ?DominantFormation;
+	#.
+
+	GENERATE {
+		<infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}>
+			ifi:hasBasalAreaInM2ByHa ?basalArea ;
+			ifi:hasVolumeWithBarkInM3ByHa ?volumeWithBark ;
+			ifi:hasNumberOfTreesInUnitsByHa ?numberOfTrees ;
+			ifi:hasBasalArea <basalAreaByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+			ifi:hasVolumeWithBark <volumeWithBarkByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+			ifi:hasNumberOfTrees <numberOfTreesByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+		.
+
+		<basalAreaByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:BasalArea ;
+			smo:hasValue ?{sum(?basalArea)} ;
+			smo:hasUnit unit:M2 ;
+		.
+
+		<volumeWithBarkByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:VolumeWithBark ;
+			smo:hasValue ?{sum(?volumeWithBark)} ;
+			smo:hasUnit unit:M3 ;
+		.
+
+		<numberOfTreesByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:NumberOfTrees ;
+			smo:hasValue ?{sum(?numberOfTrees)} ;
+			smo:hasUnit unit:Units ;
+		.
+	} 
+	GROUP BY ?CountryCode ?InventoryId ?idProvinceDominantFormation
+	.
+
+}
+SOURCE <urn:source> AS ?source_exs
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_exs, true, "\"", ",", "\n",
+	"IFN", "NUTS1", "NUTS3","IdFormDom","FormDom","NPies","ABas","VCC"
+	)
+	AS ?IFN ?NUTS1 ?NUTS3 ?IdFormDom ?FormDom ?NPies ?ABas ?VCC
+WHERE {
+	BIND(REPLACE(?NUTS1, "[0-9]","") AS ?CountryCode)
+	BIND(?IFN AS ?InventoryId)
+	BIND("{?NUTS3}-{?IdFormDom}" AS ?idProvinceDominantFormation)
+	BIND(?IdFormDom AS ?IdDominantFormation)
+	BIND(?FormDom AS ?DominantFormation)
+	BIND(?NUTS3 AS ?NUTS3)
+	BIND(xsd:decimal(?NPies) AS ?numberOfTrees)
+	BIND(xsd:decimal(?ABas) AS ?basalArea)
+	BIND(xsd:decimal(?VCC) AS ?volumeWithBark)
+}

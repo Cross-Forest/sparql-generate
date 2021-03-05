@@ -1,0 +1,47 @@
+BASE <http://crossforest.eu/ifi/data/>
+PREFIX ifi: <http://crossforest.eu/ifi/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX nuts1:   <http://crossforest.eu/ifi/data/nuts1/>
+PREFIX nuts2:   <http://crossforest.eu/ifi/data/nuts2/>
+PREFIX nuts3:   <http://crossforest.eu/ifi/data/nuts3/>
+PREFIX nuts_geovocab: <http://nuts.geovocab.org/id/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+GENERATE {
+
+         # hay diferencias con nuts_geovocab por lo que no se incluye
+        <nuts3/{?CountryCode}/{?NUTS3}> a ifi:NUTS3;
+		rdfs:label "{?Nombre_NUTS3}" ;
+		skos:broader <nuts2/{?CountryCode}/{?NUTS2}> ;
+                rdfs:isDefinedBy <http://crossforest.eu/ifi/ontology/> ;
+	.
+        <nuts2/{?CountryCode}/{?NUTS2}> a ifi:NUTS2;
+		rdfs:label "{?Nombre_NUTS2}" ;
+		skos:broader <nuts1/{?CountryCode}/{?NUTS1}> ;
+		skos:narrower <nuts3/{?CountryCode}/{?NUTS3}> ;
+		skos:exactMatch <nuts_geovocab/{?NUTS2}> ;
+                rdfs:isDefinedBy <http://crossforest.eu/ifi/ontology/> ;
+	.
+        <nuts1/{?CountryCode}/{?NUTS1}> a ifi:NUTS1;
+		rdfs:label "{?Nombre_NUTS1}" ;
+		skos:exactMatch <nuts_geovocab/{?NUTS1}> ;
+		skos:narrower <nuts2/{?CountryCode}/{?NUTS2}> ;
+                rdfs:isDefinedBy <http://crossforest.eu/ifi/ontology/> ;
+	.
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"NUTS1", "NUTS2", "NUTS3", "Nombre_NUTS1", "Nombre_NUTS2", "Nombre_NUTS3"
+	)
+	AS ?NUTS1 ?NUTS2 ?NUTS3 ?Nombre_NUTS1 ?Nombre_NUTS2 ?Nombre_NUTS3
+WHERE {
+        BIND(REPLACE(?NUTS1, "[0-9]","") AS ?CountryCode)
+        FILTER regex(?CountryCode, "PT", "i")
+	BIND("{?NUTS1}" AS ?NUTS1)
+	BIND("{?NUTS2}" AS ?NUTS2)
+	BIND("{?NUTS3}" AS ?NUTS3)
+	BIND("{?Nombre_NUTS1}" AS ?Nombre_NUTS1)
+	BIND("{?Nombre_NUTS2}" AS ?Nombre_NUTS2)
+	BIND("{?Nombre_NUTS3}" AS ?Nombre_NUTS3)
+}
