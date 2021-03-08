@@ -42,17 +42,17 @@ GENERATE {
 
 		<basalAreaByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:BasalArea ;
 			smo:hasValue ?{sum(?basalArea)} ;
-			smo:hasUnit unit:M2 ;
+			smo:hasUnit unit:M2byHA ;
 		.
 
 		<volumeWithBarkByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:VolumeWithBark ;
 			smo:hasValue ?{sum(?volumeWithBark)} ;
-			smo:hasUnit unit:M3 ;
+			smo:hasUnit unit:M3byHA ;
 		.
 
 		<numberOfTreesByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:NumberOfTrees ;
 			smo:hasValue ?{sum(?numberOfTrees)} ;
-			smo:hasUnit unit:Units ;
+			smo:hasUnit unit:UnitsByHA;
 		.
 	} 
 	GROUP BY ?CountryCode ?InventoryId ?idProvinceDominantFormation
