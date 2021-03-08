@@ -1,0 +1,161 @@
+BASE <http://crossforest.eu/mfe/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+
+PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
+PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
+PREFIX infoSpecies: <http://crossforest.eu/mfe/data/infoSpecies/>
+PREFIX occupationOfSpecies: <http://crossforest.eu/mfe/data/occupationOfSpecies/>
+PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
+PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
+PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
+PREFIX area: <http://crossforest.eu/mfe/data/area/>
+PREFIX axis: <http://epsg.w3id.org/data/axis/>
+PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
+
+
+GENERATE {
+
+	<data/patch/{?idPatch}> a mfe:Patch , <ontology/ForestType{?CLA_FORARB}> , <ontology/TypeOfForest{?TIPO_BOSQU}> , <ontology/BiogeographicRegion{?REGBIO}> , <ontology/VegetationStructure{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
+		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
+		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
+		mfe:hasCanopyCoverTrees <data/canopyCover/trees{?TFCCARB}> ;
+		mfe:hasCanopyCoverTreesPercent ?tfccarb ;
+		esadm:provincia <http://crossforest.eu/ifn/data/province/{?province}> ;
+	.
+
+	GENERATE {
+		<data/patch/{?idPatch}> mfe:containsSpecies <data/infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> .
+
+	    <data/infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> a mfe:SpeciesInPatch ;
+			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
+			mfe:hasStandDevelopment <data/standDevelopment/{?STAND_DEVELOPMENT2}> ;
+			mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?OCUPATION2}> ;
+			mfe:hasPercentageOfSpecies ?percentageOccupation ;
+		.
+
+		<data/occupationOfSpecies/{?OCUPATION2}> a mfe:OccupationOfSpecies ;
+			smo:hasValue ?OCUPATION2 ;
+			smo:hasUnit unit:Percentage ;
+		.
+	 }
+  	ITERATOR iter:JSONPath(?species, "$.*", "$[0]", "$[1]", "$[2]") AS ?arraySpecies ?species2 ?ocupation2 ?standDevelopment2
+		WHERE {
+			BIND("{?species2}" AS ?SPECIES2)
+	    	BIND("{?ocupation2}" AS ?OCUPATION2)
+	    	BIND(xsd:decimal(?ocupation2)*10 AS ?percentageOccupation)
+	    	BIND("{?standDevelopment2}" AS ?STAND_DEVELOPMENT2)
+	 }
+	 .
+
+	<data/canopyCover/total{?TFCCTOT}> a mfe:CanopyCoverTotal ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue "{?TFCCTOT}"^^xsd:decimal ;
+	.
+
+	<data/canopyCover/trees{?TFCCARB}> a mfe:CanopyCoverTrees ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue "{?TFCCARB}"^^xsd:decimal ;
+	.
+
+	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
+		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?LAYER}> ;
+		epsg:hasCoordinateReferenceSystem crs:4326 ;
+		wkt:asWKT ?geometricCoordinates ;
+		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;
+		epsg:hasLeftBound107 ?west ;
+		spo:hasLowerBound <data/bound/106-{?SOUTH_BOUND}> ;
+		epsg:hasLowerBound106 ?south ;
+		spo:hasRightBound <data/bound/107-{?EAST_BOUND}> ;
+		epsg:hasRightBound107 ?east ;
+		spo:hasUpperBound <data/bound/106-{?NORTH_BOUND}> ;
+		epsg:hasUpperBound106 ?north ;
+		spo:hasArea <data/area/{?SHAPE_AREA}-M2> ;
+		spo:hasAreaInSquareMeters ?ShapeArea ;
+	.
+
+	<data/bound/107-{?WEST_BOUND}> a epsg:LeftBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?west ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?SOUTH_BOUND}> a epsg:LowerBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?south ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/107-{?EAST_BOUND}> a epsg:RightBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?east ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?NORTH_BOUND}> a epsg:UpperBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?north ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/area/{?SHAPE_AREA}-M2> a smo:Area ;
+		smo:hasUnit unit:SquareMeters ;
+		smo:hasValue ?ShapeArea ;
+	.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
+WHERE {
+	BIND("s5" AS ?LAYER)
+	BIND(fun:JSONPath(?properties, "$.POLIGON") AS ?poligon)
+	BIND("{?poligon}" AS ?POLIGON)
+	BIND(fun:JSONPath(?properties, "$.PROV_MFE50") AS ?prov_mfe50)
+	BIND("{?prov_mfe50}" AS ?PROV_MFE50)
+	BIND(IF(STRLEN(?PROV_MFE50)=1,CONCAT("0",?PROV_MFE50),?PROV_MFE50) AS ?province)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.Shape_Area")) AS ?ShapeArea)
+	BIND("{?Shape_Area}" AS ?SHAPE_AREA)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[0]")) AS ?west)
+	BIND("{?west}" AS ?WEST_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[1]")) AS ?south)
+	BIND("{?south}" AS ?SOUTH_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[2]")) AS ?east)
+	BIND("{?east}" AS ?EAST_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[3]")) AS ?north)
+	BIND("{?north}" AS ?NORTH_BOUND)
+	BIND(fun:JSONPath(?properties, "$.TFCCTOT") AS ?tfcctot)
+	BIND("{?tfcctot}" AS ?TFCCTOT)
+	BIND(fun:JSONPath(?properties, "$.TFCCARB") AS ?tfccarb)
+	BIND("{?tfccarb}" AS ?TFCCARB)
+	BIND(fun:JSONPath(?properties, "$.TIPESTR") AS ?tipestr)
+	BIND("{?tipestr}" AS ?TIPESTR)
+	BIND(fun:JSONPath(?properties, "$.DISTRIB") AS ?distrib)
+	BIND("{?distrib}" AS ?DISTRIB)
+	BIND(fun:JSONPath(?properties, "$.FOR_MAN") AS ?for_man)
+	BIND("{?for_man}" AS ?FOR_MAN)
+	BIND(fun:JSONPath(?properties, "$.SPECIES") AS ?species)
+	BIND(fun:JSONPath(?properties, "$.CLASMFE_IF") AS ?clasme_if)
+	BIND("{?clasme_if}" AS ?CLASMFE_IF)
+	BIND(fun:JSONPath(?properties, "$.TIPO_BOSQU") AS ?tipo_bosqu)
+	BIND( IF("{?tipo_bosqu}"!="", "{?tipo_bosqu}", ?unbound) AS ?TIPO_BOSQU)
+	BIND(fun:JSONPath(?properties, "$.CLA_FORARB") AS ?cla_forarb)
+	BIND( IF("{?cla_forarb}"!="", "{?cla_forarb}", ?unbound) AS ?CLA_FORARB)
+	BIND(fun:JSONPath(?properties, "$.REGBIO") AS ?regbio)
+	BIND("{?regbio}" AS ?REGBIO)
+	BIND(fun:JSONPath(?properties, "$.CLAS_IFN") AS ?clas_ifn)
+	BIND( IF(?clas_ifn!=0, "{?clas_ifn}", ?unbound) AS ?CLAS_IFN)
+	BIND("{?LAYER}-{?province}-{?POLIGON}" AS ?idPatch)
+}
+

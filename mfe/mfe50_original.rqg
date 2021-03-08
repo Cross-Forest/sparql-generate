@@ -43,7 +43,7 @@ GENERATE {
 			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
 			mfe:hasStandDevelopment <data/standDevelopment/{?STAND_DEVELOPMENT2}> ;
 			mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?OCUPATION2}> ;
-			mfe:hasPercentageOfSpecies ?OCUPATION2 ;
+			mfe:hasPercentageOfSpecies ?percentageOccupation ;
 		.
 
 		<data/occupationOfSpecies/{?OCUPATION2}> a mfe:OccupationOfSpecies ;
@@ -55,6 +55,7 @@ GENERATE {
 		WHERE {
 			BIND("{?species2}" AS ?SPECIES2)
 	    	BIND("{?ocupation2}" AS ?OCUPATION2)
+	    	BIND(xsd:decimal(?ocupation2)*10 AS ?percentageOccupation)
 	    	BIND("{?standDevelopment2}" AS ?STAND_DEVELOPMENT2)
 	 }
 	 .
@@ -118,7 +119,7 @@ GENERATE {
 SOURCE <urn:source> AS ?source
 ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
 WHERE {
-	BIND("s5" AS ?LAYER)
+	BIND("original" AS ?LAYER)
 	BIND(fun:JSONPath(?properties, "$.POLIGON") AS ?poligon)
 	BIND("{?poligon}" AS ?POLIGON)
 	BIND(fun:JSONPath(?properties, "$.PROV_MFE50") AS ?prov_mfe50)
