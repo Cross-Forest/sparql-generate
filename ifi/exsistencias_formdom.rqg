@@ -17,7 +17,7 @@ GENERATE {
 		ifi:containsDominantFormation <infoDominantFormation/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 	.
 
-	<{?typeNUTS}/{?CountryCode}/{?idNUTS}> 
+	<{?typeNUTS}/{?CountryCode}/{?idNUTS}>
 		ifi:containsDominantFormation <infoDominantFormation/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 	.
 
@@ -60,7 +60,7 @@ GENERATE {
 }
 SOURCE <urn:source> AS ?source_exs
 ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_exs, true, "\"", ",", "\n",
-	"IFN", "NUTS1", "IdFormDom","FormDom","NPies","ABas","VCC","idNUTS","typeNUTS" 
+	"IFN", "NUTS1", "IdFormDom","FormDom","NPies","ABas","VCC","idNUTS","typeNUTS"
 	)
 	AS ?IFN ?NUTS1 ?IdFormDom ?FormDom ?NPies ?ABas ?VCC ?idNUTS ?typeNUTS
 WHERE {
@@ -68,7 +68,7 @@ WHERE {
 	BIND(?IFN AS ?InventoryId)
 	BIND(?idNUTS AS ?idNUTS)
 	BIND(?IdFormDom AS ?IdDominantFormation)
-        BIND("{?idNUTS}-{?IdFormDom}" AS ?idProvinceDominantFormation)
+	BIND("{?idNUTS}-{?IdFormDom}" AS ?idProvinceDominantFormation)
 	BIND(?FormDom AS ?DominantFormation)
 	BIND(?typeNUTS AS ?typeNUTS)
 	BIND(xsd:decimal(?NPies) AS ?numberOfTrees)
