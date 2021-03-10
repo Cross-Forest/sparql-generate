@@ -1,0 +1,108 @@
+BASE <http://crossforest.eu/cos/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX cos: <http://crossforest.eu/cos/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+
+PREFIX use: <http://crossforest.eu/cos/ontology/Use/>
+PREFIX patch: <http://crossforest.eu/cos/data/patch/>
+PREFIX polygon: <http://crossforest.eu/cos/data/polygon/>
+PREFIX area: <http://crossforest.eu/cos/data/area/>
+PREFIX bound: <http://crossforest.eu/cos/data/bound/>
+PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
+PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
+PREFIX axis: <http://epsg.w3id.org/data/axis/>
+PREFIX bound: <http://crossforest.eu/cos/data/bound/>
+PREFIX infoPatch: <http://crossforest.eu/cos/data/infoPatch/>
+
+
+GENERATE {
+
+	<data/patch/{?idPatch}> a cos:Patch , <ontology/Use{?N}> ;
+		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
+	.
+
+	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
+		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?LAYER}> ;
+		epsg:hasCoordinateReferenceSystem crs:4326 ;
+		wkt:asWKT ?geometricCoordinates ;
+		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;
+		epsg:hasLeftBound107 ?west ;
+		spo:hasLowerBound <data/bound/106-{?SOUTH_BOUND}> ;
+		epsg:hasLowerBound106 ?south ;
+		spo:hasRightBound <data/bound/107-{?EAST_BOUND}> ;
+		epsg:hasRightBound107 ?east ;
+		spo:hasUpperBound <data/bound/106-{?NORTH_BOUND}> ;
+		epsg:hasUpperBound106 ?north ;
+		spo:hasArea <data/area/{?HAREA}-H> ;
+		spo:hasAreainHectares ?harea ;
+		spo:hasArea <data/area/{?AREA}-M2> ;
+		spo:hasAreaInSquareMeters ?area ;
+	.
+
+	<data/bound/107-{?WEST_BOUND}> a epsg:LeftBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?west ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?SOUTH_BOUND}> a epsg:LowerBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?south ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/107-{?EAST_BOUND}> a epsg:RightBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?east ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?NORTH_BOUND}> a epsg:UpperBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?north ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/area/{?HAREA}-H> a smo:Area ;
+		smo:hasUnit unit:Hectares ;
+		smo:hasValue ?harea ;
+	.
+
+	<data/area/{?AREA}-M2> a smo:Area ;
+		smo:hasUnit unit:SquareMeters ;
+		smo:hasValue ?area ;
+	.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
+WHERE {
+	BIND("original" AS ?LAYER)
+	BIND(fun:JSONPath(?properties, "$.POLYGON") AS ?polygon)
+	BIND("{?polygon}" AS ?POLYGON)
+	BIND( IF (fun:JSONPath(?properties, "$.AREA") != 0, xsd:decimal(fun:JSONPath(?properties, "$.AREA")),xsd:decimal(fun:JSONPath(?properties, "$.AREA2"))) AS ?harea)
+	BIND("{?harea}" AS ?HAREA)
+	BIND(?harea*10000 as ?area)
+	BIND("{?area}" AS ?AREA)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[0]")) AS ?west)
+	BIND("{?west}" AS ?WEST_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[1]")) AS ?south)
+	BIND("{?south}" AS ?SOUTH_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[2]")) AS ?east)
+	BIND("{?east}" AS ?EAST_BOUND)
+	BIND(xsd:decimal(fun:JSONPath(?properties, "$.BBOX[3]")) AS ?north)
+	BIND("{?north}" AS ?NORTH_BOUND)
+	BIND( REPLACE(fun:JSONPath(?properties, "$.COS2018_n1"),"([0-9]).*","${1}000") AS ?N1)
+	BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  REPLACE(fun:JSONPath(?properties, "$.COS2018_n4"), "[.]", ""),?null) AS ?N4)
+	BIND( IF (BOUND(?N4), ?N4, ?N1) AS ?N)
+	BIND("{?LAYER}-{?polygon}" AS ?idPatch)
+	BIND(fun:JSONPath(?properties, "$.SUBPOLYGONS") AS ?subpolygons)
+}
+
