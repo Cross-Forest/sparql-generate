@@ -1,26 +1,77 @@
 BASE <http://crossforest.eu/ifn/data/>
 PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
 PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
 PREFIX position: <http://crossforest.eu/ifn/data/position/>
 PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
+PREFIX occupationOfSpecies: <http://crossforest.eu/ifn/data/occupationOfSpecies/>
+PREFIX sd: <http://crossforest.eu/mfe/data/standDevelopment/>
+PREFIX age: <http://crossforest.eu/ifn/data/age/>
+PREFIX source: <http://crossforest.eu/ifn/data/source/>
+PREFIX reliability: <http://crossforest.eu/ifn/data/reliability/>
+PREFIX origin: <http://crossforest.eu/ifn/data/origin/>
+PREFIX system: <http://crossforest.eu/ifn/data/system/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		esadm:provincia <province/{?Origen}> ;
+		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+	.
+
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+		ifn:hasStandDevelopment <http://crossforest.eu/mfe/data/standDevelopment/{?STATE}> ;
+		ifn:hasPlotShape <http://crossforest.eu/ifn/ontology/PlotShape{?PLOT_SHAPE}> ;
+		ifn:hasOccupationOfSpecies <occupationOfSpecies/{?OCCUPATION}> ;
+		ifn:hasPercentageOfSpecies ?percentageOccupation ;
+		ifn:hasAge <age/{?SOURCE}-{?RELIABILITY}-{?AGE}> ;
+		ifn:hasAgeInYears ?ageInYears ;
+		ifn:hasOrigin <origin/1{?ORIGIN1}> , <origin/2{?ORIGIN2}> ;
+		ifn:hasSystem <system/{?SYSTEM}> ;
+		ifn:hasOccupationOrder ?occupationOrder ;
+	.
+
+	<occupationOfSpecies/{?OCCUPATION}> a ifn:OccupationOfSpecies ;
+		smo:hasValue ?percentageOccupation ;
+		smo:hasUnit unit:Percentage ;
+	.
+
+	<age/{?SOURCE}-{?RELIABILITY}-{?AGE}> a ifn:Age ;
+		smo:source  <http://crossforest.eu/ifn/data/source/{?SOURCE}> ;
+		smo:Reliability <http://crossforest.eu/ifn/data/reliability/{?RELIABILITY}> ;
+		smo:hasValue ?ageInYears ;
+		smo:hasUnit unit:Years ;
 	.
 }
 SOURCE <urn:source> AS ?source
 ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
-	"Origen", "Estadillo", "Cla", "Subclase"
+	"Origen", "Estadillo", "Cla", "Subclase", "PosEsp", "Especie", "Ocupa", "Estado", "FPMasa", "Edad", "FInfor", "Fiabil", "Barrena1", "Barrena2", "Barrena3", "AltPer", "OrgMasa1", "OrgMasa2", "TratMasa"
 	)
-	AS ?Origen ?Estadillo ?Cla ?Subclase
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?PosEsp ?Especie ?Ocupa ?Estado ?FPMasa ?Edad ?FInfor ?Fiabil ?Barrena1 ?Barrena2 ?Barrena3 ?AltPer ?OrgMasa1 ?OrgMasa2 ?TratMasa
 WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND("{?Origen}-{?Estadillo}" AS ?idPosition)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?species}-p{?PosEsp}" AS ?idPlotSpecies)
+	BIND(xsd:decimal(?PosEsp) AS ?occupationOrder)
+	BIND(xsd:decimal(?Ocupa)*10 AS ?percentageOccupation)
+	BIND("{?Ocupa}" AS ?OCCUPATION)
+	BIND("{?Estado}" AS ?STATE)
+	BIND("{?FPMasa}" AS ?PLOT_SHAPE)
+	BIND(IF("{?Edad}"!="" && "{?Edad}"!="0", xsd:decimal(?Edad)*10, ?unbound) AS ?ageInYears)
+	BIND(IF("{?Edad}"!="" && "{?Edad}"!="0", "{?ageInYears}", ?unbound) AS ?AGE)
+	BIND("{?FInfor}" AS ?SOURCE)
+	BIND("{?Fiabil}" AS ?RELIABILITY)
+	BIND("{?OrgMasa1}" AS ?ORIGIN1)
+	BIND("{?OrgMasa2}" AS ?ORIGIN2)
+	BIND("{?TratMasa}" AS ?SYSTEM)
 }

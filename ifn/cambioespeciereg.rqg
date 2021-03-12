@@ -1,0 +1,39 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX changeOfSpecies: <http://crossforest.eu/ifn/data/changeOfSpecies/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+GENERATE {
+
+	<province/{?Origen}> a ifn:Province ;
+		ifn:hasChangeOfSpecies <changeOfSpecies/{?idCambioEspecies}> ;
+	.
+
+	<changeOfSpecies/{?idCambioEspecies}> a ifn:ChangeOfSpecies ;
+		ifn:hasOriginalSpecies <http://crossforest.eu/ifn/ontology/Species{?oldSpecies}> ;
+		ifn:hasNewSpecies <http://crossforest.eu/ifn/ontology/Species{?newSpecies}> ;
+		ifn:hasNumberOfTrees <numberOfTrees/{?NumPies}> ;
+		ifn:hasNumberOfTreesInUnits ?numTrees ;
+	.
+
+	<numberOfTrees/{?NumPies}> a ifn:NumberOfTrees ;
+		smo:hasUnit unit:Unities ;
+		smo:hasValue ?numTrees ;
+	.
+}
+SOURCE <urn:source> AS ?source_exs
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_exs, true, "\"", ",", "\n",
+	"Origen", "EspOriginal", "EspCambiada", "NumPies"
+	)
+	AS ?Origen ?EspOriginal ?EspCambiada ?NumPies
+WHERE {
+	BIND("{?Origen}-{?EspOriginal}-{?EspCambiada}" AS ?idCambioEspecies)
+	BIND(replace(?EspOriginal, "0*([1-9][0-9]*)", "$1") AS ?oldSpecies)
+	BIND(replace(?EspCambiada, "0*([1-9][0-9]*)", "$1") AS ?newSpecies)
+	BIND(IF("{?NumPies}"!="" && "{?NumPies}"!="0", xsd:integer(?NumPies), ?unbound) AS ?numTrees)
+}

@@ -9,6 +9,7 @@ PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
 PREFIX area: <http://crossforest.eu/ifn/data/area/>
 PREFIX province: <http://crossforest.eu/ifn/data/province/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
 
 GENERATE {
 
@@ -19,6 +20,7 @@ GENERATE {
 		ifn:hasNumberOfPlotsInUnities ?numberOfPlots ;
 		ifn:hasForestAreaInHC ?area ;
 		ifn:codigo "{?idProvinciaEstrato}" ;
+		ifn:hasDominantSpecies <dominantSpecies/{?IdEspDom}> ;
 	.
 
 	<numberOfPlots/{?idProvinciaEstrato}> a smo:Measure ;

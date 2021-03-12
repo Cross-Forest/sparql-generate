@@ -1,0 +1,46 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
+PREFIX canopyCover: <http://crossforest.eu/ifn/data/canopyCover/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+
+GENERATE {
+	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
+		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+	.
+
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+		mfe:hasCanopyCoverBushes <canopyCover/bush{?CANOPY_COVER}> ;
+		mfe:hasCanopyCoverBushesPercent ?canopyCover ;
+		ifn:hasAverageHeight ?averageHeight ;
+	.
+
+	<canopyCover/bush{?CANOPY_COVER}> a mfe:CanopyCoverBushes ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?canopyCover ;
+	.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Cla", "Subclase", "Especie", "Fcc", "Hm"
+	)
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?Especie ?Fcc ?Hm
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?species}" AS ?idPlotSpecies)
+	BIND(IF("{?Fcc}"!="" && "{?Fcc}"!="0", xsd:decimal(?Fcc), ?unbound) AS ?canopyCover)
+	BIND("{?canopyCover}" AS ?CANOPY_COVER)
+	BIND(IF("{?Hm}"!="" && "{?Hm}"!="0", xsd:decimal(?Hm), ?unbound) AS ?averageHeight)
+}

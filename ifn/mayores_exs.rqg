@@ -1,0 +1,78 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX tree: <http://crossforest.eu/ifn/data/tree/>
+PREFIX basalArea: <http://crossforest.eu/ifn/data/basalArea/>
+PREFIX diametricClass: <http://crossforest.eu/ifn/data/diametricClass/>
+PREFIX volumeFirewood: <http://crossforest.eu/ifn/data/volumeFirewood/>
+PREFIX volumeIncrease: <http://crossforest.eu/ifn/data/volumeIncrease/>
+PREFIX volumeWithBark: <http://crossforest.eu/ifn/data/volumeWithBark/>
+PREFIX volumeWithoutBark: <http://crossforest.eu/ifn/data/volumeWithoutBark/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+
+
+GENERATE {
+	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/DiametricClass{?CD}> ;
+		ifn:hasBasalArea <basalArea/{?BASAL_AREA}> ;
+		ifn:hasBasalAreaInM2 ?basalArea ;
+		ifn:hasVolumeWithoutBark <volumeWithoutBark/{?VOLUME_WITHOUT_BARK}> ;
+		ifn:hasVolumeWithoutBarkInM3 ?volumeWithoutBark ;
+		ifn:hasVolumeWithBark <volumeWithBark/{?VOLUME_WITH_BARK}> ;
+		ifn:hasVolumeWithBarkInM3 ?volumeWithBark ;
+		ifn:hasVolumeIncrease <volumeIncrease/{?VOLUME_INCREASE}> ;
+		ifn:hasVolumeIncreaseInM3 ?volumeIncrease ;
+		ifn:hasVolumeFirewood <volumeFirewood/{?VOLUME_FIREWOOD}> ;
+		ifn:hasVolumeFirewoodInM3 ?volumeFirewood ;
+	.
+
+	<basalArea/{?BASAL_AREA}> a ifn:BasalArea ;
+		smo:hasValue ?basalArea ;
+		smo:hasUnit unit:M2 ;
+	.
+
+	<volumeWithoutBark/{?VOLUME_WITHOUT_BARK}> a ifn:VolumeWithoutBark ;
+		smo:hasValue ?volumeWithoutBark ;
+		smo:hasUnit unit:M3 ;
+	.
+
+	<volumeWithBark/{?VOLUME_WITH_BARK}> a ifn:VolumeWithBark ;
+		smo:hasValue ?volumeWithBark ;
+		smo:hasUnit unit:M3 ;
+	.
+
+	<volumeIncrease/{?VOLUME_INCREASE}> a ifn:VolumeIncrease ;
+		smo:hasValue ?volumeIncrease ;
+		smo:hasUnit unit:M3 ;
+	.
+
+	<volumeFirewood/{?VOLUME_FIREWOOD}> a ifn:VolumeFirewood ;
+		smo:hasValue ?volumeFirewood ;
+		smo:hasUnit unit:M3 ;
+	.
+	
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Cla", "Subclase", "nArbol", "OrdenIf3", "OrdenIf2", "Rumbo", "Distanci", "Especie", "EspecieOriginal", "Dn1", "Dn2", "Ht", "Calidad", "Forma", "ParEsp", "Agente", "Import", "Elemento", "Estrato", "CD", "G", "VCC", "VSC", "IAVC", "VLE", "Fac"
+	)
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?nArbol ?OrdenIf3 ?OrdenIf2 ?Rumbo ?Distanci ?Especie ?EspecieOriginal ?Dn1 ?Dn2 ?Ht ?Calidad ?Forma ?ParEsp ?Agente ?Import ?Elemento ?Estrato ?CD ?G ?VCC ?VSC ?IAVC ?VLE ?Fac
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?nArbol}" AS ?idArbol)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+	BIND("{?Origen}-{?Estrato}-{?species}-{?CD}" AS ?idStratumSpecies)
+	BIND(IF("{?G}"!="" && "{?G}"!="0", xsd:decimal(?G), ?unbound) AS ?basalArea)
+	BIND("{?basalArea}" AS ?BASAL_AREA)
+	BIND(IF("{?VSC}"!="" && "{?VSC}"!="0", xsd:decimal(?VSC), ?unbound) AS ?volumeWithoutBark)
+	BIND("{?volumeWithoutBark}" AS ?VOLUME_WITHOUT_BARK)
+	BIND(IF("{?VCC}"!="" && "{?VCC}"!="0", xsd:decimal(?VCC), ?unbound) AS ?volumeWithBark)
+	BIND("{?volumeWithBark}" AS ?VOLUME_WITH_BARK)
+	BIND(IF("{?IAVC}"!="" && "{?IAVC}"!="0", xsd:decimal(?IAVC), ?unbound) AS ?volumeIncrease)
+	BIND("{?volumeIncrease}" AS ?VOLUME_INCREASE)
+	BIND(IF("{?VLE}"!="" && "{?VLE}"!="0", xsd:decimal(?VLE), ?unbound) AS ?volumeFirewood)
+	BIND("{?volumeFirewood}" AS ?VOLUME_FIREWOOD)
+	BIND(IF("{?Fac}"!="" && "{?Fac}"!="0", xsd:decimal(?Fac), ?unbound) AS ?correctionFactor)
+}

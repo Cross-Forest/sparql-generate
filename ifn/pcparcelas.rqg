@@ -1,0 +1,46 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX photo: <http://crossforest.eu/ifn/data/photograph/>
+PREFIX pass:   <http://crossforest.eu/ifn/data/pass/>
+PREFIX flight: <http://crossforest.eu/ifn/data/flight/>
+
+
+GENERATE {
+	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/DeadLayer{?EspCMue}> , <http://crossforest.eu/ifn/ontology/FuelModel{?ModComb}> , <http://crossforest.eu/ifn/ontology/Erosion{?MErosiva}> , <http://crossforest.eu/ifn/ontology/PH{?PhSuelo}> , <http://crossforest.eu/ifn/ontology/OrganicMatter{?MatOrg}> , <http://crossforest.eu/ifn/ontology/Texture{?Textura}> , <http://crossforest.eu/ifn/ontology/Rocosity{?Rocosid}> , <http://crossforest.eu/ifn/ontology/PlotType{?Tipo}> , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> , <http://crossforest.eu/ifn/ontology/SpatialDistribution{?DisEsp}> , <http://crossforest.eu/ifn/ontology/Composition{?ComEsp}> , <http://crossforest.eu/ifn/ontology/Use{?USE}> ;
+		ifn:hasPhotograph <photograph/{?Foto1}> , <photograph/{?Foto2}> ;
+	.
+
+	<photograph/{?Foto1}> a ifn:Photograph ;
+		ifn:takenInPass <pass/{?Pasada1}> ;
+		ifn:takenInFlight <flight/{?Vuelo1}> ;
+	.
+
+	<flight/{?Vuelo1}> a ifn:Flight ;
+		ifn:hasFlightPass <flight/{?Pasada1}> ;
+	.
+
+	<photograph/{?Foto2}> a ifn:Photograph ;
+		ifn:takenInPass <pass/{?Pasada2}> ;
+		ifn:takenInFlight <flight/{?Vuelo2}> ;
+	.
+
+	<pass/{?Vuelo2}> a ifn:Pass ;
+		ifn:hasFlightPass <flight/{?Pasada2}> ;
+	.
+}
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Provincia", "Estadillo", "Cla", "Subclase", "CoorX", "Coory", "Tipo", "Vuelo1", "Pasada1", "Foto1", "Vuelo2", "Pasada2", "Foto2", "Ano", "INE", "Nivel1", "Nivel2", "Nivel3", "FccTot", "FccArb", "DisEsp", "ComEsp", "Rocosid", "Textura", "MatOrg", "PhSuelo", "FechaPh", "HoraPh", "TipSuelo1", "TipSuelo2", "TipSuelo3", "MErosiva", "ModComb", "EspCMue", "PresReg", "EfecReg", "CortaReg", "MejVue1", "MejVue2", "MejSue1", "MejSue2", "Orienta1", "Orienta2", "MaxPend1", "MaxPend2", "Localiza", "Acceso", "Levanta", "Obser", "Equipo", "JefeEq", "FechaIni", "HoraIni", "FechaFin", "HoraFin", "Tiempo", "Resid", "RumboF1", "RumboF2", "DistFoto", "CarFoto1", "NumFoto1", "ConFoto1", "CarFoto2", "NumFoto2", "ConFoto2", "Estado", "Tecnico"
+	)
+	AS ?Origen ?Provincia ?Estadillo ?Cla ?Subclase ?CoorX ?Coory ?Tipo ?Vuelo1 ?Pasada1 ?Foto1 ?Vuelo2 ?Pasada2 ?Foto2 ?Ano ?INE ?Nivel1 ?Nivel2 ?Nivel3 ?FccTot ?FccArb ?DisEsp ?ComEsp ?Rocosid ?Textura ?MatOrg ?PhSuelo ?FechaPh ?HoraPh ?TipSuelo1 ?TipSuelo2 ?TipSuelo3 ?MErosiva ?ModComb ?EspCMue ?PresReg ?EfecReg ?CortaReg ?MejVue1 ?MejVue2 ?MejSue1 ?MejSue2 ?Orienta1 ?Orienta2 ?MaxPend1 ?MaxPend2 ?Localiza ?Acceso ?Levanta ?Obser ?Equipo ?JefeEq ?FechaIni ?HoraIni ?FechaFin ?HoraFin ?Tiempo ?Resid ?RumboF1 ?RumboF2 ?DistFoto ?CarFoto1 ?NumFoto1 ?ConFoto1 ?CarFoto2 ?NumFoto2 ?ConFoto2 ?Estado ?Tecnico
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND( IF (BOUND(?Nivel1) && BOUND(?Nivel2) && BOUND(?Nivel3), "{?Nivel1}{?Nivel2}{?Nivel3}", ?Unbound) AS ?USE)	
+}

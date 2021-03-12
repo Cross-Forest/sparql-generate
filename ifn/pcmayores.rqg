@@ -12,10 +12,12 @@ PREFIX distance:   <http://crossforest.eu/ifn/data/distance/>
 PREFIX dbh:   <http://crossforest.eu/ifn/data/dbh/>
 PREFIX height:   <http://crossforest.eu/ifn/data/height/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX shape: <http://crossforest.eu/ifn/data/shape/>
+PREFIX ifn2tree: <http://crossforest.eu/ifn/data/tree/ifn2/>
 
 
 GENERATE {
-	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> , <http://crossforest.eu/ifn/ontology/Quality{?QUALITY}> , <http://crossforest.eu/ifn/ontology/Shape{?SHAPE}>;
 		ifn:isInPlot <plot/{?idPlot}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		ifn:hasDBH1 <dbh/{?Dn1}mm> ;
@@ -24,6 +26,8 @@ GENERATE {
 		ifn:hasDBH1InMillimeters ?dbh1 ;
 		ifn:hasDBH2InMillimeters ?dbh2 ;
 		ifn:hasTotalHeightInMeters ?h ;
+		ifn:hasDamageStatus <damage/{?AGENT}-{?IMPORT}-{?ELEMENT}> ;
+		ifn:sameTreeAs <http://crossforest.eu/ifn/data/tree/ifn2/{?idArbolAnterior}> ;
 		.
 
 	<position/{?idPosition}> a spo:EgocentricPosition ;
@@ -58,15 +62,22 @@ GENERATE {
 		smo:hasUnit unit:Meters ;
 		smo:hasValue ?h ;
 		.
+
+	<damage/{?AGENT}-{?IMPORT}-{?ELEMENT}> a ifn:DamageStatus ;
+		ifn:hasDamageAgent <agent/{?AGENT}> ;
+		ifn:hasImportanceOfDamage <importance/{?IMPORTANCE}> ;
+		ifn:hasDamagedElement <element/{?ELEMENT}> ;
+	.
 }
 SOURCE <urn:source> as ?source
 ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
-	"Origen", "Estadillo", "Cla", "Subclase", "nArbol", "Rumbo", "Distanci", "Especie", "Dn1", "Dn2", "Ht"
+	"Origen", "Estadillo", "Cla", "Subclase", "nArbol", "OrdenIf3", "OrdenIf2", "Rumbo", "Distanci", "DRed", "Especie", "Dn1", "Dn2", "Ht", "Calidad", "Forma", "ParEsp", "Agente", "Import", "Elemento", "Compara"
 	)
-	AS ?Origen ?Estadillo ?Cla ?Subclase ?nArbol ?Rumbo ?Distanci ?Especie ?Dn1 ?Dn2 ?Ht
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?nArbol ?OrdenIf3 ?OrdenIf2 ?Rumbo ?Distanci ?DRed ?Especie ?Dn1 ?Dn2 ?Ht ?Calidad ?Forma ?ParEsp ?Agente ?Import ?Elemento ?Compara
 WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?nArbol}" AS ?idArbol)
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?OrdenIf2}" AS ?idArbolAnterior)
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND("{?Origen}-{?Estadillo}" AS ?idReference)
 	BIND( IF( BOUND( ?Rumbo ), IF( BOUND( ?Distanci ), ?idArbol, ?Distanci), ?Rumbo) AS ?idPosition )
@@ -76,4 +87,9 @@ WHERE {
 	BIND(xsd:decimal(?Dn1) AS ?dbh1)
 	BIND(xsd:decimal(?Dn2) AS ?dbh2)
 	BIND(xsd:decimal(?Ht) AS ?h)
+	BIND("{?Calidad}" AS ?QUALITY)
+	BIND("{?Forma}" AS ?SHAPE)
+	BIND("{?Agente}" AS ?AGENT)
+	BIND("{?Import}" AS ?IMPORTANCE)
+	BIND("{?Elemento}" AS ?ELEMENT)
 }

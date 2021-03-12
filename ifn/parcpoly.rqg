@@ -19,6 +19,7 @@ PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
 PREFIX position: <http://crossforest.eu/position/data/position/>
 PREFIX crs:   <http://crossforest.eu/epsg/data/crs/>
 PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX patch: <http://crossforest.eu/mfe/patch/>
 
 GENERATE {
 	<data/plot/{?idPlot}> a ifn:Plot , <ontology/Plot-{?Cla}{?sc}> , <ontology/Altitude{?Altitud}> , <ontology/Orientation{?Orientacion}> , <ontology/Gradient{?Pendiente}> ;

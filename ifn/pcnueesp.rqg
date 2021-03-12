@@ -1,0 +1,31 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
+
+
+GENERATE {
+	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
+		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+	.
+
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+	.
+
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"Origen", "Estadillo", "Cla", "Subclase", "Especie"
+	)
+	AS ?Origen ?Estadillo ?Cla ?Subclase ?Especie
+WHERE {
+	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
+	BIND(replace(?Especie, "0*([1-9][0-9]*)", "$1") AS ?species)
+	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?species}" AS ?idPlotSpecies)
+}

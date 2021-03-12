@@ -1,0 +1,21 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
+
+GENERATE {
+
+	<dominantSpecies/{?idEspecieDominante}> a ifn:DominantSpecies ;
+		rdfs:label "{?EspDom}"@es ;
+	.
+
+}
+SOURCE <urn:source> AS ?source_estratos
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_estratos, true, "\"", ",", "\n",
+	"Origen", "IdEspDom", "EspDom"
+	)
+	AS ?Origen ?IdEspDom ?EspDom
+WHERE {
+	BIND("{?Origen}-{?IdEspDom}" AS ?idEspecieDominante)
+}
