@@ -6,6 +6,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 PREFIX province:   <http://crossforest.eu/ifn/data/province/>
 PREFIX changeOfSpecies: <http://crossforest.eu/ifn/data/changeOfSpecies/>
+PREFIX numberOfTrees: <http://crossforest.eu/ifn/data/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 GENERATE {
@@ -18,12 +19,12 @@ GENERATE {
 		ifn:hasOriginalSpecies <http://crossforest.eu/ifn/ontology/Species{?oldSpecies}> ;
 		ifn:hasNewSpecies <http://crossforest.eu/ifn/ontology/Species{?newSpecies}> ;
 		ifn:hasNumberOfTrees <numberOfTrees/{?NumPies}> ;
-		ifn:hasNumberOfTreesInUnits ?numTrees ;
+		ifn:hasNumberOfTreesInUnits ?numberOfTrees ;
 	.
 
 	<numberOfTrees/{?NumPies}> a ifn:NumberOfTrees ;
 		smo:hasUnit unit:Unities ;
-		smo:hasValue ?numTrees ;
+		smo:hasValue ?numberOfTrees ;
 	.
 }
 SOURCE <urn:source> AS ?source_exs
@@ -35,5 +36,5 @@ WHERE {
 	BIND("{?Origen}-{?EspOriginal}-{?EspCambiada}" AS ?idCambioEspecies)
 	BIND(replace(?EspOriginal, "0*([1-9][0-9]*)", "$1") AS ?oldSpecies)
 	BIND(replace(?EspCambiada, "0*([1-9][0-9]*)", "$1") AS ?newSpecies)
-	BIND(IF("{?NumPies}"!="" && "{?NumPies}"!="0", xsd:integer(?NumPies), ?unbound) AS ?numTrees)
+	BIND(IF("{?NumPies}"!="" && "{?NumPies}"!="0", xsd:integer(?NumPies), ?unbound) AS ?numberOfTrees)
 }
