@@ -5,7 +5,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX nuts1:   <http://crossforest.eu/ifi/data/nuts1/>
 PREFIX nuts2:   <http://crossforest.eu/ifi/data/nuts2/>
 PREFIX nuts3:   <http://crossforest.eu/ifi/data/nuts3/>
-PREFIX nuts_geovocab: <http://nuts.geovocab.org/id/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 GENERATE {
@@ -20,12 +19,12 @@ GENERATE {
 		rdfs:label "{?Nombre_NUTS2}" ;
 		skos:broader <nuts1/{?CountryCode}/{?NUTS1}> ;
 		skos:narrower <nuts3/{?CountryCode}/{?NUTS3}> ;
-		skos:exactMatch <nuts_geovocab/{?NUTS2}> ;
+		skos:exactMatch <http://nuts.geovocab.org/id/{?NUTS2}> ;
                 rdfs:isDefinedBy <http://crossforest.eu/ifi/ontology/> ;
 	.
         <nuts1/{?CountryCode}/{?NUTS1}> a ifi:NUTS1;
 		rdfs:label "{?Nombre_NUTS1}" ;
-		skos:exactMatch <nuts_geovocab/{?NUTS1}> ;
+		skos:exactMatch <http://nuts.geovocab.org/id/{?NUTS1}> ;
 		skos:narrower <nuts2/{?CountryCode}/{?NUTS2}> ;
                 rdfs:isDefinedBy <http://crossforest.eu/ifi/ontology/> ;
 	.
