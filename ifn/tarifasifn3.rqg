@@ -20,8 +20,7 @@ GENERATE {
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?ESPECIE}>;
 		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
 		ifn:hasTarifaParamSelvicola <http://crossforest.eu/ifn/ontology/ParametroSelvicola{?CPARAM}>;
-		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?MODELO}>;
-# TODO: COMPLETAR CLASE OK
+		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
 
 		ifn:hasTarifaModelo <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
 
@@ -58,6 +57,7 @@ WHERE {
 	BIND("{?CPARAM}" AS ?CPARAM)
 	BIND("{?CALIDAD}" AS ?CALIDAD)
 	BIND("{?CLASE}" AS ?CLASE)
+	BIND(IF("{?CLASE}"=="Ec/St", "Ecuacion", "Supertarifa") AS ?Clase_val)
 	BIND("{?MODELO}" AS ?MODELO)
 	#BIND("{?CUADRO}" AS ?CUADRO)
 	#BIND("{?SISTGEOG}" AS ?SISTGEOG)
