@@ -1,0 +1,83 @@
+BASE <http://crossforest.eu/ifn/data/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX infoTarifa: <http://crossforest.eu/ifn/data/infoTarifa/>
+PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
+PREFIX area: <http://crossforest.eu/ifn/data/area/>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
+
+GENERATE {
+
+	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
+		ifn:isInProvince <province/{?PROVINCIA}> ;
+
+		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?ESPECIE}>;
+		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
+		ifn:hasTarifaParamSelvicola <http://crossforest.eu/ifn/ontology/ParametroSelvicola{?CPARAM}>;
+		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?MODELO}>;
+# TODO: COMPLETAR CLASE OK
+
+		ifn:hasTarifaModelo <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
+
+		ifn:hasTipoAplicTarifa <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
+		ifn:hasCoefEstadNum ?NUM_val;
+		ifn:hasCoefDetermR2 ?R2_val;
+		ifn:hasCoefDetermR2a ?R2a_val;
+		ifn:hasCoefEstadA ?AA_val;
+		ifn:hasCoefEstadB ?BB_val;
+		ifn:hasCoefEstadC ?CC_val;
+		ifn:hasCoefEstadD ?DD_val;
+		ifn:hasCoefEstadK ?KK_val;
+		ifn:hasCoefEstadP ?PP_val;
+		ifn:hasCoefEstadQ ?QQ_val;
+		ifn:hasCoefEstadR ?RR_val;
+		ifn:hasCoefEstadS ?SS_val;
+		ifn:hasCoefEstadT ?TT_val;
+	.
+
+
+}
+
+SOURCE <urn:source> AS ?source_estratos
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_estratos, true, "\"", ",", "\n",
+	"Origen","PROVINCIA","ESPECIE","FORMA","PARAMET","CPARAM","CALIDAD","CLASE","MODELO","CUADRO","SISTGEOG","PARESP","APLIC","OBSERV","NUM","R2","R2A","AA","BB","CC","DD","KK","PP","QQ","RR","SS","TT","ESTR"
+	)
+
+	AS ?Origen ?PROVINCIA ?ESPECIE ?FORMA ?PARAMET ?CPARAM ?CALIDAD ?CLASE ?MODELO ?CUADRO ?SISTGEOG ?PARESP ?APLIC ?OBSERV ?NUM ?R2 ?R2A ?AA ?BB ?CC ?DD ?KK ?PP ?QQ ?RR ?SS ?TT ?ESTR 
+WHERE {
+	BIND("{?PROVINCIA}" AS ?PROVINCIA)
+	BIND("{?ESPECIE}" AS ?ESPECIE)
+	BIND("{?FORMA}" AS ?FORMA)
+	BIND("{?PARAMET}" AS ?PARAMET)
+	BIND("{?CPARAM}" AS ?CPARAM)
+	BIND("{?CALIDAD}" AS ?CALIDAD)
+	BIND("{?CLASE}" AS ?CLASE)
+	BIND("{?MODELO}" AS ?MODELO)
+	#BIND("{?CUADRO}" AS ?CUADRO)
+	#BIND("{?SISTGEOG}" AS ?SISTGEOG)
+	#BIND("{?PARESP}" AS ?PARESP)
+	BIND("{?APLIC}" AS ?APLIC)
+	#BIND("{?OBSERV}" AS ?OBSERV)
+	BIND(xsd:int(?NUM) AS ?NUM_val)
+	BIND(xsd:decimal(?R2) AS ?R2_val)
+	BIND(xsd:decimal(?R2A) AS ?R2A_val)
+	BIND(xsd:decimal(?AA) AS ?AA_val)
+	BIND(xsd:decimal(?BB) AS ?BB_val)
+	BIND(xsd:decimal(?CC) AS ?CC_val)
+	BIND(xsd:decimal(?DD) AS ?DD_val)
+	BIND(xsd:decimal(?KK) AS ?KK_val)
+	BIND(xsd:decimal(?PP) AS ?PP_val)
+	BIND(xsd:decimal(?QQ) AS ?QQ_val)
+	BIND(xsd:decimal(?RR) AS ?RR_val)
+	BIND(xsd:decimal(?SS) AS ?SS_val)
+	BIND(xsd:decimal(?TT) AS ?TT_val)
+	BIND("{?ESTR}" AS ?ESTR)
+
+	BIND("{?PROVINCIA}-{?ESPECIE}-{?FORMA}-{?CPARAM}" AS ?idTarifa)
+}
