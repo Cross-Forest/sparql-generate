@@ -57,7 +57,7 @@ WHERE {
 	BIND("{?CPARAM}" AS ?CPARAM)
 	BIND("{?CALIDAD}" AS ?CALIDAD)
 	BIND("{?CLASE}" AS ?CLASE)
-	BIND(IF("{?CLASE}"=="Ec/St", "Ecuacion", "Supertarifa") AS ?Clase_val)
+	BIND(IF(LCASE("{?CLASE}")="ec/st", "Ecuacion-Supertarifa", IF(LCASE("{?CLASE}")="ec", "Ecuacion", IF(LCASE("{?CLASE}")="st", "Supertarifa", ?unbound))) AS ?Clase_val)
 	BIND("{?MODELO}" AS ?MODELO)
 	#BIND("{?CUADRO}" AS ?CUADRO)
 	#BIND("{?SISTGEOG}" AS ?SISTGEOG)
