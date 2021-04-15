@@ -1,16 +1,10 @@
 BASE <http://crossforest.eu/ifn/data/>
 PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
-PREFIX spo: <http://crossforest.eu/position/ontology/>
-PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 PREFIX infoTarifa: <http://crossforest.eu/ifn/data/infoTarifa/>
-PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
-PREFIX area: <http://crossforest.eu/ifn/data/area/>
 PREFIX province: <http://crossforest.eu/ifn/data/province/>
-PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
 
 GENERATE {
 
@@ -22,9 +16,9 @@ GENERATE {
 		ifn:hasTarifaParamSelvicola <http://crossforest.eu/ifn/ontology/ParametroSelvicola{?CPARAM}>;
 		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
 
-		ifn:hasTarifaModelo <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
+		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/TarifaModeloCubicacion{?MODELO}>;
 
-		ifn:hasTipoAplicTarifa <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
+		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaTipoAplic{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
 		ifn:hasCoefDetermR2 ?R2_val;
 		ifn:hasCoefDetermR2a ?R2a_val;
@@ -38,6 +32,7 @@ GENERATE {
 		ifn:hasCoefEstadR ?RR_val;
 		ifn:hasCoefEstadS ?SS_val;
 		ifn:hasCoefEstadT ?TT_val;
+		rdfs:comment "?ESTR";
 	.
 
 
