@@ -55,7 +55,7 @@ GENERATE {
 		WHERE {
 			BIND("{?species2}" AS ?SPECIES2)
 	    	BIND("{?ocupation2}" AS ?OCUPATION2)
-	    	BIND(xsd:decimal(?ocupation2)*10 AS ?percentageOccupation)
+	    	BIND(xsd:decimal(?ocupation2) AS ?percentageOccupation)
 	    	BIND("{?standDevelopment2}" AS ?STAND_DEVELOPMENT2)
 	 }
 	 .
