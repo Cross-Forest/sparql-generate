@@ -1,0 +1,11 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?id_MFE_TC_RegBio}>	<descr> ?descr ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"id_MFE_TC_RegBio","descr"
+	)
+	AS ?id_MFE_TC_RegBio ?descr

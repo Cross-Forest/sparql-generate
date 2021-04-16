@@ -1,0 +1,13 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?ID_SUPRAFORARB}>	<ORDEN> <{?ORDEN}> ;
+						<NOM_SUPRAFORARB> ?NOM_SUPRAFORARB ;
+						<ID_GRUPO_SUPRA> <{?ID_GRUPO_SUPRA}> ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"ID_SUPRAFORARB","ORDEN","NOM_SUPRAFORARB","ID_GRUPO_SUPRA"
+	)
+	AS ?ID_SUPRAFORARB ?ORDEN ?NOM_SUPRAFORARB ?ID_GRUPO_SUPRA

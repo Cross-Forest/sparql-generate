@@ -1,0 +1,16 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?cl_co_tipestr}>	<cl_fccmin> <{?cl_fccmin}> ;
+					<cl_fccmax> <{?cl_fccmax}> ;
+					<cl_fcctotmin> <{?cl_fcctotmin}> ;
+					<cl_fcctotmax> <{?cl_fcctotmax}> ;
+					<cl_co_claifn> <{?cl_co_claifn}> ;
+					<cl_co_clamfe> <{?cl_co_clamfe}> ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"cl_co_tipestr","cl_fccmin","cl_fccmax","cl_fcctotmin","cl_fcctotmax","cl_co_claifn","cl_co_clamfe"
+	)
+	AS ?cl_co_tipestr ?cl_fccmin ?cl_fccmax ?cl_fcctotmin ?cl_fcctotmax ?cl_co_claifn ?cl_co_clamfe

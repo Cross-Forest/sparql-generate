@@ -1,0 +1,16 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+GENERATE {
+	<ForestType{?id_MFE_DesForArb}>	rdfs:label "{?descr}"@es ;
+							<clase> <{?clase}> ;
+							<cfm> <{?cfm}> ;
+							<Agrup_ForArb> <{?Agrup_ForArb}> ;
+							<Aloc_Autoc_Mx> <{?Aloc_Autoc_Mx}> ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"id_MFE_DesForArb","descr","clase","cfm","Agrup_ForArb","Aloc_Autoc_Mx"
+	)
+	AS ?id_MFE_DesForArb ?descr ?clase ?cfm ?Agrup_ForArb ?Aloc_Autoc_Mx

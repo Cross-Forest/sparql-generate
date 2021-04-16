@@ -1,0 +1,113 @@
+BASE <http://crossforest.eu/mfe/>
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+
+PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
+PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
+PREFIX infoSpecies: <http://crossforest.eu/mfe/data/infoSpecies/>
+PREFIX occupationOfSpecies: <http://crossforest.eu/mfe/data/occupationOfSpecies/>
+PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
+PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
+PREFIX layer: <http://crossforest.eu/mfe/data/layer/>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
+PREFIX area: <http://crossforest.eu/mfe/data/area/>
+PREFIX axis: <http://epsg.w3id.org/data/axis/>
+PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
+
+
+GENERATE {
+
+	<data/patch/{?idPatch}> a mfe:Patch , mfe:mfe25patch;
+		esadm:provincia <http://crossforest.eu/ifn/data/province/{?province}> ;
+		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
+	.
+
+	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
+		spo:isInLayer <data/layer/{?LAYER}> ;
+		epsg:hasCoordinateReferenceSystem crs:4326 ;
+		wkt:asWKT ?geometricCoordinates ;
+		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;
+		epsg:hasLeftBound107 ?west ;
+		spo:hasLowerBound <data/bound/106-{?SOUTH_BOUND}> ;
+		epsg:hasLowerBound106 ?south ;
+		spo:hasRightBound <data/bound/107-{?EAST_BOUND}> ;
+		epsg:hasRightBound107 ?east ;
+		spo:hasUpperBound <data/bound/106-{?NORTH_BOUND}> ;
+		epsg:hasUpperBound106 ?north ;
+		spo:hasArea <data/area/{?SHAPE_AREA}-M2> ;
+		spo:hasAreaInSquareMeters ?ShapeArea ;
+	.
+
+	<data/bound/107-{?WEST_BOUND}> a epsg:LeftBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?west ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?SOUTH_BOUND}> a epsg:LowerBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?south ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/107-{?EAST_BOUND}> a epsg:RightBound ;
+		epsg:hasAxis axis:107 ;
+		smo:hasValue ?east ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/bound/106-{?NORTH_BOUND}> a epsg:UpperBound ;
+		epsg:hasAxis axis:106 ;
+		smo:hasValue ?north ;
+		smo:hasUnit unit:Degrees ;
+	.
+
+	<data/area/{?SHAPE_AREA}-M2> a smo:Area ;
+		smo:hasUnit unit:SquareMeters ;
+		smo:hasValue ?ShapeArea ;
+	.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
+WHERE {
+	BIND(fun:JSONPath(?properties, "$.ORIGEN") AS ?origen)
+	BIND("{?origen}" AS ?ORIGEN)
+
+	BIND(IF(?ORIGEN="MFE25","s5",?null) AS ?LAYER)
+
+	BIND(IF(?ORIGEN="MFE25",fun:JSONPath(?properties, "$.Poligon"),?null) AS ?poligon)
+	BIND("{?poligon}" AS ?POLIGON)
+
+	BIND(IF(?ORIGEN="MFE25",fun:JSONPath(?properties, "$.PRO_F"),?null) AS ?pro)
+	BIND("{?pro}" AS ?PRO)
+	BIND(IF(STRLEN(?PRO)=1,CONCAT("0",?PRO),?PRO) AS ?province)
+
+	BIND(IF(?ORIGEN="MFE25",xsd:decimal(fun:JSONPath(?properties, "$.Shape_Area")),?null) AS ?ShapeArea)
+	BIND("{?Shape_Area}" AS ?SHAPE_AREA)
+
+	BIND(IF(?ORIGEN="MFE25",xsd:decimal(fun:JSONPath(?properties, "$.BBOX[0]")),?null) AS ?west)
+	BIND("{?west}" AS ?WEST_BOUND)
+
+	BIND(IF(?ORIGEN="MFE25",xsd:decimal(fun:JSONPath(?properties, "$.BBOX[1]")),?null) AS ?south)
+	BIND("{?south}" AS ?SOUTH_BOUND)
+
+	BIND(IF(?ORIGEN="MFE25",xsd:decimal(fun:JSONPath(?properties, "$.BBOX[2]")),?null) AS ?east)
+	BIND("{?east}" AS ?EAST_BOUND)
+
+	BIND(IF(?ORIGEN="MFE25",xsd:decimal(fun:JSONPath(?properties, "$.BBOX[3]")),?null) AS ?north)
+	BIND("{?north}" AS ?NORTH_BOUND)
+
+	BIND("{?LAYER}-{?province}-{?POLIGON}" AS ?idPatch)
+}
+

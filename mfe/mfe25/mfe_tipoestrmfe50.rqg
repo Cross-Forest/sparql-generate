@@ -1,0 +1,11 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?TIPESTR}>	<NOMBRE6> ?NOMBRE6 ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"TIPESTR","NOMBRE6"
+	)
+	AS ?TIPESTR ?NOMBRE6

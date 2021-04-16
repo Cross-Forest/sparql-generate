@@ -1,0 +1,13 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?PRO}>	<COM> <{?COM}> ;
+				<PRO_NOM> ?PRO_NOM ;
+				<COM_NOM> ?COM_NOM ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"COM","PRO","PRO_NOM","COM_NOM"
+	)
+	AS ?COM ?PRO ?PRO_NOM ?COM_NOM

@@ -1,0 +1,15 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<{?TIPESTR}>	<TIPESTR50> <{?TIPESTR50}> ;
+					<CLAIFN> <{?CLAIFN}> ;
+					<CLAMFE> <{?CLAMFE}> ;
+					<TIPOBOSQUE> <{?TIPOBOSQUE}> ;
+					<LULUCF> <{?LULUCF}> ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"TIPESTR","TIPESTR50","CLAIFN","CLAMFE","TIPOBOSQUE","LULUCF"
+	)
+	AS ?TIPESTR ?TIPESTR50 ?CLAIFN ?CLAMFE ?TIPOBOSQUE ?LULUCF

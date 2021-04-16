@@ -1,0 +1,163 @@
+BASE <http://crossforest.eu/mfe/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+
+PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX infoSpecies: <http://crossforest.eu/mfe/data/infoSpecies/>
+PREFIX occupationOfSpecies: <http://crossforest.eu/mfe/data/occupationOfSpecies/>
+PREFIX sd: <http://crossforest.eu/mfe/data/standDevelopment/>
+PREFIX bushHeight: <http://crossforest.eu/mfe/data/bushHeight/>
+PREFIX infoUse: <http://crossforest.eu/mfe/data/infoUse/>
+PREFIX rateOfUse: <http://crossforest.eu/mfe/data/rateOfUse/>
+
+GENERATE {
+
+	<data/patch/{?POLIGON}> a mfe:Patch , <ontology/VegetationStructure25-{?VegetationStructure25}> , <ontology/ForestType{?ForestType}> , <ontology/ForestType{?ForestType2}> , <ontology/Distribution{?Distribution}> , <ontology/BushType{?BushType}> , <ontology/BushType{?BushType2}> , <ontology/HerbaceousForm{?HerbaceousForm}> , <ontology/Attribute{?Attribute}> , <ontology/FuelModel{?FuelModel}> , <ontology/VegetationStructure{?VegetationStructure50}> , <http://crossforest.eu/ifn/ontology/Use{?Use}> , <http://crossforest.eu/ifn/ontology/UseMFE{?UseMFE}>  , <ontology/BiogeographicRegion{?BiogeographicRegion}> , <ontology/PatchStatus{?PatchStatus}> , <ontology/LULUCF{?LULUCFCode}> ;
+	;
+		# spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
+		mfe:hasCanopyCoverTotal <data/canopyCover/total{?CanopyCoverTotal}> ;
+		mfe:hasCanopyCoverTotalPercent ?fcctot ;
+		mfe:hasCanopyCoverTrees <data/canopyCover/trees{?CanopyCoverTrees25}> ;
+		mfe:hasCanopyCoverTreesPercent ?fccarb25 ;
+		mfe:hasCanopyCoverTrees <data/canopyCover/trees{?CanopyCoverTrees50}> ;
+		mfe:hasCanopyCoverTreesPercent ?fccarb50 ;
+		mfe:hasCanopyCoverBushes <data/canopyCover/bushes{?CanopyCoverBushes}> ;
+		mfe:hasCanopyCoverBushesPercent ?fccmat ;
+		mfe:hasCanopyCoverHerbs <data/canopyCover/bushes{?CanopyCoverHerbs}> ;
+		mfe:hasCanopyCoverHerbsPercent ?fccher ;
+		mfe:hasBushHeight <data/bushHeight/{?BushHeight}> ;
+		mfe:hasBushHeightInDecimeters ?hmmat ;
+		mfe:containsSpecies <data/infoSpecies/{?SPECIES1}-{?E1}-{?O1}> ;
+		mfe:containsSpecies <data/infoSpecies/{?SPECIES2}-{?E2}-{?O2}> ;
+		mfe:containsSpecies <data/infoSpecies/{?SPECIES3}-{?E3}-{?O3}> ;
+		esadm:provincia <http://crossforest.eu/ifn/data/province/{?PRO_F}> ;
+	.
+
+	<data/canopyCover/total{?CanopyCoverTotal}> a mfe:CanopyCoverTotal ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?fcctot ;
+	.
+
+	<data/canopyCover/trees{?CanopyCoverTrees25}> a mfe:CanopyCoverTrees , mfe:MeasureMFE25 ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?fccarb25 ;
+	.
+
+	<data/canopyCover/trees{?CanopyCoverTrees50}> a mfe:CanopyCoverTrees , mfe:MeasureMFE50 ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?fccarb50 ;
+	.
+
+	<data/canopyCover/bushes{?CanopyCoverBushes}> a mfe:CanopyCoverBushes ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?fccmat ;
+	.
+
+	<data/canopyCover/herbs{?CanopyCoverHerbs}> a mfe:CanopyCoverHerbs ;
+		smo:hasUnit unit:Percentage ;
+		smo:hasValue ?fccher ;
+	.
+
+	<data/canopyCover/{?BushHeight}> a mfe:BushHeight ;
+		smo:hasUnit unit:Decimeters ;
+		smo:hasValue ?hmmat ;
+	.
+
+	<data/infoUse/Use999-{?OtherUses}> a mfe:UseInPatch ;
+	 	mfe:hasUse <http://crossforest.eu/ifn/ontology/Use999> ;
+		mfe:hasPercentageOfUse ?percentageOtherUses ;
+		mfe:hasRateOfUse <data/rateOfUse/{?OtherUses}-100>
+	.
+
+	<data/rateOfUse/{?OtherUses}-100> a mfe:RateofUse ;
+		smo:hasValue ?percentageOtherUses ;
+		smo:hasUnit unit:Percentage ;
+	.
+
+    <data/infoSpecies/{?SPECIES1}-{?E1}-{?O1}> a mfe:SpeciesInPatch ;
+		mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES1}> ;
+		mfe:hasStandDevelopment <data/standDevelopment/{?E1}> ;
+		mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?O1}> ;
+		mfe:hasPercentageOfSpecies ?percentageOccupation ;
+	.
+
+	<data/occupationOfSpecies/{?O1}> a mfe:OccupationOfSpecies ;
+		smo:hasValue ?o1 ;
+		smo:hasUnit unit:Percentage ;
+	.
+
+    <data/infoSpecies/{?SPECIES2}-{?E2}-{?O2}> a mfe:SpeciesInPatch ;
+		mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
+		mfe:hasStandDevelopment <data/standDevelopment/{?E2}> ;
+		mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?O2}> ;
+		mfe:hasPercentageOfSpecies ?percentageOccupation ;
+	.
+
+	<data/occupationOfSpecies/{?O2}> a mfe:OccupationOfSpecies ;
+		smo:hasValue ?o2 ;
+		smo:hasUnit unit:Percentage ;
+	.
+
+    <data/infoSpecies/{?SPECIES3}-{?E3}-{?O3}> a mfe:SpeciesInPatch ;
+		mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES3}> ;
+		mfe:hasStandDevelopment <data/standDevelopment/{?E3}> ;
+		mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?O3}> ;
+		mfe:hasPercentageOfSpecies ?percentageOccupation ;
+	.
+
+	<data/occupationOfSpecies/{?O3}> a mfe:OccupationOfSpecies ;
+		smo:hasValue ?o3 ;
+		smo:hasUnit unit:Percentage ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"POLIGON","ORIGEN","POLIGON_ORIGEN","ccaa_F","PRO_F","TIPESTR","FCCARB","FORARB","SUBFOR","DISTRIB","SP1","O1","E1","SP2","O2","E2","SP3","O3","E3","FCCMAT","FORMAT","FORMAT2","HMMAT","FCCHER","FORHER","ATRIBUTO","FCCTOT","SUMAOTRUSO","MODCOMB","TIPESTR50","FCCARB50","ESTRATOIFN","TIPOBOSQUE","CLAIFN","CLAMFE","REGBIO","ETES","LULUCF","SuperficieHA"
+	)
+	AS ?POLIGON ?ORIGEN ?POLIGON_ORIGEN ?ccaa_F ?PRO_F ?TIPESTR ?FCCARB ?FORARB ?SUBFOR ?DISTRIB ?SP1 ?O1 ?E1 ?SP2 ?O2 ?E2 ?SP3 ?O3 ?E3 ?FCCMAT ?FORMAT ?FORMAT2 ?HMMAT ?FCCHER ?FORHER ?ATRIBUTO ?FCCTOT ?SUMAOTRUSO ?MODCOMB ?TIPESTR50 ?FCCARB50 ?ESTRATOIFN ?TIPOBOSQUE ?CLAIFN ?CLAMFE ?REGBIO ?ETES ?LULUCF ?SuperficieHA
+WHERE {
+	BIND("{?PRO_F}" AS ?PROV_STRING)
+	BIND(IF(STRLEN(?PROV_STRING)=1,CONCAT("0",?PROV_STRING),?PROV_STRING) AS ?province)
+	BIND(IF(?FCCTOT="0",?unbound,?FCCTOT) AS ?CanopyCoverTotal)
+	BIND(IF(?FCCTOT="0",?unbound,xsd:decimal(?FCCTOT)) AS ?fcctot)
+	BIND(IF(?FCCARB="0",?unbound,"{?FCCARB}-25") AS ?CanopyCoverTrees25)
+	BIND(IF(?FCCARB="0",?unbound,xsd:decimal(?FCCARB)) AS ?fccarb25)
+	BIND(IF(?FCCARB50="0",?unbound,"{?FCCARB50}-50") AS ?CanopyCoverTrees50)
+	BIND(IF(?FCCARB50="0",?unbound,xsd:decimal(?FCCARB50)) AS ?fccarb50)
+	BIND(IF(?FCCMAT="0",?unbound,?FCCMAT) AS ?CanopyCoverBushes)
+	BIND(IF(?FCCMAT="0",?unbound,xsd:decimal(?FCCMAT)) AS ?fccmat)
+	BIND(IF(?FCCHER="0",?unbound,?FCCHER) AS ?CanopyCoverHerbs)
+	BIND(IF(?FCCHER="0",?unbound,xsd:decimal(?FCCHER)) AS ?fccher)
+	BIND(IF(?TIPESTR="0",?unbound,?TIPESTR) AS ?VegetationStructure25)
+	BIND(IF(?TIPESTR50="0",?unbound,?TIPESTR50) AS ?VegetationStructure50)
+	BIND(IF(?DISTRIB="0",?unbound,?DISTRIB) AS ?Distribution)
+	BIND(IF(?FORARB="0",?unbound,?FORARB) AS ?ForestType)
+	BIND(IF(?SUBFOR="0",?unbound,?SUBFOR) AS ?ForestType2)
+	BIND(IF(?FORMAT="0",?unbound,?FORMAT) AS ?BushType)
+	BIND(IF(?FORMAT2="0",?unbound,?FORMAT2) AS ?BushType2)
+	BIND(IF(?HMMAT="0",?unbound,?HMMAT) AS ?BushHeight)
+	BIND(IF(?HMMAT="0",?unbound,xsd:decimal(?HMMAT)) AS ?hmmat)
+	BIND(IF(?SUMAOTRUSO="0",?unbound,?SUMAOTRUSO) AS ?OtherUses)
+	BIND(IF(?SUMAOTRUSO="0",?unbound,xsd:decimal(?SUMAOTRUSO)) AS ?percentageOtherUses)
+	BIND(IF(?FORHER="0",?unbound,?FORHER) AS ?HerbaceousForm)
+	BIND(IF(?ATRIBUTO="0",?unbound,?ATRIBUTO) AS ?Attribute)
+	BIND(IF(?MODCOMB="0",?unbound,?MODCOMB) AS ?FuelModel)
+	BIND(IF(?CLAIFN="0",?unbound,?CLAIFN) AS ?Use)
+	BIND(IF(?CLAMFE="0",?unbound,?CLAMFE) AS ?UseMFE)
+	BIND(IF(?ETES="0",?unbound,?ETES) AS ?PatchStatus)
+	BIND(IF(?LULUCF="0",?unbound,?LULUCF) AS ?LULUCFCode)
+	BIND(IF(?SP1="0",?unbound,?SP1) AS ?SPECIES1)
+	BIND(xsd:decimal(?O1) AS ?o1)
+	BIND(IF(?SP2="0",?unbound,?SP1) AS ?SPECIES2)
+	BIND(xsd:decimal(?O2) AS ?o2)
+	BIND(IF(?SP3="0",?unbound,?SP1) AS ?SPECIES3)
+	BIND(xsd:decimal(?O3) AS ?o3)
+	BIND(IF(?REGBIO="1", "ALP", IF(?REGBIO="2", "ATL", IF(?REGBIO="3", "MAC", IF(?REGBIO="4", "MED", ?unbound)))) AS ?BiogeographicRegion)
+}

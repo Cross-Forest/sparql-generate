@@ -1,0 +1,12 @@
+BASE <http://crossforest.eu/mfe/ontology/>
+
+GENERATE {
+	<Attribute{?id_MFE_DesAtrib}>	rdfs:label ?atributo ;
+						rdfs:comment ?Descripción ;
+	.
+}
+SOURCE <urn:source> as ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",
+	"id_MFE_DesAtrib","atributo","Descripción"
+	)
+	AS ?id_MFE_DesAtrib ?atributo ?Descripción
