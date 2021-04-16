@@ -1,0 +1,27 @@
+BASE <http://crossforest.eu/mfe/data/patch/>
+
+PREFIX grid: <https://crossforest.eu/def/spatial-grid#>
+PREFIX grid10km: <https://crossforest.eu/resource/spatial-grid/10km/cell/>
+PREFIX grid1km: <https://crossforest.eu/resource/spatial-grid/1km/cell/>
+PREFIX grid25m: <https://crossforest.eu/resource/spatial-grid/25m/cell/>
+
+PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
+
+GENERATE {
+	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/spatial-grid/10km/cell/{?IDMalla10KM_val}> .
+	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/spatial-grid/1km/cell/{?IDMalla1KM_val}> .
+	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/spatial-grid/25m/cell/{?IDMalla25m_val}> .
+}
+
+SOURCE <urn:source> AS ?source
+ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", " ", "\n",
+	"IDpol","PROV","MFE","IDMalla10KM","IDMalla1KM","IDMalla25m"
+	)
+
+	AS ?IDpol ?PROV ?MFE ?IDMalla10KM ?IDMalla1KM ?IDMalla25m
+
+WHERE {
+        BIND( IF( ?IDMalla10KM="NA", ?unbound, ?IDMalla10KM) AS ?IDMalla10KM_val )
+        BIND( IF( ?IDMalla1KM="NA", ?unbound, ?IDMalla1KM) AS ?IDMalla1KM_val )
+        BIND( IF( ?IDMalla25m="NA", ?unbound, ?IDMalla25m) AS ?IDMalla25m_val )
+}
