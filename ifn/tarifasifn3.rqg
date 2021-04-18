@@ -13,12 +13,12 @@ GENERATE {
 
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?ESPECIE}>;
 		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
-		ifn:hasTarifaParamSelvicola <http://crossforest.eu/ifn/ontology/ParametroSelvicola{?CPARAM}>;
+		ifn:hasTarifaParametroDeExistencia <http://crossforest.eu/ifn/ontology/ParametroDeExistencia{?CPARAM}>;
 		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
 
-		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/TarifaModeloCubicacion{?MODELO}>;
+		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
 
-		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaTipoAplic{?APLIC}>;
+		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
 		ifn:hasCoefDetermR2 ?R2_val;
 		ifn:hasCoefDetermR2a ?R2a_val;
