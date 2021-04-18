@@ -17,7 +17,7 @@ PREFIX ifn2tree: <http://crossforest.eu/ifn/data/tree/ifn2/>
 
 
 GENERATE {
-	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> , <http://crossforest.eu/ifn/ontology/Quality{?QUALITY}> , <http://crossforest.eu/ifn/ontology/Shape{?SHAPE}>;
+	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> , <http://crossforest.eu/ifn/ontology/Quality{?QUALITY}> , <http://crossforest.eu/ifn/ontology/FormaDeCubicacion{?SHAPE}>;
 		ifn:isInPlot <plot/{?idPlot}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		ifn:hasDBH1 <dbh/{?Dn1}mm> ;
