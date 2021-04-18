@@ -22,7 +22,7 @@ PREFIX province:   <http://crossforest.eu/ifn/data/province/>
 PREFIX patch: <http://crossforest.eu/mfe/patch/>
 
 GENERATE {
-	<data/plot/{?idPlot}> a ifn:Plot , <ontology/Plot-{?Cla}{?sc}> , <ontology/Altitude{?Altitud}> , <ontology/Orientation{?Orientacion}> , <ontology/Gradient{?Pendiente}> ;
+	<data/plot/{?idPlot}> a ifn:Plot , <ontology/Plot-{?Cla}{?sc}> , <ontology/Altitud{?Altitud}> , <ontology/Orientacion{?Orientacion}> , <ontology/Pendiente{?Pendiente}> ;
 	ifn:inPatch <http://crossforest.eu/mfe/patch/{?Polygon}> ;
 	.
 }
