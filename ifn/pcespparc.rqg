@@ -29,7 +29,7 @@ GENERATE {
 	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
 		ifn:hasStandDevelopment <http://crossforest.eu/mfe/data/standDevelopment/{?STATE}> ;
-		ifn:hasPlotShape <http://crossforest.eu/ifn/ontology/PlotShape{?PLOT_SHAPE}> ;
+		ifn:hasPlotShape <http://crossforest.eu/ifn/ontology/FormaPrincipalDeMasa{?PLOT_SHAPE}> ;
 		ifn:hasOccupationOfSpecies <occupationOfSpecies/{?OCCUPATION}> ;
 		ifn:hasPercentageOfSpecies ?percentageOccupation ;
 		ifn:hasAge <age/{?SOURCE}-{?RELIABILITY}-{?AGE}> ;
