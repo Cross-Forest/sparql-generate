@@ -12,7 +12,7 @@ PREFIX flight: <http://crossforest.eu/ifn/data/flight/>
 
 
 GENERATE {
-	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/EspesorDeCapaMuerta{?EspCMue}> , <http://crossforest.eu/ifn/ontology/ModeloCombustible{?ModComb}> , <http://crossforest.eu/ifn/ontology/ManifestacionesErosivas{?MErosiva}> , <http://crossforest.eu/ifn/ontology/ReaccionDelSueloPH{?PhSuelo}> , <http://crossforest.eu/ifn/ontology/ContenidoEnMateriaOrganica{?MatOrg}> , <http://crossforest.eu/ifn/ontology/Textura{?Textura}> , <http://crossforest.eu/ifn/ontology/Rocosidad{?Rocosid}> , <http://crossforest.eu/ifn/ontology/TipoDeParcela{?Tipo}> , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> , <http://crossforest.eu/ifn/ontology/SpatialDistribution{?DisEsp}> , <http://crossforest.eu/ifn/ontology/ComposicionEspecifica{?ComEsp}> , <http://crossforest.eu/ifn/ontology/Use{?USE}> ;
+	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/EspesorDeCapaMuerta{?EspCMue}> , <http://crossforest.eu/ifn/ontology/ModeloCombustible{?ModComb}> , <http://crossforest.eu/ifn/ontology/ManifestacionesErosivas{?MErosiva}> , <http://crossforest.eu/ifn/ontology/ReaccionDelSueloPH{?PhSuelo}> , <http://crossforest.eu/ifn/ontology/ContenidoEnMateriaOrganica{?MatOrg}> , <http://crossforest.eu/ifn/ontology/Textura{?Textura}> , <http://crossforest.eu/ifn/ontology/Rocosidad{?Rocosid}> , <http://crossforest.eu/ifn/ontology/TipoDeParcela{?Tipo}> , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> , <http://crossforest.eu/ifn/ontology/DistribucionEspacialDeVegetacion{?DisEsp}> , <http://crossforest.eu/ifn/ontology/ComposicionEspecifica{?ComEsp}> , <http://crossforest.eu/ifn/ontology/Use{?USE}> ;
 		ifn:hasPhotograph <photograph/{?Foto1}> , <photograph/{?Foto2}> ;
 	.
 
