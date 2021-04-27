@@ -1,11 +1,10 @@
-BASE <http://crossforest.eu/mfe/data/patch/>
+BASE <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/>
 
-PREFIX grid: <https://crossforest.eu/def/spatial-grid#>
-PREFIX grid10km: <https://crossforest.eu/resource/spatial-grid/10km/cell/>
-PREFIX grid1km: <https://crossforest.eu/resource/spatial-grid/1km/cell/>
-PREFIX grid25m: <https://crossforest.eu/resource/spatial-grid/25m/cell/>
+PREFIX grid: <https://crossforest.eu/def/public-sector/territory/spatial-grid#>
+PREFIX grid10km: <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/>
+PREFIX grid1km: <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/>
+PREFIX grid25m: <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/>
 
-PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
 
 GENERATE {
 	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/spatial-grid/10km/cell/{?IDMalla10KM_val}> .
