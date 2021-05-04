@@ -77,7 +77,7 @@ ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\
 WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?nArbol}" AS ?idArbol)
-	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?OrdenIf2}" AS ?idArbolAnterior)
+	BIND( IF((?OrdenIf2)!="000", "{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?OrdenIf2}", ?unbound) AS ?idArbolAnterior)
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND("{?Origen}-{?Estadillo}" AS ?idReference)
 	BIND( IF( BOUND( ?Rumbo ), IF( BOUND( ?Distanci ), ?idArbol, ?Distanci), ?Rumbo) AS ?idPosition )
