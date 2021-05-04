@@ -57,6 +57,19 @@ GENERATE {
 	GROUP BY ?idPlotSpecies
 	.
 
+	<infoSpeciesDetail/{?idPlotSpecies}-{?CD}> a ifn:InfoSpeciesDetalle ;
+			ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+	.
+
+	<infoSpeciesDetail/{?idPlotSpecies}-{?CD}>
+		ifn:hasDiametricClass <http://crossforest.eu/ifn/ontology/ClaseDiametrica{?CD}> ;
+		ifn:hasBasalAreaInM2byHA ?basalArea ;
+		ifn:hasVolumeWithoutBarkInM3byHA ?volumeWithoutBark ;
+		ifn:hasVolumeWithBarkInM3byHA ?volumeWithBark ;
+		ifn:hasNumberOfTreesInUnitsByHA ?numerOfTrees ;
+	.
+
+
 }
 SOURCE <urn:source> AS ?source
 ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\n",

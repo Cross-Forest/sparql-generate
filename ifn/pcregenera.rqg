@@ -17,9 +17,10 @@ PREFIX numberOfTrees: <http://crossforest.eu/ifn/data/numberOfTrees/>
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPcRegenera <infoSpecies/{?idPlotSpecies}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcRegenera ;
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
 		ifn:hasSizeCategory <size/{?CatDes}> ;
 		ifn:hasDensity <density/{?Densidad}> ;

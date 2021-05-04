@@ -24,9 +24,10 @@ GENERATE {
 		spo:hasPosition <position/{?idPosition}> ;
 		esadm:provincia <province/{?Origen}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPcEspParc <infoSpecies/{?idPlotSpecies}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcEspParc ;
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
 		ifn:hasStandDevelopment <http://crossforest.eu/mfe/data/standDevelopment/{?STATE}> ;
 		ifn:hasPlotShape <http://crossforest.eu/ifn/ontology/FormaPrincipalDeMasa{?PLOT_SHAPE}> ;

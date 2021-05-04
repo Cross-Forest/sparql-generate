@@ -11,12 +11,14 @@ GENERATE {
 	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
 		ifn:isInProvince <province/{?PROVINCIA}> ;
 
-		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?ESPECIE}>;
+		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}>;
 		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
 		ifn:hasTarifaParametroDeExistencia <http://crossforest.eu/ifn/ontology/ParametroDeExistencia{?CPARAM}>;
 		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
 
 		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
+		#ifn:hasSistGeog <http://crossforest.eu/ifn/ontology/SistGeog-{?ESPECIE}-{?SISTGEOG}>;
+		#ifn:hasParametroEspecial <http://crossforest.eu/ifn/ontology/ParametroEspecial-{?ESPECIE}-{?PARESP}>;
 
 		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
@@ -46,7 +48,7 @@ ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_estratos, true, "\""
 	AS ?Origen ?PROVINCIA ?ESPECIE ?FORMA ?PARAMET ?CPARAM ?CALIDAD ?CLASE ?MODELO ?CUADRO ?SISTGEOG ?PARESP ?APLIC ?OBSERV ?NUM ?R2 ?R2A ?AA ?BB ?CC ?DD ?KK ?PP ?QQ ?RR ?SS ?TT ?ESTR 
 WHERE {
 	BIND("{?PROVINCIA}" AS ?PROVINCIA)
-	BIND("{?ESPECIE}" AS ?ESPECIE)
+        BIND(REPLACE(?ESPECIE,"^0*","") AS ?species)
 	BIND("{?FORMA}" AS ?FORMA)
 	BIND("{?PARAMET}" AS ?PARAMET)
 	BIND("{?CPARAM}" AS ?CPARAM)

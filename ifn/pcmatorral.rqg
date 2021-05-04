@@ -15,9 +15,10 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPcMatorral <infoSpecies/{?idPlotSpecies}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcMatorral ;
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
 		mfe:hasCanopyCoverBushes <canopyCover/bush{?CANOPY_COVER}> ;
 		mfe:hasCanopyCoverBushesPercent ?canopyCover ;

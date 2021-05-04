@@ -15,7 +15,7 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 
 GENERATE {
-	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/DiametricClass{?CD}> ;
+	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/ClaseDiametrica{?CD}> ;
 		ifn:hasBasalArea <basalArea/{?BASAL_AREA}> ;
 		ifn:hasBasalAreaInM2 ?basalArea ;
 		ifn:hasVolumeWithoutBark <volumeWithoutBark/{?VOLUME_WITHOUT_BARK}> ;
