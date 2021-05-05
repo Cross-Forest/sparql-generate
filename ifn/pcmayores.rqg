@@ -77,7 +77,23 @@ ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source, true, "\"", ",", "\
 WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?nArbol}" AS ?idArbol)
-	BIND( IF((?OrdenIf2)!="000", "{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?OrdenIf2}", ?unbound) AS ?idArbolAnterior)
+
+        BIND( COALESCE(
+                IF("{?Origen}"="07", "", 1/0),
+                IF("{?Origen}"="31", "", 1/0),
+                IF("{?Origen}"="33", "", 1/0),
+                IF("{?Origen}"="39", "", 1/0),
+                IF(?Cla="N", "", 1/0),
+                IF(?Cla="R", "", 1/0),
+                "{?Origen}-{?Estadillo}-{?Cla}-{?sc}-{?OrdenIf2}"
+            ) AS ?idArbolAnteriorPrev)
+
+        BIND( IF(?Cla="A",
+                  IF("{?sc}" IN ("1", "2C", "3C", "4C", "6C"),
+                      (IF("{?OrdenIf2}"="000", "", ?idArbolAnteriorPrev)),?idArbolAnteriorPrev), ?idArbolAnteriorPrev)  AS ?idArbolAnteriorAux)
+
+        BIND( IF (?idArbolAnteriorAux="", ?unbound, ?idArbolAnteriorAux)  AS ?idArbolAnterior)
+
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND("{?Origen}-{?Estadillo}" AS ?idReference)
 	BIND( IF( BOUND( ?Rumbo ), IF( BOUND( ?Distanci ), ?idArbol, ?Distanci), ?Rumbo) AS ?idPosition )
