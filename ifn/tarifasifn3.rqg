@@ -23,7 +23,7 @@ GENERATE {
 		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
 		ifn:hasCoefDetermR2 ?R2_val;
-		ifn:hasCoefDetermR2a ?R2a_val;
+		ifn:hasCoefDetermR2a ?R2A_val;
 		ifn:hasCoefEstadA ?AA_val;
 		ifn:hasCoefEstadB ?BB_val;
 		ifn:hasCoefEstadC ?CC_val;
