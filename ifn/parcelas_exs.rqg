@@ -17,7 +17,7 @@ GENERATE {
 
 	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
-		ifn:containsSpeciesDetail <infoSpecies/{?idPlotSpecies}-{?CD}> ;
+		ifn:containsSpeciesDetail <infoSpeciesDetail/{?idPlotSpecies}-{?CD}> ;
 	.
 
 	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
