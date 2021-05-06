@@ -30,7 +30,7 @@ GENERATE {
 	<data/patch/{?idPatch}> a mfe:Patch , <ontology/ForestType{?CLA_FORARB}> , <ontology/TypeOfForest{?TIPO_BOSQU}> , <ontology/BiogeographicRegion{?REGBIO}> , <ontology/VegetationStructure{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
-		mfe:hasClassification http://crossforest.eu/mfe/ontology/Clasificacion_MFE_IFN_{?CLASMFE_IF}> ;
+		mfe:hasClassification <http://crossforest.eu/mfe/ontology/Clasificacion_MFE_IFN_{?CLASMFE_IF}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
 		mfe:hasCanopyCoverTrees <data/canopyCover/trees{?TFCCARB}> ;
 		mfe:hasCanopyCoverTreesPercent ?tfccarb ;
