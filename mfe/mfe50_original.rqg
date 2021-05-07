@@ -27,7 +27,7 @@ PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 
 GENERATE {
 
-	<data/patch/{?idPatch}> a mfe:Patch , <ontology/ForestType{?CLA_FORARB}> , <ontology/TypeOfForest{?TIPO_BOSQU}> , <ontology/BiogeographicRegion{?REGBIO}> , <ontology/VegetationStructure{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+	<data/patch/{?idPatch}> a mfe:Patch , <ontology/FormacionArbolada{?CLA_FORARB}> , <ontology/TipoDeBosque{?TIPO_BOSQU}> , <ontology/RegionBiogeografica{?REGBIO}> , <ontology/TipoEstructural{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
 		mfe:hasClassification <http://crossforest.eu/mfe/ontology/Clasificacion_MFE_IFN_{?CLASMFE_IF}> ;
@@ -42,7 +42,7 @@ GENERATE {
 
 	    <data/infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> a mfe:SpeciesInPatch ;
 			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
-			mfe:hasStandDevelopment <data/standDevelopment/{?STAND_DEVELOPMENT2}> ;
+			mfe:hasStandDevelopment <data/standDevelopment/EstadoDeDesarrollo{?STAND_DEVELOPMENT2}> ;
 			mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?OCUPATION2}> ;
 			mfe:hasPercentageOfSpecies ?percentageOccupation ;
 		.
@@ -61,12 +61,12 @@ GENERATE {
 	 }
 	 .
 
-	<data/canopyCover/total{?TFCCTOT}> a mfe:CanopyCoverTotal ;
+	<data/canopyCover/total{?TFCCTOT}> a mfe:FraccionDeCabidaCubiertaTotal ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCTOT}"^^xsd:decimal ;
 	.
 
-	<data/canopyCover/trees{?TFCCARB}> a mfe:CanopyCoverTrees ;
+	<data/canopyCover/trees{?TFCCARB}> a mfe:FraccionDeCabidaCubiertaArborea ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCARB}"^^xsd:decimal ;
 	.
