@@ -29,6 +29,7 @@ GENERATE {
 
 	<data/patch/{?idPatch}> a mfe:Patch , <ontology/FormacionArbolada{?CLA_FORARB}> , <ontology/TipoDeBosque{?TIPO_BOSQU}> , <ontology/RegionBiogeografica{?REGBIO}> , <ontology/TipoEstructural{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 	    mfe:hasPolygonValue ?POLIGON ;
+		mfe:hasSpatialDistribution <http://crossforest.eu/mfe/ontology/DistribucionEspacial{?DISTRIB}> ;
 		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
 		mfe:hasClassification <http://crossforest.eu/mfe/ontology/Clasificacion_MFE_IFN_{?CLASMFE_IF}> ;
