@@ -1,0 +1,58 @@
+#BASE <http://crossforest.eu/ifi/data/nuts3/ES/>
+BASE <http://crossforest.eu/ifn/data/province/>
+#PREFIX nuts3es: <http://crossforest.eu/ifi/data/nuts3/ES/>
+
+
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX smo: <http://crossforest.eu/measures/ontology/>
+PREFIX spo: <http://crossforest.eu/position/ontology/>
+PREFIX epsg: <http://epsg.w3id.org/ontology/>
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
+
+PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
+PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
+PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
+PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX ccaa: <http://crossforest.eu/ifn/data/ccaa/>
+PREFIX area: <http://crossforest.eu/mfe/data/area/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+
+GENERATE {
+
+	<{?CODIGO}>
+		epsg:hasCoordinateReferenceSystem crs:4326 ;
+		rdfs:label ?PROV;
+		dc:identifier ?ADMIN2_CODE;
+		wkt:asWKT ?geometricCoordinates ;
+                skos:broader <http://crossforest.eu/ifn/data/ccaa/{?COD_CCAA}> ;
+	.
+	<http://crossforest.eu/ifn/data/ccaa/{?COD_CCAA}>
+		rdfs:label ?CCAA ;
+		skos:narrower <{?CODIGO}> ;
+	.
+
+}
+SOURCE <urn:source> AS ?source
+ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
+WHERE {
+	BIND(fun:JSONPath(?properties, "$.provincia") AS ?provincia)
+	BIND("{?provincia}" AS ?PROV)
+	BIND(fun:JSONPath(?properties, "$.codigo") AS ?codigo)
+	BIND("{?codigo}" AS ?CODIGO)
+	BIND(fun:JSONPath(?properties, "$.ccaa") AS ?ccaa)
+	BIND("{?ccaa}" AS ?CCAA)
+	BIND(fun:JSONPath(?properties, "$.cod_ccaa") AS ?cod_ccaa)
+	BIND("{?cod_ccaa}" AS ?COD_CCAA)
+	BIND(fun:JSONPath(?properties, "$.admin2_code") AS ?admin2_code)
+	BIND("{?admin2_code}" AS ?ADMIN2_CODE)
+}
+
