@@ -17,8 +17,8 @@ GENERATE {
 		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
 
 		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
-		#ifn:hasSistGeog <http://crossforest.eu/ifn/ontology/SistGeog-{?ESPECIE}-{?SISTGEOG}>;
-		#ifn:hasParametroEspecial <http://crossforest.eu/ifn/ontology/ParametroEspecial-{?ESPECIE}-{?PARESP}>;
+		ifn:hasSistGeog <http://crossforest.eu/ifn/ontology/SistGeog-{?SistGeog_val}>;
+		ifn:hasParametroEspecial <http://crossforest.eu/ifn/ontology/ParametroEspecial-{?ParEsp_val}>;
 
 		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
@@ -34,7 +34,7 @@ GENERATE {
 		ifn:hasCoefEstadR ?RR_val;
 		ifn:hasCoefEstadS ?SS_val;
 		ifn:hasCoefEstadT ?TT_val;
-		rdfs:comment "?ESTR";
+		rdfs:comment ?ESTR;
 	.
 
 
@@ -57,8 +57,6 @@ WHERE {
 	BIND(IF(LCASE("{?CLASE}")="ec/st", "Ecuacion-Supertarifa", IF(LCASE("{?CLASE}")="ec", "Ecuacion", IF(LCASE("{?CLASE}")="st", "Supertarifa", ?unbound))) AS ?Clase_val)
 	BIND("{?MODELO}" AS ?MODELO)
 	#BIND("{?CUADRO}" AS ?CUADRO)
-	#BIND("{?SISTGEOG}" AS ?SISTGEOG)
-	#BIND("{?PARESP}" AS ?PARESP)
 	BIND("{?APLIC}" AS ?APLIC)
 	#BIND("{?OBSERV}" AS ?OBSERV)
 	BIND(xsd:int(?NUM) AS ?NUM_val)
@@ -75,6 +73,12 @@ WHERE {
 	BIND(xsd:decimal(?SS) AS ?SS_val)
 	BIND(xsd:decimal(?TT) AS ?TT_val)
 	BIND("{?ESTR}" AS ?ESTR)
+
+        BIND(REPLACE(?ESPECIE,"^.*25$","PinusNigra") AS ?species25)
+        BIND(REPLACE(?ESPECIE,"^.*26$","QuercusSuber") AS ?species26)
+        BIND(REPLACE(?ESPECIE,"^.*46$","PinusPinaster") AS ?species46)
+	BIND(IF("{?species25}"="PinusNigra", "{?species25}-{?SISTGEOG}", IF("{?species26}"="QuercusSuber", "{?species26}-{?SISTGEOG}", IF("{?species46}"="PinusPinaster", "{?species46}-{?SISTGEOG}", ?unbound))) AS ?SistGeog_val)
+	BIND(IF("{?PARESP}"="0", ?unbound, IF("{?species26}"="QuercusSuber", "{?species26}-{?PARESP}", IF("{?species46}"="PinusPinaster", "{?species46}-{?PARESP}", ?unbound))) AS ?ParEsp_val)
 
 	BIND("{?PROVINCIA}-{?ESPECIE}-{?FORMA}-{?CPARAM}" AS ?idTarifa)
 }
