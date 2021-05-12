@@ -28,7 +28,7 @@ PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 GENERATE {
 
 	<data/patch/{?idPatch}> a mfe:Patch , <ontology/FormacionArbolada{?CLA_FORARB}> , <ontology/TipoDeBosque{?TIPO_BOSQU}> , <ontology/RegionBiogeografica{?REGBIO}> , <ontology/TipoEstructural{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
-	    mfe:hasPolygonValue ?POLIGON ;
+	  	mfe:hasPolygonValue "{?POLIGON_INT}"^^xsd:int;
 		mfe:hasSpatialDistribution <http://crossforest.eu/mfe/ontology/DistribucionEspacial{?DISTRIB}> ;
 		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
@@ -125,6 +125,7 @@ WHERE {
 	BIND("original" AS ?LAYER)
 	BIND(fun:JSONPath(?properties, "$.POLIGON") AS ?poligon)
 	BIND("{?poligon}" AS ?POLIGON)
+	BIND(xsd:integer(?poligon) AS ?POLIGON_INT)
 	BIND(fun:JSONPath(?properties, "$.PROV_MFE50") AS ?prov_mfe50)
 	BIND("{?prov_mfe50}" AS ?PROV_MFE50)
 	BIND(IF(STRLEN(?PROV_MFE50)=1,CONCAT("0",?PROV_MFE50),?PROV_MFE50) AS ?province)
