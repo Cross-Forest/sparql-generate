@@ -9,7 +9,7 @@ PREFIX province: <http://crossforest.eu/ifn/data/province/>
 GENERATE {
 
 	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
-		ifn:isInProvince <province/{?PROVINCIA}> ;
+		ifn:isInProvince <province/{?PROV}> ;
 
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}>;
 		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
@@ -47,7 +47,7 @@ ITERATOR <http://w3id.org/sparql-generate/iter/CSV>(?source_estratos, true, "\""
 
 	AS ?Origen ?PROVINCIA ?ESPECIE ?FORMA ?PARAMET ?CPARAM ?CALIDAD ?CLASE ?MODELO ?CUADRO ?SISTGEOG ?PARESP ?APLIC ?OBSERV ?NUM ?R2 ?R2A ?AA ?BB ?CC ?DD ?KK ?PP ?QQ ?RR ?SS ?TT ?ESTR 
 WHERE {
-	BIND("{?PROVINCIA}" AS ?PROVINCIA)
+	BIND("{?Origen}" AS ?PROV)
         BIND(REPLACE(?ESPECIE,"^0*","") AS ?species)
 	BIND("{?FORMA}" AS ?FORMA)
 	BIND("{?PARAMET}" AS ?PARAMET)
@@ -80,5 +80,5 @@ WHERE {
 	BIND(IF("{?species25}"="PinusNigra", "{?species25}-{?SISTGEOG}", IF("{?species26}"="QuercusSuber", "{?species26}-{?SISTGEOG}", IF("{?species46}"="PinusPinaster", "{?species46}-{?SISTGEOG}", ?unbound))) AS ?SistGeog_val)
 	BIND(IF("{?PARESP}"="0", ?unbound, IF("{?species26}"="QuercusSuber", "{?species26}-{?PARESP}", IF("{?species46}"="PinusPinaster", "{?species46}-{?PARESP}", ?unbound))) AS ?ParEsp_val)
 
-	BIND("{?PROVINCIA}-{?ESPECIE}-{?FORMA}-{?CPARAM}" AS ?idTarifa)
+	BIND("{?PROV}-{?ESPECIE}-{?FORMA}-{?CPARAM}" AS ?idTarifa)
 }
