@@ -7,7 +7,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
 PREFIX position: <http://crossforest.eu/ifn/data/position/>
-PREFIX province:   <http://crossforest.eu/ifn/data/province/>
+PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
 PREFIX occupationOfSpecies: <http://crossforest.eu/ifn/data/occupationOfSpecies/>
 PREFIX sd: <http://crossforest.eu/mfe/data/standDevelopment/>
@@ -22,7 +22,7 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
 		spo:hasPosition <position/{?idPosition}> ;
-		esadm:provincia <province/{?Origen}> ;
+		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
 		ifn:containsSpeciesPcEspParc <infoSpecies/{?idPlotSpecies}> ;
 	.

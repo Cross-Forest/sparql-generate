@@ -4,12 +4,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 PREFIX infoTarifa: <http://crossforest.eu/ifn/data/infoTarifa/>
-PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 
 GENERATE {
 
 	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
-		ifn:isInProvince <province/{?PROV}> ;
+		ifn:isInProvince <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?PROV}> ;
 
 		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}>;
 		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;

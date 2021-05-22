@@ -1,42 +1,48 @@
-BASE <http://crossforest.eu/mfe/data/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX mfe: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/mfe/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX epsg: <http://epsg.w3id.org/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 
 PREFIX use:<http://crossforest.eu/cos/ontology/Use/>
-PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
-PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
+PREFIX patch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/>
+PREFIX polygon: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/polygon/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX infoSpecies: <http://crossforest.eu/mfe/data/infoSpecies/>
-PREFIX occupationOfSpecies: <http://crossforest.eu/mfe/data/occupationOfSpecies/>
-PREFIX infoPatch: <http://crossforest.eu/mfe/data/infoPatch/>
-PREFIX rateOfPatch: <http://crossforest.eu/mfe/data/rateOfPatch/>
-PREFIX infoUse: <http://crossforest.eu/mfe/data/infoUse/>
-PREFIX rateOfUse: <http://crossforest.eu/mfe/data/rateOfUse/>
-PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
-PREFIX axis: <http://epsg.w3id.org/data/axis/>
-PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
+PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/infoSpecies/>
+PREFIX occupationOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/occupationOfSpecies/>
+PREFIX infoPatch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/infoPatch/>
+PREFIX rateOfPatch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/rateOfPatch/>
+PREFIX infoUse: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/infoUse/>
+PREFIX rateOfUse: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/rateOfUse/>
+
 PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
-PREFIX province: <http://crossforest.eu/ifn/data/province/>
-PREFIX area: <http://crossforest.eu/mfe/data/area/>
+PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX bound: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/bound/>
+PREFIX area: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/area/>
+PREFIX axis: <http://epsg.w3id.org/data/axis/>
+
+PREFIX mfe-fcc: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-fraccion-cabida-cubierta/>
+
+PREFIX mfe-recurso-fcc-arborea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/fraccion-cabida-cubierta/arborea/>
+PREFIX mfe-recurso-fcc-total: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/fraccion-cabida-cubierta/total/>
 
 GENERATE {
 
-	<patch/{?idPatch}> a mfe:Patch , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+	<patch/{?idPatch}> a mfe:Patch ,
+			<http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 		spo:hasPolygon <polygon/{?idPatch}-4326> ;
-		mfe:hasCanopyCoverTotal <canopyCover/{?TFCCTOT}> ;
+		mfe:hasCanopyCoverTotal <fraccion-cabida-cubierta/total/{?TFCCTOT}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
-		mfe:hasCanopyCoverTrees <canopyCover/{?TFCCARB}> ;
+		mfe:hasCanopyCoverTrees <fraccion-cabida-cubierta/arborea/{?TFCCARB}> ;
 		mfe:hasCanopyCoverTreesPercent ?tfccarb ;
-		esadm:provincia <http://crossforest.eu/ifn/data/province/{?province}> ;
+		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?province}> ;
 	.
 
 	<polygon/{?idPatch}-4326> a spo:Polygon ;
@@ -84,12 +90,12 @@ GENERATE {
 		smo:hasValue ?ShapeArea ;
 	.
 
-	<data/canopyCover/total{?TFCCTOT}> a mfe:CanopyCoverTotal ;
+	<fraccion-cabida-cubierta/total/{?TFCCTOT}> a mfe-fcc:total ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCTOT}"^^xsd:decimal ;
 	.
 
-	<data/canopyCover/trees{?TFCCARB}> a mfe:CanopyCoverTrees ;
+	<fraccion-cabida-cubierta/arborea/{?TFCCARB}> a mfe-fcc:arborea ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCARB}"^^xsd:decimal ;
 	.

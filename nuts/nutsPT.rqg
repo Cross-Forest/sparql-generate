@@ -15,7 +15,6 @@ PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
-PREFIX province: <http://crossforest.eu/ifn/data/province/>
 PREFIX area: <http://crossforest.eu/mfe/data/area/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 

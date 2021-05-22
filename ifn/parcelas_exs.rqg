@@ -5,7 +5,6 @@ PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
 PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
-PREFIX province:   <http://crossforest.eu/ifn/data/province/>
 PREFIX basalArea: <http://crossforest.eu/ifn/data/basalArea/>
 PREFIX volumeWithBark: <http://crossforest.eu/ifn/data/volumeWithBark/>
 PREFIX volumeWithoutBark: <http://crossforest.eu/ifn/data/volumeWithoutBark/>

@@ -1,55 +1,72 @@
-BASE <http://crossforest.eu/mfe/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
-PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
+PREFIX mfe: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/mfe/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX epsg: <http://epsg.w3id.org/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 
-PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
-PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
-PREFIX infoSpecies: <http://crossforest.eu/mfe/data/infoSpecies/>
-PREFIX occupationOfSpecies: <http://crossforest.eu/mfe/data/occupationOfSpecies/>
-PREFIX canopyCover: <http://crossforest.eu/mfe/data/canopyCover/>
+PREFIX patch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/>
+PREFIX polygon: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/polygon/>
+PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/infoSpecies/>
+PREFIX occupationOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/occupationOfSpecies/>
+
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
 PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
-PREFIX province: <http://crossforest.eu/ifn/data/province/>
-PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
-PREFIX area: <http://crossforest.eu/mfe/data/area/>
+PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX bound: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/bound/>
+PREFIX area: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/area/>
 PREFIX axis: <http://epsg.w3id.org/data/axis/>
-PREFIX bound: <http://crossforest.eu/mfe/data/bound/>
 
+PREFIX mfe-clasificacion-mfe-ifn: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-clasificacion-mfe-ifn/>
+PREFIX mfe-distribucion-espacial: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-distribucion-espacial/>
+PREFIX mfe-edd: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-estado-de-desarrollo/>
+PREFIX mfe-forma-masa: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-forma-de-masa/>
+PREFIX mfe-formacion-arbolada: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-formacion-arbolada/>
+PREFIX mfe-fcc: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-fraccion-cabida-cubierta/>
+PREFIX mfe-region-biogeografica: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-region-biogeografica/>
+PREFIX mfe-tipo-de-bosque: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-tipo-de-bosque/>
+PREFIX mfe-tipo-estructural: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-tipo-estructural/>
+
+PREFIX mfe-recurso-fcc-arborea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/fraccion-cabida-cubierta/arborea/>
+PREFIX mfe-recurso-fcc-total: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/fraccion-cabida-cubierta/total/>
 
 GENERATE {
 
-	<data/patch/{?idPatch}> a mfe:Patch , <ontology/FormacionArbolada{?CLA_FORARB}> , <ontology/TipoDeBosque{?TIPO_BOSQU}> , <ontology/RegionBiogeografica{?REGBIO}> , <ontology/TipoEstructural{?TIPESTR}> , <ontology/FormaDeMasa{?FOR_MAN}> , <http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+	<patch/{?idPatch}> a mfe:Patch ,
+			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-formacion-arbolada/{?CLA_FORARB}> ,
+			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-tipo-de-bosque/{?TIPO_BOSQU}> ,
+			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-region-biogeografica/{?REGBIO}> ,
+			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-tipo-estructural/{?TIPESTR}> ,
+			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-forma-de-masa/{?FOR_MAN}> ,
+			<http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
 	  	mfe:hasPolygonValue "{?POLIGON_INT}"^^xsd:int;
-		mfe:hasSpatialDistribution <http://crossforest.eu/mfe/ontology/DistribucionEspacial{?DISTRIB}> ;
-		spo:hasPolygon <data/polygon/{?idPatch}-4326> ;
-		mfe:hasCanopyCoverTotal <data/canopyCover/total{?TFCCTOT}> ;
-		mfe:hasClassification <http://crossforest.eu/mfe/ontology/Clasificacion_MFE_IFN_{?CLASMFE_IF}> ;
+		mfe:hasSpatialDistribution <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-distribucion-espacial/{?DISTRIB}> ;
+		spo:hasPolygon <polygon/{?idPatch}-4326> ;
+		mfe:hasCanopyCoverTotal <fraccion-cabida-cubierta/total/{?TFCCTOT}> ;
+		mfe:hasClassification <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-clasificacion-mfe-ifn/{?CLASMFE_IF}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
-		mfe:hasCanopyCoverTrees <data/canopyCover/trees{?TFCCARB}> ;
+		mfe:hasCanopyCoverTrees <fraccion-cabida-cubierta/arborea/{?TFCCARB}> ;
 		mfe:hasCanopyCoverTreesPercent ?tfccarb ;
-		esadm:provincia <http://crossforest.eu/ifn/data/province/{?province}> ;
+		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?province}> ;
 	.
 
 	GENERATE {
-		<data/patch/{?idPatch}> mfe:containsSpecies <data/infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> .
+		<patch/{?idPatch}> mfe:containsSpecies <infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> .
 
-	    <data/infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> a mfe:SpeciesInPatch ;
+	    <infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> a mfe:SpeciesInPatch ;
 			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
-			mfe:hasStandDevelopment <data/standDevelopment/EstadoDeDesarrollo{?STAND_DEVELOPMENT2}> ;
-			mfe:hasOccupationOfSpecies <data/occupationOfSpecies/{?OCUPATION2}> ;
+			mfe:hasStandDevelopment <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-estado-de-desarrollo/{?STAND_DEVELOPMENT2}> ;
+			mfe:hasOccupationOfSpecies <occupationOfSpecies/{?OCUPATION2}> ;
 			mfe:hasPercentageOfSpecies ?percentageOccupation ;
 		.
 
-		<data/occupationOfSpecies/{?OCUPATION2}> a mfe:OccupationOfSpecies ;
+		<occupationOfSpecies/{?OCUPATION2}> a mfe:OccupationOfSpecies ;
 			smo:hasValue ?OCUPATION2 ;
 			smo:hasUnit unit:Percentage ;
 		.
@@ -63,57 +80,57 @@ GENERATE {
 	 }
 	 .
 
-	<data/canopyCover/total{?TFCCTOT}> a mfe:FraccionDeCabidaCubiertaTotal ;
+	<fraccion-cabida-cubierta/total/{?TFCCTOT}> a mfe-fcc:total ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCTOT}"^^xsd:decimal ;
 	.
 
-	<data/canopyCover/trees{?TFCCARB}> a mfe:FraccionDeCabidaCubiertaArborea ;
+	<fraccion-cabida-cubierta/arborea/{?TFCCARB}> a mfe-fcc:arborea ;
 		smo:hasUnit unit:Percentage ;
 		smo:hasValue "{?TFCCARB}"^^xsd:decimal ;
 	.
 
-	<data/polygon/{?idPatch}-4326> a spo:Polygon ;
+	<polygon/{?idPatch}-4326> a spo:Polygon ;
 		spo:isInLayer <http://crossforest.eu/ilu/data/layer/{?LAYER}> ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
 		wkt:asWKT ?geometricCoordinates ;
-		spo:hasLeftBound <data/bound/107-{?WEST_BOUND}> ;
+		spo:hasLeftBound <bound/107-{?WEST_BOUND}> ;
 		epsg:hasLeftBound107 ?west ;
-		spo:hasLowerBound <data/bound/106-{?SOUTH_BOUND}> ;
+		spo:hasLowerBound <bound/106-{?SOUTH_BOUND}> ;
 		epsg:hasLowerBound106 ?south ;
-		spo:hasRightBound <data/bound/107-{?EAST_BOUND}> ;
+		spo:hasRightBound <bound/107-{?EAST_BOUND}> ;
 		epsg:hasRightBound107 ?east ;
-		spo:hasUpperBound <data/bound/106-{?NORTH_BOUND}> ;
+		spo:hasUpperBound <bound/106-{?NORTH_BOUND}> ;
 		epsg:hasUpperBound106 ?north ;
-		spo:hasArea <data/area/{?SHAPE_AREA}-M2> ;
+		spo:hasArea <area/{?SHAPE_AREA}-M2> ;
 		spo:hasAreaInSquareMeters ?ShapeArea ;
 	.
 
-	<data/bound/107-{?WEST_BOUND}> a epsg:LeftBound ;
+	<bound/107-{?WEST_BOUND}> a epsg:LeftBound ;
 		epsg:hasAxis axis:107 ;
 		smo:hasValue ?west ;
 		smo:hasUnit unit:Degrees ;
 	.
 
-	<data/bound/106-{?SOUTH_BOUND}> a epsg:LowerBound ;
+	<bound/106-{?SOUTH_BOUND}> a epsg:LowerBound ;
 		epsg:hasAxis axis:106 ;
 		smo:hasValue ?south ;
 		smo:hasUnit unit:Degrees ;
 	.
 
-	<data/bound/107-{?EAST_BOUND}> a epsg:RightBound ;
+	<bound/107-{?EAST_BOUND}> a epsg:RightBound ;
 		epsg:hasAxis axis:107 ;
 		smo:hasValue ?east ;
 		smo:hasUnit unit:Degrees ;
 	.
 
-	<data/bound/106-{?NORTH_BOUND}> a epsg:UpperBound ;
+	<bound/106-{?NORTH_BOUND}> a epsg:UpperBound ;
 		epsg:hasAxis axis:106 ;
 		smo:hasValue ?north ;
 		smo:hasUnit unit:Degrees ;
 	.
 
-	<data/area/{?SHAPE_AREA}-M2> a smo:Area ;
+	<area/{?SHAPE_AREA}-M2> a mfe:Area ;
 		smo:hasUnit unit:SquareMeters ;
 		smo:hasValue ?ShapeArea ;
 	.

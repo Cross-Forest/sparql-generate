@@ -7,14 +7,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
 PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
 PREFIX area: <http://crossforest.eu/ifn/data/area/>
-PREFIX province: <http://crossforest.eu/ifn/data/province/>
+PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
 
 GENERATE {
 
 	<stratum/{?idProvinciaEstrato}> a ifn:Stratum ;
-		ifn:isInProvince <province/{?Origen}> ;
+		ifn:isInProvince <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
 		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
 		ifn:hasForestArea <area/{?Origen}> ;
 		ifn:hasNumberOfPlotsInUnities ?numberOfPlots ;
@@ -34,7 +34,7 @@ GENERATE {
 	.
 
 	GENERATE {
-		<province/{?Origen}> a ifn:Province ;
+		<http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
 		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
 		spo:hasForestArea <area/{?Origen}> ;
 		ifn:hasNumberOfPlotsInUnities ?{sum(?numberOfPlots)} ;
