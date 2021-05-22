@@ -31,9 +31,9 @@ GENERATE {
 
 	GENERATE {
 		<infoDominantFormation/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}>
-			ifi:hasBasalAreaInM2 ?basalArea ;
-			ifi:hasVolumeWithBarkInM3 ?volumeWithBark ;
-			ifi:hasNumberOfTreesInUnits ?numberOfTrees ;
+			ifi:hasBasalAreaInM2 "{sum(?basalArea)}"^^xsd:decimal ;
+			ifi:hasVolumeWithBarkInM3 "{sum(?volumeWithBark)}"^^xsd:decimal ;
+			ifi:hasNumberOfTreesInUnits "{sum(?numberOfTrees)}"^^xsd:decimal ;
 			ifi:hasBasalArea <basalArea/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 			ifi:hasVolumeWithBark <volumeWithBark/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 			ifi:hasNumberOfTrees <numberOfTrees/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;

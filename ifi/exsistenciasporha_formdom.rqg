@@ -32,9 +32,9 @@ GENERATE {
 
 	GENERATE {
 		<infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}>
-			ifi:hasBasalAreaInM2ByHa ?basalArea ;
-			ifi:hasVolumeWithBarkInM3ByHa ?volumeWithBark ;
-			ifi:hasNumberOfTreesInUnitsByHa ?numberOfTrees ;
+ 			ifi:hasBasalAreaInM2ByHa "{sum(?basalArea)}"^^xsd:decimal ;
+                        ifi:hasVolumeWithBarkInM3ByHa "{sum(?volumeWithBark)}"^^xsd:decimal ;
+                        ifi:hasNumberOfTreesInUnitsByHa "{sum(?numberOfTrees)}"^^xsd:decimal ;
 			ifi:hasBasalArea <basalAreaByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 			ifi:hasVolumeWithBark <volumeWithBarkByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 			ifi:hasNumberOfTrees <numberOfTreesByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
