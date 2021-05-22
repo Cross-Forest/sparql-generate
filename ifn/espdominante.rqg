@@ -1,8 +1,8 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
+PREFIX ds: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/dominantSpecies/>
 
 GENERATE {
 

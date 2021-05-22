@@ -2,7 +2,6 @@ BASE <http://crossforest.eu/cos/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
 PREFIX cos: <http://crossforest.eu/cos/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>

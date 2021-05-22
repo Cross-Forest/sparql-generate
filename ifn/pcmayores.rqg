@@ -1,23 +1,23 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
-PREFIX tree: <http://crossforest.eu/ifn/data/tree/>
-PREFIX position: <http://crossforest.eu/ifn/data/position/>
-PREFIX direction:   <http://crossforest.eu/ifn/data/direction/>
-PREFIX distance:   <http://crossforest.eu/ifn/data/distance/>
-PREFIX dbh:   <http://crossforest.eu/ifn/data/dbh/>
-PREFIX height:   <http://crossforest.eu/ifn/data/height/>
+PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
+PREFIX tree: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/tree/>
+PREFIX position: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/position/>
+PREFIX direction:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/direction/>
+PREFIX distance:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/distance/>
+PREFIX dbh:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/dbh/>
+PREFIX height:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/height/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX shape: <http://crossforest.eu/ifn/data/shape/>
-PREFIX ifn2tree: <http://crossforest.eu/ifn/data/tree/ifn2/>
+PREFIX shape: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/shape/>
+PREFIX ifn2tree: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/tree/ifn2/>
 
 
 GENERATE {
-	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/Species{?species}> , <http://crossforest.eu/ifn/ontology/Quality{?QUALITY}> , <http://crossforest.eu/ifn/ontology/FormaDeCubicacion{?SHAPE}>;
+	<tree/{?idArbol}> a ifn:Tree , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-calidad/{?QUALITY}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/{?SHAPE}>;
 		ifn:isInPlot <plot/{?idPlot}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		ifn:hasDBH1 <dbh/{?Dn1}mm> ;
@@ -27,7 +27,7 @@ GENERATE {
 		ifn:hasDBH2InMillimeters ?dbh2 ;
 		ifn:hasTotalHeightInMeters ?h ;
 		ifn:hasDamageStatus <damage/{?AGENT}-{?IMPORT}-{?ELEMENT}> ;
-		ifn:sameTreeAs <http://crossforest.eu/ifn/data/tree/ifn2/{?idArbolAnterior}> ;
+		ifn:sameTreeAs <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/tree/ifn2/{?idArbolAnterior}> ;
 		.
 
 	<position/{?idPosition}> a spo:EgocentricPosition ;

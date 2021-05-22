@@ -1,26 +1,25 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
-PREFIX position: <http://crossforest.eu/ifn/data/position/>
+PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
+PREFIX position: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/position/>
 PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
-PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
-PREFIX occupationOfSpecies: <http://crossforest.eu/ifn/data/occupationOfSpecies/>
-PREFIX sd: <http://crossforest.eu/mfe/data/standDevelopment/>
-PREFIX age: <http://crossforest.eu/ifn/data/age/>
-PREFIX source: <http://crossforest.eu/ifn/data/source/>
-PREFIX reliability: <http://crossforest.eu/ifn/data/reliability/>
-PREFIX origin: <http://crossforest.eu/ifn/data/origin/>
-PREFIX system: <http://crossforest.eu/ifn/data/system/>
+PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX occupationOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/occupationOfSpecies/>
+PREFIX age: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/age/>
+PREFIX source: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/source/>
+PREFIX reliability: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/reliability/>
+PREFIX origin: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/origin/>
+PREFIX system: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/system/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 
 GENERATE {
-	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> ;
+	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
@@ -28,9 +27,9 @@ GENERATE {
 	.
 
 	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcEspParc ;
-		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 		ifn:hasStandDevelopment <http://crossforest.eu/mfe/data/standDevelopment/{?STATE}> ;
-		ifn:hasPlotShape <http://crossforest.eu/ifn/ontology/FormaPrincipalDeMasa{?PLOT_SHAPE}> ;
+		ifn:hasPlotShape <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-principal-de-masa/{?PLOT_SHAPE}> ;
 		ifn:hasOccupationOfSpecies <occupationOfSpecies/{?OCCUPATION}> ;
 		ifn:hasPercentageOfSpecies ?percentageOccupation ;
 		ifn:hasAge <age/{?SOURCE}-{?RELIABILITY}-{?AGE}> ;
@@ -46,8 +45,8 @@ GENERATE {
 	.
 
 	<age/{?SOURCE}-{?RELIABILITY}-{?AGE}> a ifn:Age ;
-		smo:source  <http://crossforest.eu/ifn/data/source/{?SOURCE}> ;
-		smo:Reliability <http://crossforest.eu/ifn/data/reliability/{?RELIABILITY}> ;
+		smo:source  <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/source/{?SOURCE}> ;
+		smo:Reliability <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/reliability/{?RELIABILITY}> ;
 		smo:hasValue ?ageInYears ;
 		smo:hasUnit unit:Years ;
 	.

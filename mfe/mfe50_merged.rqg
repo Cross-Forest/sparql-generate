@@ -2,7 +2,7 @@ BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX mfe: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/mfe/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
@@ -36,7 +36,7 @@ PREFIX mfe-recurso-fcc-total: <https://datos.iepnb.es/recurso/sector-publico/med
 GENERATE {
 
 	<patch/{?idPatch}> a mfe:Patch ,
-			<http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+			<https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Use{?CLAS_IFN}> ;
 		spo:hasPolygon <polygon/{?idPatch}-4326> ;
 		mfe:hasCanopyCoverTotal <fraccion-cabida-cubierta/total/{?TFCCTOT}> ;
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
@@ -128,7 +128,7 @@ GENERATE {
 		<patch/{?idPatch}> mfe:containsSpecies <infoSpecies/{?subSpecies}-{?PERCENTAJE_SPECIES}> .
 
 		<infoSpecies/{?subSpecies}-{?PERCENTAJE_SPECIES}> a mfe:SpeciesInPatch ;
-			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?subSpecies}> ;
+			mfe:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?subSpecies}> ;
 			mfe:hasOccupationOfSpecies <occupationOfSpecies/{?PERCENTAJE_SPECIES}-100> ;
 			mfe:hasPercentageOfSpecies ?percentageSpecies ;
 		.
@@ -151,7 +151,7 @@ GENERATE {
 		<patch/{?idPatch}> mfe:containsUse <infoUse/{?subUse}-{?PERCENTAJE_USE}> .
 
 		<infoUse/{?subUse}-{?PERCENTAJE_USE}> a mfe:UseInPatch ;
-		 	mfe:hasUse <http://crossforest.eu/ifn/ontology/Use{?subUse}> ;
+		 	mfe:hasUse <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Use{?subUse}> ;
 			mfe:hasPercentageOfUse ?percentageUse ;
 			mfe:hasRateOfUse <rateOfUse/{?PERCENTAJE_USE}-100>
 		.

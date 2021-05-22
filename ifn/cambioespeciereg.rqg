@@ -1,12 +1,12 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
 PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
-PREFIX changeOfSpecies: <http://crossforest.eu/ifn/data/changeOfSpecies/>
-PREFIX numberOfTrees: <http://crossforest.eu/ifn/data/numberOfTrees/>
+PREFIX changeOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/changeOfSpecies/>
+PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 GENERATE {
@@ -16,8 +16,8 @@ GENERATE {
 	.
 
 	<changeOfSpecies/{?idCambioEspecies}> a ifn:ChangeOfSpecies ;
-		ifn:hasOriginalSpecies <http://crossforest.eu/ifn/ontology/Species{?oldSpecies}> ;
-		ifn:hasNewSpecies <http://crossforest.eu/ifn/ontology/Species{?newSpecies}> ;
+		ifn:hasOriginalSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?oldSpecies}> ;
+		ifn:hasNewSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?newSpecies}> ;
 		ifn:hasNumberOfTrees <numberOfTrees/{?NumPies}> ;
 		ifn:hasNumberOfTreesInUnits ?numberOfTrees ;
 	.

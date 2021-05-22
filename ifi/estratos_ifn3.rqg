@@ -1,14 +1,14 @@
 BASE <http://crossforest.eu/ifi/data/>
 PREFIX ifi: <http://crossforest.eu/ifi/ontology/>
 
-PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
+PREFIX stratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/stratum/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX infoDominantFormation: <http://crossforest.eu/ifi/data/infoDominantFormation/>
 
 GENERATE {
 
 	<http://crossforest.eu/ifi/data/infoDominantFormation/ES/{?InventoryId}/ES{?NUTSCode}-{?IdFormDom}>
-		skos:closeMatch <http://crossforest.eu/ifn/data/stratum/{?Provincia}-{?Estrato}> ;
+		skos:closeMatch <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/stratum/{?Provincia}-{?Estrato}> ;
 	.
 
 }

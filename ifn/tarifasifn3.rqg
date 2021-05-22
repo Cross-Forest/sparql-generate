@@ -1,9 +1,9 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-PREFIX infoTarifa: <http://crossforest.eu/ifn/data/infoTarifa/>
+PREFIX infoTarifa: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoTarifa/>
 PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 
 GENERATE {
@@ -11,16 +11,16 @@ GENERATE {
 	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
 		ifn:isInProvince <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?PROV}> ;
 
-		ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}>;
-		ifn:hasFormaCubicacion <http://crossforest.eu/ifn/ontology/FormaCubicacion{?FORMA}>;
-		ifn:hasTarifaParametroDeExistencia <http://crossforest.eu/ifn/ontology/ParametroDeExistencia{?CPARAM}>;
-		ifn:hasTarifaClase <http://crossforest.eu/ifn/ontology/Clase{?Clase_val}>;
+		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}>;
+		ifn:hasFormaCubicacion <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/{?FORMA}>;
+		ifn:hasTarifaParametroDeExistencia <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-parametro-de-existencia/{?CPARAM}>;
+		ifn:hasTarifaClase <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-tarifa-clase/{?Clase_val}>;
 
-		ifn:hasTarifaModeloCubicacion <http://crossforest.eu/ifn/ontology/ModeloCubicacion{?MODELO}>;
-		ifn:hasSistGeog <http://crossforest.eu/ifn/ontology/SistGeog-{?SistGeog_val}>;
-		ifn:hasParametroEspecial <http://crossforest.eu/ifn/ontology/ParametroEspecial-{?ParEsp_val}>;
+		ifn:hasTarifaModeloCubicacion <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-modelo-cubicacion{?MODELO}>;
+		ifn:hasSistGeog <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-sist-geog/{?SistGeog_val}>;
+		ifn:hasParametroEspecial <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-parametro-especial/{?ParEsp_val}>;
 
-		ifn:hasTarifaTipoAplic <http://crossforest.eu/ifn/ontology/TarifaAplic{?APLIC}>;
+		ifn:hasTarifaTipoAplic <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-tarifa-aplic/{?APLIC}>;
 		ifn:hasCoefEstadNum ?NUM_val;
 		ifn:hasCoefDetermR2 ?R2_val;
 		ifn:hasCoefDetermR2a ?R2A_val;

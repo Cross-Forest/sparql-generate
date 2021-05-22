@@ -1,18 +1,18 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
-PREFIX photo: <http://crossforest.eu/ifn/data/photograph/>
-PREFIX pass:   <http://crossforest.eu/ifn/data/pass/>
-PREFIX flight: <http://crossforest.eu/ifn/data/flight/>
+PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
+PREFIX photo: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/photograph/>
+PREFIX pass:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/pass/>
+PREFIX flight: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/flight/>
 
 
 GENERATE {
-	<plot/{?idPlot}> a ifn:Plot , <http://crossforest.eu/ifn/ontology/EspesorDeCapaMuerta{?EspCMue}> , <http://crossforest.eu/ifn/ontology/ModeloCombustible{?ModComb}> , <http://crossforest.eu/ifn/ontology/ManifestacionesErosivas{?MErosiva}> , <http://crossforest.eu/ifn/ontology/ReaccionDelSueloPH{?PhSuelo}> , <http://crossforest.eu/ifn/ontology/ContenidoEnMateriaOrganica{?MatOrg}> , <http://crossforest.eu/ifn/ontology/Textura{?Textura}> , <http://crossforest.eu/ifn/ontology/Rocosidad{?Rocosid}> , <http://crossforest.eu/ifn/ontology/TipoDeParcela{?Tipo}> , <http://crossforest.eu/ifn/ontology/Plot-{?Cla}{?sc}> , <http://crossforest.eu/ifn/ontology/DistribucionEspacialDeVegetacion{?DisEsp}> , <http://crossforest.eu/ifn/ontology/ComposicionEspecifica{?ComEsp}> , <http://crossforest.eu/ifn/ontology/Use{?USE}> ;
+	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-espesor-de-capa-muerta/{?EspCMue}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-modelo-combustible/{?ModComb}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-manifestaciones-erosivas/{?MErosiva}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-reaccion-del-suelo-ph/{?PhSuelo}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-contenido-en-materia-organica/{?MatOrg}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-textura/{?Textura}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-rocosidad/{?Rocosid}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-tipo-de-parcela/{?Tipo}> , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-distribucion-espacial-de-vegetacion/{?DisEsp}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-composicion-especifica/{?ComEsp}> , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Use{?USE}> ;
 		ifn:hasPhotograph <photograph/{?Foto1}> , <photograph/{?Foto2}> ;
 	.
 

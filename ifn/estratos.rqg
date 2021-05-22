@@ -1,15 +1,15 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
-PREFIX numberOfPlots: <http://crossforest.eu/ifn/data/numberOfPlots/>
-PREFIX area: <http://crossforest.eu/ifn/data/area/>
+PREFIX stratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/stratum/>
+PREFIX numberOfPlots: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfPlots/>
+PREFIX area: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/area/>
 PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX ds: <http://crossforest.eu/ifn/data/dominantSpecies/>
+PREFIX ds: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/dominantSpecies/>
 
 GENERATE {
 

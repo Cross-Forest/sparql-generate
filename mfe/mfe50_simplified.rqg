@@ -2,7 +2,7 @@ BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX mfe: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/mfe/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
@@ -44,7 +44,7 @@ GENERATE {
 			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-region-biogeografica/{?REGBIO}> ,
 			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-tipo-estructural/{?TIPESTR}> ,
 			<https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-forma-de-masa/{?FOR_MAN}> ,
-			<http://crossforest.eu/ifn/ontology/Use{?CLAS_IFN}> ;
+			<https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Use{?CLAS_IFN}> ;
 	  	mfe:hasPolygonValue "{?POLIGON_INT}"^^xsd:int;
 		mfe:hasSpatialDistribution <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-distribucion-espacial/{?DISTRIB}> ;
 		spo:hasPolygon <polygon/{?idPatch}-4326> ;
@@ -60,7 +60,7 @@ GENERATE {
 		<patch/{?idPatch}> mfe:containsSpecies <infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> .
 
 	    <infoSpecies/{?SPECIES2}-{?STAND_DEVELOPMENT2}-{?OCUPATION2}> a mfe:SpeciesInPatch ;
-			mfe:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?SPECIES2}> ;
+			mfe:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?SPECIES2}> ;
 			mfe:hasStandDevelopment <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-estado-de-desarrollo/{?STAND_DEVELOPMENT2}> ;
 			mfe:hasOccupationOfSpecies <occupationOfSpecies/{?OCUPATION2}> ;
 			mfe:hasPercentageOfSpecies ?percentageOccupation ;

@@ -6,20 +6,16 @@ BASE <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
-PREFIX mfe: <http://crossforest.eu/mfe/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX epsg: <http://epsg.w3id.org/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 
-PREFIX polygon: <http://crossforest.eu/mfe/data/polygon/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
 PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX ccaa: <http://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/>
-PREFIX area: <http://crossforest.eu/mfe/data/area/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 

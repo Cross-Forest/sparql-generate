@@ -1,18 +1,18 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
-PREFIX basalArea: <http://crossforest.eu/ifn/data/basalArea/>
-PREFIX volumeWithBark: <http://crossforest.eu/ifn/data/volumeWithBark/>
-PREFIX volumeWithoutBark: <http://crossforest.eu/ifn/data/volumeWithoutBark/>
-PREFIX infoSpecies: <http://crossforest.eu/ifn/data/infoSpecies/>
-PREFIX numberOfTrees: <http://crossforest.eu/ifn/data/numberOfTrees/>
+PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
+PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/basalArea/>
+PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
+PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
+PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
-PREFIX dc: <http://crossforest.eu/ifn/data/diametricClass/>
-PREFIX stratum: <http://crossforest.eu/ifn/data/stratum/>
+PREFIX dc: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/diametricClass/>
+PREFIX stratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/stratum/>
 
 GENERATE {
 
@@ -21,7 +21,7 @@ GENERATE {
 	.
 
 		<infoSpecies/{?idStratumSpecies}>
-			ifn:hasSpecies <http://crossforest.eu/ifn/ontology/Species{?species}> ;
+			ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 			ifn:hasDiametricClass <diametricClass/{?CD}> ;
 			ifn:hasBasalAreaInM2 ?basalArea ;
 			ifn:hasVolumeWithoutBarkInM3 ?volumeWithoutBark ;

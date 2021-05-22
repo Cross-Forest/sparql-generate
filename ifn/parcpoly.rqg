@@ -1,5 +1,5 @@
-BASE <http://crossforest.eu/ifn/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX spd: <http://crossforest.eu/position/data/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
@@ -15,14 +15,14 @@ PREFIX vann: <http://purl.org/vocab/vann/>
 
 PREFIX axis: <http://crossforest.eu/epsg/data/axis/>
 PREFIX coordinate: <http://crossforest.eu/epsg/data/coordinate/>
-PREFIX plot: <http://crossforest.eu/ifn/data/plot/>
+PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
 PREFIX position: <http://crossforest.eu/position/data/position/>
 PREFIX crs:   <http://crossforest.eu/epsg/data/crs/>
-PREFIX patch: <http://crossforest.eu/mfe/patch/>
+PREFIX patch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/>
 
 GENERATE {
-	<data/plot/{?idPlot}> a ifn:Plot , <ontology/Plot-{?Cla}{?sc}> , <ontology/Altitud{?Altitud}> , <ontology/Orientacion{?Orientacion}> , <ontology/Pendiente{?Pendiente}> ;
-	ifn:inPatch <http://crossforest.eu/mfe/patch/{?Polygon}> ;
+	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-altitud/{?Altitud}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-orientacion/{?Orientacion}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-pendiente/{?Pendiente}> ;
+	ifn:inPatch <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/{?Polygon}> ;
 	.
 }
 SOURCE <urn:source> AS ?source

@@ -1,21 +1,21 @@
-BASE <http://crossforest.eu/ifn/data/>
-PREFIX ifn: <http://crossforest.eu/ifn/ontology/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX tree: <http://crossforest.eu/ifn/data/tree/>
-PREFIX basalArea: <http://crossforest.eu/ifn/data/basalArea/>
-PREFIX diametricClass: <http://crossforest.eu/ifn/data/diametricClass/>
-PREFIX volumeFirewood: <http://crossforest.eu/ifn/data/volumeFirewood/>
-PREFIX volumeIncrease: <http://crossforest.eu/ifn/data/volumeIncrease/>
-PREFIX volumeWithBark: <http://crossforest.eu/ifn/data/volumeWithBark/>
-PREFIX volumeWithoutBark: <http://crossforest.eu/ifn/data/volumeWithoutBark/>
+PREFIX tree: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/tree/>
+PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/basalArea/>
+PREFIX diametricClass: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/diametricClass/>
+PREFIX volumeFirewood: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeFirewood/>
+PREFIX volumeIncrease: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeIncrease/>
+PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
+PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 
 GENERATE {
-	<tree/{?idArbol}> a ifn:Tree , <http://crossforest.eu/ifn/ontology/ClaseDiametrica{?CD}> ;
+	<tree/{?idArbol}> a ifn:Tree , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-clase-diametrica/{?CD}> ;
 		ifn:hasBasalArea <basalArea/{?BASAL_AREA}> ;
 		ifn:hasBasalAreaInM2 ?basalArea ;
 		ifn:hasVolumeWithoutBark <volumeWithoutBark/{?VOLUME_WITHOUT_BARK}> ;
