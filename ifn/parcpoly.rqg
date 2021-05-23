@@ -1,4 +1,4 @@
-BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
 PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX smd: <http://crossforest.eu/measures/data/>
