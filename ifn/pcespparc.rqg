@@ -17,6 +17,8 @@ PREFIX origin: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn
 PREFIX system: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/system/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
+PREFIX mfe-edd: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-estado-de-desarrollo/>
+
 
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
@@ -28,7 +30,7 @@ GENERATE {
 
 	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcEspParc ;
 		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
-		ifn:hasStandDevelopment <http://crossforest.eu/mfe/data/standDevelopment/{?STATE}> ;
+		ifn:hasStandDevelopment <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-estado-de-desarrollo/{?STATE}> ;
 		ifn:hasPlotShape <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-principal-de-masa/{?PLOT_SHAPE}> ;
 		ifn:hasOccupationOfSpecies <occupationOfSpecies/{?OCCUPATION}> ;
 		ifn:hasPercentageOfSpecies ?percentageOccupation ;

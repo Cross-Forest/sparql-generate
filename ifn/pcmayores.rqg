@@ -14,7 +14,8 @@ PREFIX height:   <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/i
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX shape: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/shape/>
 PREFIX ifn2tree: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/tree/ifn2/>
-
+PREFIX ifn-calidad: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-calidad/>
+PREFIX ifn-forma-de-cubicacion: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/>
 
 GENERATE {
 	<tree/{?idArbol}> a ifn:Tree , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-calidad/{?QUALITY}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/{?SHAPE}>;

@@ -9,8 +9,10 @@ PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/
 PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
 PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesDetail: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesDetail/>
 PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
+PREFIX ifn-clase-diametrica: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-clase-diametrica/>
 
 GENERATE {
 
