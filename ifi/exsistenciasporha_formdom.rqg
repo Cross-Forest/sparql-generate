@@ -7,7 +7,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 PREFIX basalArea: <http://crossforest.eu/ifi/data/basalArea/>
 PREFIX volumeWithBark: <http://crossforest.eu/ifi/data/volumeWithBark/>
-PREFIX infoDominantFormation: <http://crossforest.eu/ifi/data/infoDominantFormation/>
+PREFIX infoDominantFormationByHa: <http://crossforest.eu/ifi/data/infoDominantFormationByHa/>
 PREFIX numberOfTrees: <http://crossforest.eu/ifi/data/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
