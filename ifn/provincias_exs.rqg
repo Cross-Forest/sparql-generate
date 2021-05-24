@@ -5,7 +5,7 @@ PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
 PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
-PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province:   <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/basalArea/>
 PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
 PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
@@ -15,7 +15,7 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 GENERATE {
 
-	<http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
+	<https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
 		ifn:containsSpecies <infoSpecies/{?idProvinceSpecies}> ;
 	.
 
@@ -58,7 +58,7 @@ GENERATE {
 	.
 
 	GENERATE {
-		<http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
+		<https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
 			ifn:hasBasalAreaInM2 ?{ sum(?basalArea*?surface) } ;
 			ifn:hasVolumeWithoutBarkInM3 ?{ sum(?volumeWithoutBark*?surface) } ;
 			ifn:hasVolumeWithBarkInM3 ?{ sum(?volumeWithBark*?surface) } ;

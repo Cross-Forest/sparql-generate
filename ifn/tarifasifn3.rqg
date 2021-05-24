@@ -4,7 +4,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 PREFIX infoTarifa: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoTarifa/>
-PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province: <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX ifn-forma-de-cubicacion: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/>
 PREFIX ifn-parametro-de-existencia: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-parametro-de-existencia/>
 PREFIX ifn-tarifa-aplic: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-tarifa-aplic/>
@@ -16,7 +16,7 @@ PREFIX ifn-modelo-cubicacion: <https://datos.iepnb.es/kos/sector-publico/medio-a
 GENERATE {
 
 	<infoTarifa/{?idTarifa}> a ifn:InfoTarifa;
-		ifn:isInProvince <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?PROV}> ;
+		ifn:isInProvince <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?PROV}> ;
 
 		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}>;
 		ifn:hasFormaCubicacion <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/{?FORMA}>;

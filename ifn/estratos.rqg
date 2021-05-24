@@ -7,14 +7,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX stratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/stratum/>
 PREFIX numberOfPlots: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfPlots/>
 PREFIX area: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/area/>
-PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province: <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX ds: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/dominantSpecies/>
 
 GENERATE {
 
 	<stratum/{?idProvinciaEstrato}> a ifn:Stratum ;
-		ifn:isInProvince <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
+		ifn:isInProvince <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
 		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
 		ifn:hasForestArea <area/{?Origen}> ;
 		ifn:hasNumberOfPlotsInUnities ?numberOfPlots ;
@@ -34,7 +34,7 @@ GENERATE {
 	.
 
 	GENERATE {
-		<http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
+		<https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
 		ifn:numberOfPlots <numberOfPlots/{?Origen}> ;
 		spo:hasForestArea <area/{?Origen}> ;
 		ifn:hasNumberOfPlotsInUnities ?{sum(?numberOfPlots)} ;

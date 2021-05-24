@@ -7,7 +7,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
 PREFIX position: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/position/>
-PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province:   <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
 PREFIX occupationOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/occupationOfSpecies/>
 PREFIX age: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/age/>
@@ -23,7 +23,7 @@ PREFIX mfe-edd: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/mfe-es
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
 		spo:hasPosition <position/{?idPosition}> ;
-		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
+		esadm:provincia <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
 		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
 		ifn:containsSpeciesPcEspParc <infoSpecies/{?idPlotSpecies}> ;
 	.

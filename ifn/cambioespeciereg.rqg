@@ -4,14 +4,14 @@ PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-PREFIX province:   <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province:   <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX changeOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/changeOfSpecies/>
 PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 GENERATE {
 
-	<http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
+	<https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
 		ifn:hasChangeOfSpecies <changeOfSpecies/{?idCambioEspecies}> ;
 	.
 

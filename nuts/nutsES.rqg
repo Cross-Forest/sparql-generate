@@ -1,5 +1,5 @@
 #BASE <http://crossforest.eu/ifi/data/nuts3/ES/>
-BASE <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 #PREFIX nuts3es: <http://crossforest.eu/ifi/data/nuts3/ES/>
 
 
@@ -14,8 +14,8 @@ PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/terri
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
-PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
-PREFIX ccaa: <http://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/>
+PREFIX province: <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX ccaa: <https://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
@@ -30,9 +30,9 @@ GENERATE {
 		rdfs:label ?PROV;
 		dc:identifier ?ADMIN2_CODE;
 		wkt:asWKT ?geometricCoordinates ;
-                skos:broader <http://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}> ;
+                skos:broader <https://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}> ;
 	.
-	<http://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}>
+	<https://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}>
 		a esadm:ComunidadAutonoma ;
 		rdfs:label ?CCAA ;
 		skos:narrower <{?CODIGO}> ;

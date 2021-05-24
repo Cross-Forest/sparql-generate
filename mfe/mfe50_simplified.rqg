@@ -18,7 +18,7 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX crs: <http://crossforest.eu/epsg/data/crs/>
 PREFIX wkt: <http://www.opengis.net/ont/geosparql#>
 PREFIX layer: <http://crossforest.eu/ilu/data/layer/>
-PREFIX province: <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
+PREFIX province: <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX bound: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/bound/>
 PREFIX area: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/area/>
 PREFIX axis: <http://epsg.w3id.org/data/axis/>
@@ -53,7 +53,7 @@ GENERATE {
 		mfe:hasCanopyCoverTotalPercent ?tfcctot ;
 		mfe:hasCanopyCoverTrees <fraccion-cabida-cubierta/arborea/{?TFCCARB}> ;
 		mfe:hasCanopyCoverTreesPercent ?tfccarb ;
-		esadm:provincia <http://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?province}> ;
+		esadm:provincia <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?province}> ;
 	.
 
 	GENERATE {
