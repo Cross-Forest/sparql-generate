@@ -14,14 +14,14 @@ PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 GENERATE {
 
 	<forestryInventory/{?CountryCode}/{?InventoryId}> 
-		ifi:containsDominantFormation <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+		ifi:containsDominantFormationByHa <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 	.
 
 	<{?typeNUTS}/{?CountryCode}/{?idNUTS}>
-		ifi:containsDominantFormation <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
+		ifi:containsDominantFormationByHa <infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> ;
 	.
 
-	<infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:InfoDominantFormationByHA ;
+	<infoDominantFormationByHa/{?CountryCode}/{?InventoryId}/{?idProvinceDominantFormation}> a ifi:InfoDominantFormationByHa ;
 			ifi:hasDominantFormation <dominantFormation/{?CountryCode}/{?InventoryId}/DominantFormation{?IdDominantFormation}> ;
 	.
 
