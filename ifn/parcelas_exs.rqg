@@ -9,6 +9,7 @@ PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/
 PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
 PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesPlot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesPlot/>
 PREFIX infoSpeciesDetail: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesDetail/>
 PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
@@ -17,15 +18,15 @@ PREFIX ifn-clase-diametrica: <https://datos.iepnb.es/kos/sector-publico/medio-am
 GENERATE {
 
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
-		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPlot <infoSpeciesPlot/{?idPlotSpecies}> ;
 		ifn:containsSpeciesDetail <infoSpeciesDetail/{?idPlotSpecies}-{?CD}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies ;
+	<infoSpeciesPlot/{?idPlotSpecies}> a ifn:InfoSpeciesPlot ;
 			ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 
 	GENERATE {
-		<infoSpecies/{?idPlotSpecies}>
+		<infoSpeciesPlot/{?idPlotSpecies}>
 			ifn:hasBasalAreaInM2byHA ?{ sum(?basalArea) } ;
 			ifn:hasVolumeWithoutBarkInM3byHA ?{ sum(?volumeWithoutBark) } ;
 			ifn:hasVolumeWithBarkInM3byHA ?{ sum(?volumeWithBark) } ;

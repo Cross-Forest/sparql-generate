@@ -9,6 +9,7 @@ PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/p
 PREFIX position: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/position/>
 PREFIX province:   <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesPcEspParc: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesPcEspParc/>
 PREFIX occupationOfSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/occupationOfSpecies/>
 PREFIX age: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/age/>
 PREFIX source: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/source/>
@@ -24,11 +25,10 @@ GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
 		spo:hasPosition <position/{?idPosition}> ;
 		esadm:provincia <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> ;
-		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
-		ifn:containsSpeciesPcEspParc <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPcEspParc <infoSpeciesPcEspParc/{?idPlotSpecies}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcEspParc ;
+	<infoSpeciesPcEspParc/{?idPlotSpecies}> a ifn:InfoSpeciesPcEspParc ;
 		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 		ifn:hasStandDevelopment <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-estado-de-desarrollo/{?STATE}> ;
 		ifn:hasPlotShape <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-principal-de-masa/{?PLOT_SHAPE}> ;

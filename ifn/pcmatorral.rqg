@@ -8,17 +8,17 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesPcMatorral: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesPcMatorral/>
 PREFIX canopyCover: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/canopyCover/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> ;
-		ifn:containsSpecies <infoSpecies/{?idPlotSpecies}> ;
-		ifn:containsSpeciesPcMatorral <infoSpecies/{?idPlotSpecies}> ;
+		ifn:containsSpeciesPcMatorral <infoSpeciesPcMatorral/{?idPlotSpecies}> ;
 	.
 
-	<infoSpecies/{?idPlotSpecies}> a ifn:InfoSpecies, ifn:InfoSpeciesPcMatorral ;
+	<infoSpeciesPcMatorral/{?idPlotSpecies}> a ifn:InfoSpeciesPcMatorral ;
 		ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 		mfe:hasCanopyCoverBushes <canopyCover/bush{?CANOPY_COVER}> ;
 		mfe:hasCanopyCoverBushesPercent ?canopyCover ;

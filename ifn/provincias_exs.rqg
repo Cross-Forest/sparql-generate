@@ -10,20 +10,21 @@ PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/
 PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
 PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
 PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesProv: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesProv/>
 PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 
 GENERATE {
 
 	<https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?Origen}> a ifn:Province ;
-		ifn:containsSpecies <infoSpecies/{?idProvinceSpecies}> ;
+		ifn:containsSpeciesProv <infoSpeciesProv/{?idProvinceSpecies}> ;
 	.
 
-	<infoSpecies/{?idProvinceSpecies}> a ifn:InfoSpecies ;
+	<infoSpeciesProv/{?idProvinceSpecies}> a ifn:InfoSpeciesProv ;
 			ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 
 	GENERATE {
-		<infoSpecies/{?idProvinceSpecies}>
+		<infoSpeciesProv/{?idProvinceSpecies}>
 			ifn:hasBasalAreaInM2 ?{ sum(?basalArea*?surface) } ;
 			ifn:hasVolumeWithoutBarkInM3 ?{ sum(?volumeWithoutBark*?surface) } ;
 			ifn:hasVolumeWithBarkInM3 ?{ sum(?volumeWithBark*?surface) } ;

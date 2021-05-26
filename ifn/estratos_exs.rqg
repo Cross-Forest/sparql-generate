@@ -8,7 +8,7 @@ PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/p
 PREFIX basalArea: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/basalArea/>
 PREFIX volumeWithBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithBark/>
 PREFIX volumeWithoutBark: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/volumeWithoutBark/>
-PREFIX infoSpecies: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpecies/>
+PREFIX infoSpeciesStratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/infoSpeciesStratum/>
 PREFIX numberOfTrees: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/numberOfTrees/>
 PREFIX unit: <http://crossforest.eu/measures/data/unit/>
 PREFIX dc: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/diametricClass/>
@@ -17,10 +17,10 @@ PREFIX stratum: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/if
 GENERATE {
 
 	<stratum/{?idProvinciaEstrato}> a ifn:Stratum ;
-		ifn:containsSpecies <infoSpecies/{?idStratumSpecies}> ;
+		ifn:containsSpeciesStratum <infoSpeciesStratum/{?idStratumSpecies}> ;
 	.
 
-		<infoSpecies/{?idStratumSpecies}>
+		<infoSpeciesStratum/{?idStratumSpecies}> a ifn:InfoSpeciesEstrato ;
 			ifn:hasSpecies <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> ;
 			ifn:hasDiametricClass <diametricClass/{?CD}> ;
 			ifn:hasBasalAreaInM2 ?basalArea ;
