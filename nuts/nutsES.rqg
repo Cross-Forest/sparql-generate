@@ -27,14 +27,14 @@ GENERATE {
 	<{?CODIGO}>
 		a esadm:Provincia ;
 		epsg:hasCoordinateReferenceSystem crs:4326 ;
-		rdfs:label ?PROV;
+		rdfs:label "{?PROV}"@es;
 		dc:identifier ?ADMIN2_CODE;
 		wkt:asWKT ?geometricCoordinates ;
                 skos:broader <https://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}> ;
 	.
 	<https://datos.iepnb.es/recurso/sector-publico/territorio/Autonomia/{?COD_CCAA}>
 		a esadm:ComunidadAutonoma ;
-		rdfs:label ?CCAA ;
+		rdfs:label "{?CCAA}"@es ;
 		skos:narrower <{?CODIGO}> ;
 	.
 
