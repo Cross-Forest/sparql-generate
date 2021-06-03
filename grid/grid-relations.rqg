@@ -1,14 +1,14 @@
-BASE <http://crossforest.eu/mfe/data/patch/>
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/>
 
-PREFIX grid: <https://crossforest.eu/def/public-sector/territory/spatial-grid#>
-PREFIX cell: <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/>
+PREFIX grid: <https://datos.iepnb.es/def/sector-publico/territorio/malla-espacial#>
+PREFIX cell: <https://datos.iepnb.es/recurso/sector-publico/territorio/malla-espacial/Celda/>
 
-PREFIX patch: <http://crossforest.eu/mfe/data/patch/>
+PREFIX patch: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/>
 
 GENERATE {
-	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/{?IDMalla10KM_val}> .
-	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/{?IDMalla1KM_val}> .
-	<original-{?PROV}-{?IDpol}> grid:belongsToCell <https://crossforest.eu/resource/public-sector/territory/spatial-grid/Cell/{?IDMalla25m_val}> .
+	<original-{?PROV}-{?IDpol}> grid:perteneceaCelda <https://datos.iepnb.es/recurso/sector-publico/territorio/malla-espacial/Celda/{?IDMalla10KM_val}> .
+	<original-{?PROV}-{?IDpol}> grid:perteneceaCelda <https://datos.iepnb.es/recurso/sector-publico/territorio/malla-espacial/Celda/{?IDMalla1KM_val}> .
+	<original-{?PROV}-{?IDpol}> grid:perteneceaCelda <https://datos.iepnb.es/recurso/sector-publico/territorio/malla-espacial/Celda/{?IDMalla25m_val}> .
 }
 
 SOURCE <urn:source> AS ?source
