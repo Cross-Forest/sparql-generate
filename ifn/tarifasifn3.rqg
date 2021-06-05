@@ -84,7 +84,8 @@ WHERE {
         BIND(REPLACE(?ESPECIE,"^.*25$","PinusNigra") AS ?species25)
         BIND(REPLACE(?ESPECIE,"^.*26$","QuercusSuber") AS ?species26)
         BIND(REPLACE(?ESPECIE,"^.*46$","PinusPinaster") AS ?species46)
-	BIND(IF("{?species25}"="PinusNigra", "{?species25}-{?SISTGEOG}", IF("{?species26}"="QuercusSuber", "{?species26}-{?SISTGEOG}", IF("{?species46}"="PinusPinaster", "{?species46}-{?SISTGEOG}", ?unbound))) AS ?SistGeog_val)
+        # Pinus Nigra siempre sistgeog es 0, es un error si tiene otro valor
+	BIND(IF("{?species25}"="PinusNigra", "{?species25}-0", IF("{?species26}"="QuercusSuber", "{?species26}-{?SISTGEOG}", IF("{?species46}"="PinusPinaster", "{?species46}-{?SISTGEOG}", ?unbound))) AS ?SistGeog_val)
 	BIND(IF("{?PARESP}"="0", ?unbound, IF("{?species26}"="QuercusSuber", "{?species26}-{?PARESP}", IF("{?species46}"="PinusPinaster", "{?species46}-{?PARESP}", ?unbound))) AS ?ParEsp_val)
 
 	BIND("{?PROV}-{?ESPECIE}-{?FORMA}-{?CPARAM}" AS ?idTarifa)
