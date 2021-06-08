@@ -23,7 +23,7 @@ PREFIX ifn-pendiente: <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/
 
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-altitud/{?Altitud}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-orientacion/{?Orientacion}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-pendiente/{?Pendiente}> ;
-	ifn:inPatch <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/{?Polygon}> ;
+	ifn:inPatch <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/mfe/patch/{?idPolygon}> ;
 	.
 }
 SOURCE <urn:source> AS ?source
@@ -34,5 +34,6 @@ WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Parcela}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND("{?Origen}-{?Parcela}-{?Cla}" AS ?idPosition)
+	BIND("original-{?Origen}-{?Polygon}" AS ?idPolygon)
 	
 }
