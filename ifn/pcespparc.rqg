@@ -69,7 +69,7 @@ WHERE {
 	BIND("{?Ocupa}" AS ?OCCUPATION)
 	BIND("{?Estado}" AS ?STATE)
 	BIND("{?FPMasa}" AS ?PLOT_SHAPE)
-	BIND(IF("{?Edad}"!="" && "{?Edad}"!="0", xsd:decimal(?Edad)*10, ?unbound) AS ?ageInYears)
+	BIND(IF("{?Edad}"!="" && "{?Edad}"!="0", xsd:decimal(?Edad), ?unbound) AS ?ageInYears)
 	BIND(IF("{?Edad}"!="" && "{?Edad}"!="0", "{?ageInYears}", ?unbound) AS ?AGE)
 	BIND("{?FInfor}" AS ?SOURCE)
 	BIND("{?Fiabil}" AS ?RELIABILITY)
