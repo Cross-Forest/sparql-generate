@@ -84,9 +84,8 @@ SOURCE <urn:source> AS ?source
 ITERATOR iter:GeoJSON(?source) AS ?geometricCoordinates ?properties
 WHERE {
 	BIND("s5" AS ?LAYER)
-	BIND(fun:JSONPath(?properties, "$.POLYGON") AS ?polygon)
+	BIND(fun:JSONPath(?properties, "$.POLYGON")-1 AS ?polygon)
 	BIND("{?polygon}" AS ?POLYGON)
-	BIND(fun:JSONPath(?properties, "$.GLOBALID") AS ?globalid)
 	BIND( IF (fun:JSONPath(?properties, "$.AREA") != 0, xsd:decimal(fun:JSONPath(?properties, "$.AREA")),xsd:decimal(fun:JSONPath(?properties, "$.AREA2"))) AS ?harea)
 	BIND("{?harea}" AS ?HAREA)
 	BIND(?harea*10000 as ?area)
@@ -102,7 +101,7 @@ WHERE {
 	BIND( REPLACE(fun:JSONPath(?properties, "$.COS2018_n1"),"([0-9]).*","${1}000") AS ?N1)
 	BIND( IF (fun:JSONPath(?properties, "$.COS2018_n4") != "",  REPLACE(fun:JSONPath(?properties, "$.COS2018_n4"), "[.]", ""),?null) AS ?N4)
 	BIND( IF (BOUND(?N4), ?N4, ?N1) AS ?N)
-	BIND("{?LAYER}-{?globalid}-{?polygon}" AS ?idPatch)
+	BIND("{?LAYER}-{?polygon}" AS ?idPatch)
 	BIND(fun:JSONPath(?properties, "$.SUBPOLYGONS") AS ?subpolygons)
 }
 
