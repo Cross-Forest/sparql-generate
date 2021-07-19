@@ -1,7 +1,7 @@
 BASE <http://crossforest.eu/cos/>
 PREFIX iter: <http://w3id.org/sparql-generate/iter/>
 PREFIX fun: <http://w3id.org/sparql-generate/fn/>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX cos: <http://crossforest.eu/cos/ontology/>
 PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
@@ -114,7 +114,8 @@ GENERATE {
         }
         ITERATOR iter:JSONListKeys(?PCT_N1) AS ?n1value
         WHERE {
-                BIND(xsd:decimal(fun:JSONPath(?PCT_N1,'$.{?n1value}')) AS ?pctUseN1)
+                BIND(xsd:decimal(fun:JSONPath(?PCT_N1,'$.{?n1value}')) AS ?pctUseN1Prev)
+                BIND(ROUND(?pctUseN1Prev*10000)/100 AS ?pctUseN1)
                 BIND("{?pctUseN1}" AS ?PERCENTAGE_PCT_N1)
         }
         .
@@ -137,7 +138,8 @@ GENERATE {
         }
         ITERATOR iter:JSONListKeys(?PCT_N4) AS ?n4value
         WHERE {
-                BIND(xsd:decimal(fun:JSONPath(?PCT_N4,'$.{?n4value}')) AS ?pctUseN4)
+                BIND(xsd:decimal(fun:JSONPath(?PCT_N4,'$.{?n4value}')) AS ?pctUseN4Prev)
+                BIND(ROUND(?pctUseN4Prev*10000)/100 AS ?pctUseN4)
                 BIND("{?pctUseN4}" AS ?PERCENTAGE_PCT_N4)
         }
         .
