@@ -90,7 +90,8 @@ GENERATE {
 	 }
   	ITERATOR iter:JSONPath(?subpolygons, "$.*") AS ?subpolygon
 		WHERE {
-			BIND("{?SUB_LAYER}-{?subpolygon}" AS ?SUB_PATCH)
+                        BIND((fun:JSONPath(?subpolygon,'$.POLYGON')) AS ?subpolygonpol)
+                        BIND("{?SUB_LAYER}-{?subpolygonpol}" AS ?SUB_PATCH)
 	 }
 	 .
 
