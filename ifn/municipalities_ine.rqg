@@ -1,0 +1,26 @@
+BASE <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/>
+
+PREFIX ifn: <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/>
+
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX iter: <http://w3id.org/sparql-generate/iter/>
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
+
+PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#> 
+
+GENERATE{
+    <municipality/{?codMunicipio}> a  owl:NamedIndividual , ifn:Municipality , esadm:Municipio ;
+                    rdfs:label "{?nombre}"@es ;
+                    esadm:provincia <https://datos.iepnb.es/recurso/sector-publico/territorio/Provincia/{?codProv}> ;
+		    ifn:hasMunicipalityCode ?codMun ;
+		    ifn:hasCheckDigit ?DC .
+}
+
+SOURCE <urn:source> AS ?source
+ITERATOR iter:CSV(?source, true, "\"", ";", "\n", "CODAUTO", "CPRO", "CMUN", "DC", "NOMBRE") AS ?codCA ?codProv ?codMun ?digControl ?nombre 
+WHERE{
+    BIND("{?codProv}{?codMun}" AS ?codMunicipio)
+    BIND(xsd:integer(?digControl) as ?DC)
+}
