@@ -4,6 +4,7 @@ PREFIX smo: <http://crossforest.eu/measures/ontology/>
 PREFIX spo: <http://crossforest.eu/position/ontology/>
 PREFIX esadm: <http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX fun: <http://w3id.org/sparql-generate/fn/>
 
 PREFIX plot: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/plot/>
 PREFIX photo: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/photograph/>
@@ -14,6 +15,8 @@ PREFIX flight: <https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn
 GENERATE {
 	<plot/{?idPlot}> a ifn:Plot , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-espesor-de-capa-muerta/{?EspCMue}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-modelo-combustible/{?ModComb}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-manifestaciones-erosivas/{?MErosiva}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-reaccion-del-suelo-ph/{?PhSuelo}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-contenido-en-materia-organica/{?MatOrg}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-textura/{?Textura}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-rocosidad/{?Rocosid}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-tipo-de-parcela/{?Tipo}> , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Plot-{?Cla}{?sc}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-distribucion-espacial-de-vegetacion/{?DisEsp}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-composicion-especifica/{?ComEsp}> , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Use{?USE}> ;
 		ifn:hasPhotograph <photograph/{?Foto1}> , <photograph/{?Foto2}> ;
+		ifn:isInMunicipality
+		<https://datos.iepnb.es/recurso/sector-publico/medio-ambiente/ifn/municipality/{?codMunicipio}> ;
 	.
 
 	<photograph/{?Foto1}> a ifn:Photograph ;
@@ -43,4 +46,7 @@ WHERE {
 	BIND( IF( BOUND( ?Subclase ), ?Subclase, "") AS ?sc )
 	BIND("{?Origen}-{?Estadillo}-{?Cla}-{?sc}" AS ?idPlot)
 	BIND( IF (BOUND(?Nivel1) && BOUND(?Nivel2) && BOUND(?Nivel3), "{?Nivel1}{?Nivel2}{?Nivel3}", ?Unbound) AS ?USE)	
+	BIND( if ( contains(?INE, " "), fun:regex(?INE, "(\\s)+(\\d{2})" , 2), if ( contains (?INE, "\""), REPLACE(?INE, "\"", ""), ?INE)) as ?INEformat)
+        BIND (IF (STRLEN(?INEformat)=1, CONCAT("00",?INEformat) ,IF (STRLEN(?INEformat)=2, CONCAT("0",?INEformat),?INEformat ))as ?INE2)
+        BIND("{?Provincia}{?INE2}" AS ?codMunicipio)
 }
