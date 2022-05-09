@@ -21,8 +21,8 @@ GENERATE {
 	<tree/{?idArbol}> a ifn:Tree , <https://datos.iepnb.es/def/sector-publico/medio-ambiente/ifn/Species{?species}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-calidad/{?QUALITY}> , <https://datos.iepnb.es/kos/sector-publico/medio-ambiente/ifn-forma-de-cubicacion/{?SHAPE}>;
 		ifn:isInPlot <plot/{?idPlot}> ;
 		spo:hasPosition <position/{?idPosition}> ;
-		ifn:hasDBH1 <dbh/{?Dn1}mm> ;
-		ifn:hasDBH2 <dbh/{?Dn2}mm> ;
+		ifn:hasDBH1 <dbh/1-{?Dn1}mm> ;
+		ifn:hasDBH2 <dbh/2-{?Dn2}mm> ;
 		ifn:hasTotalHeight <height/{?Ht}m> ;
 		ifn:hasDBH1InMillimeters ?dbh1 ;
 		ifn:hasDBH2InMillimeters ?dbh2 ;
